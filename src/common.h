@@ -1,0 +1,25 @@
+#ifndef MYMAT_COMMON_H_
+#define MYMAT_COMMON_H_
+
+#include <ctype.h>
+#include <iostream>
+
+#include <my/my_common.h>
+#include <mymat/exception.h>
+
+namespace mymat {
+
+using namespace my;
+
+//////////////////////////////
+//        全局配置结构        //
+//////////////////////////////
+typedef struct Config {
+  int i;
+} config_t;
+
+extern config_t __config;
+
+} // namespace mymat
+
+#endif // MYMAT_COMMON_H_
