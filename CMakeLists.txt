@@ -33,8 +33,13 @@ link_directories(/usr/local/lib)
 set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/common.h
   ${SRC_DIRECTORY}/exception.h
-  ${SRC_DIRECTORY}/vector.h
+  # ${SRC_DIRECTORY}/vector.h
   ${SRC_DIRECTORY}/matrix.h
+  ${SRC_DIRECTORY}/matrix/add.hpp
+  ${SRC_DIRECTORY}/matrix/sub.hpp
+  ${SRC_DIRECTORY}/matrix/cross.hpp
+  ${SRC_DIRECTORY}/matrix/dot.hpp
+  ${SRC_DIRECTORY}/matrix/transposition.hpp
 )
 
 #
@@ -42,8 +47,8 @@ set(MYMAT_HEADERS
 #
 set(BUILD_TEST TRUE)
 if(BUILD_TEST)
-# add_executable(test_bignum ${SRC_DIRECTORY}/test/test_bignum.cc)
-# target_link_libraries(test_bignum mynum gtest pthread)
+add_executable(test_matrix ${SRC_DIRECTORY}/test/test_matrix.cc)
+target_link_libraries(test_matrix my mynum gtest pthread)
 endif(BUILD_TEST)
 
 #
@@ -77,8 +82,8 @@ target_link_libraries(${PROJECT_NAME} my mynum)
 # Enable Test
 #
 enable_testing()
-# add_test(NAME test_bignum COMMAND test_bignum)
-# set_tests_properties(test_bignum PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix COMMAND test_matrix)
+set_tests_properties(test_matrix PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 
 #
 # Install Set

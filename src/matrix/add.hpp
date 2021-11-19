@@ -1,18 +1,24 @@
 template <class T>
-Vector<T> add(const Vector<T>& v1, const Vector<T>& v2) {
-  Vector<T> res;
-  __check_shape_exception(v1, v2);
+Matrix<T> add(const Matrix<T>& mat1, const Matrix<T>& mat2) {
+  matrix_shape_is_not_matched_exception2(mat1, mat2);
+  std::vector<std::vector<T> > mat3 = mat1.value();
 
-  size_t l = v1.size() == 1 ? v1.shape().second : v1.shape().first;
-  res = v1;
-  for (size_t i = 0; i < v1.size(); i++)
-    
-
-  return res;
+  size_t r = mat1.number_of_rows(), c = mat1.number_of_columns();
+  for (size_t i = 0; i < r; i++) {
+    for (size_t j = 0; j < c; j++)
+      mat3[i][j] += mat2[i][j];
+  }
+  return Matrix<T>(mat3);
 }
 
 template <class T>
-Vector<T> add(const Vector<T>& v, const T& c) {
-  Vector<T> res;
-  return res;
+Matrix<T> add(const Matrix<T>& mat1, const T& v) {
+  std::vector<std::vector<T> > mat2 = mat1.value();
+
+  size_t r = mat1.number_of_rows(), c = mat1.number_of_columns();
+  for (size_t i = 0; i < r; i++) {
+    for (size_t j = 0; j < c; j++)
+      mat2[i][j] += v;
+  }
+  return Matrix<T>(mat2);
 }
