@@ -37,7 +37,6 @@ set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/matrix.h
   ${SRC_DIRECTORY}/matrix/add.hpp
   ${SRC_DIRECTORY}/matrix/sub.hpp
-  ${SRC_DIRECTORY}/matrix/cross.hpp
   ${SRC_DIRECTORY}/matrix/dot.hpp
   ${SRC_DIRECTORY}/matrix/transposition.hpp
 )

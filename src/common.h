@@ -1,7 +1,7 @@
 #ifndef MYMAT_COMMON_H_
 #define MYMAT_COMMON_H_
 
-#include <ctype.h>
+#include <cctype>
 #include <iostream>
 
 #include <my/my_common.h>

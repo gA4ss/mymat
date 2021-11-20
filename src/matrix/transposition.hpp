@@ -1,5 +1,5 @@
 template <class T>
-Matrix<T> transposition(Matrix<T>& imat) {
+Matrix<T> transposition(const Matrix<T>& imat) {
   std::vector<std::vector<T> > omat;
   size_t r = imat.number_of_rows(), c = imat.number_of_columns();
   omat.resize(c);

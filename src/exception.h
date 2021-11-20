@@ -62,6 +62,23 @@ namespace mymat {
       mat2.number_of_rows(), mat2.number_of_columns()); \
   } \
 }
+
+#define matrix_is_not_square(mat) { \
+  if (mat.number_of_rows() != mat.number_of_columns()) { \
+    throw my::MyException("<mymat> Matrix is not square", \
+      __FILE__, __LINE__, __FUNCTION__, \
+      "(%lu, %lu)", mat.number_of_rows(), mat.number_of_columns()); \
+  } \
+}
+
+#define __matrix_is_not_square(mat) { \
+  if (mat.size() != mat[0].size()) { \
+    throw my::MyException("<mymat> Matrix is not square", \
+      __FILE__, __LINE__, __FUNCTION__, \
+      "(%lu, %lu)", mat.size(), mat[0].size()); \
+  } \
+}
+
 // #define divisor_is_zero_exception(format, ...) { throw my::MyException("<mynum> Divisor is Zero", __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__); }
 // #define operand_value_is_invalid_exception(format, ...) { throw my::MyException("<mynum> Operand Value is Invalid", __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__); }
 // #define operation_is_not_implement_exception(format, ...) { throw my::MyException("<mynum> Operation is not Implement", __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__); }

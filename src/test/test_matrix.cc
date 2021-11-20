@@ -12,21 +12,16 @@ int main(int argc, char* argv[]) {
     m.push_back(v);
   }
   Matrix<int> mat(m);
-  size_t r = mat.number_of_rows(), c = mat.number_of_columns();
-  for (size_t i = 0; i < r; i++) {
-    for (size_t j = 0; j < c; j++)
-      std::cout << mat[i][j] << " ";
-    std::cout << std::endl;
-  }
-  std::cout << std::endl;
+  std::cout << mat.str() << std::endl;
 
   Matrix<int> tmat = transposition<int>(mat);
-  r = tmat.number_of_rows(), c = tmat.number_of_columns();
-  for (size_t i = 0; i < r; i++) {
-    for (size_t j = 0; j < c; j++)
-      std::cout << tmat[i][j] << " ";
-    std::cout << std::endl;
-  }
-  std::cout << std::endl;
+  std::cout << tmat.str() << std::endl;
+
+  Matrix<int> rmat = dot(mat, tmat);
+  std::cout << rmat.str() << std::endl;
+
+  Matrix<int> imat(3,3);
+  imat.identity();
+  std::cout << imat.str() << std::endl;
   return 0;
 }
