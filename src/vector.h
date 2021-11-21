@@ -2,6 +2,8 @@
 #define MYMAT_VECTOR_H_
 
 #include <mymat/common.h>
+#include <mymat/matrix.h>
+#include <mymat/tools.hpp>
 
 namespace mymat {
 
@@ -9,6 +11,10 @@ template <class T>
 class Vector {
 public:
   Vector() {}
+  Vector(size_t l, bool row=false) {
+    vec_.resize(l);
+    set_value(vec, row);
+  }
   Vector(const std::vector<T>& vec, bool row=false) {
     set_value(vec, row);
   }
@@ -17,17 +23,9 @@ public:
   size_t size() const { return vec_.size(); }
   std::vector<T> value() const { return vec_; }
   std::pair<size_t, size_t> shape() const {return shape_; }
-  bool is_row() const { return shape_.first == 1; }
-
-  void transposition() {
-    if (shape_.first == 1) {
-      shape_.first = vec_.size();
-      shape_.second = 1;
-    } else {
-      shape_.first = 1;
-      shape_.second = vec_.size();
-    }
-  }
+  bool is_row() const { return (shape_.first == 1); }
+  size_t number_of_rows() const { return shape_.first; }
+  size_t number_of_columns() const { return shape_.second; }
 
   void set_value(const std::vector<T>& vec, bool row=false) {
     vec_ = vec;
@@ -35,8 +33,34 @@ public:
   }
 
   T operator[](size_t i) {
-    if (i >= vec_.size()) out_of_range_exception("i = %d", i);
+    return get(i);
+  }
+
+  T at(size_t i) {
+    if (i >= vec_.size()) out_of_range_exception("i = %lu", i);
     return vec_[i];
+  }
+
+  T get(size_t i) {
+    return at(i);
+  }
+
+  void set(size_t i, const T& v) {
+    if (i >= vec_.size()) out_of_range_exception("i = %lu", i);
+    vec_[i] = v;
+  }
+
+  void to_row() { shape_ = {1, vec_.size()}; }
+  void to_column() { shape_ = {vec_.size(), 1}; }
+
+  std::string str() const {
+    std::string s;
+    size_t l = vec_.size();
+    for (size_t i = 0; i < l; i++) {
+      s += to_string(vec_[i]);
+      if (i != l-1) s += " ";
+    }
+    return s;
   }
 
 protected:
@@ -50,11 +74,15 @@ protected:
   std::pair<size_t, size_t> shape_;
 };
 
-#include <mymat/vector/__check_shape_exception.hpp>
+
+#include <mymat/vector/transposition.hpp>
+#include <mymat/vector/zero.hpp>
+#include <mymat/vector/one.hpp>
 #include <mymat/vector/add.hpp>
 #include <mymat/vector/sub.hpp>
 #include <mymat/vector/dot.hpp>
 #include <mymat/vector/cross.hpp>
+#include <mymat/vector/operator.hpp>
 
 } // namespace mymat
 

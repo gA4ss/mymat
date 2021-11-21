@@ -57,44 +57,6 @@ public:
     mat_[i][j] = v;
   }
 
-  void one() {
-    size_t i = mat_.size(), j = mat_[0].size();
-    for (size_t m = 0; m < i; m++) {
-      for (size_t n = 0; n < j; n++) {
-        mat_[m][n] = 1;
-      }
-    }
-  }
-
-  void zero() {
-    size_t i = mat_.size(), j = mat_[0].size();
-    for (size_t m = 0; m < i; m++) {
-      for (size_t n = 0; n < j; n++) {
-        mat_[m][n] = 0;
-      }
-    }
-  }
-
-  void random() {
-    size_t i = mat_.size(), j = mat_[0].size();
-    for (size_t m = 0; m < i; m++) {
-      for (size_t n = 0; n < j; n++) {
-        mat_[m][n] = 0;
-      }
-    }
-  }
-
-  void identity() {
-    __matrix_is_not_square(mat_);
-    size_t i = mat_.size();
-    for (size_t m = 0; m < i; m++) {
-      for (size_t n = 0; n < i; n++) {
-        if (m == n) mat_[m][n] = 1;
-        else mat_[m][n] = 0;
-      }
-    }
-  }
-
   std::string str() const {
     std::string s;
     size_t i = mat_.size(), j = mat_[0].size();
@@ -110,11 +72,6 @@ public:
     return s;
   }
 
-  template <class S>
-  friend std::ostream& operator <<(std::ostream& stream, const Matrix<S>& v);
-  template <class S>
-  friend std::istream& operator >>(std::istream& stream, Matrix<S>& v);
-
 protected:
   void __create_matrix(size_t i, size_t j) {
     mat_.resize(i);
@@ -125,7 +82,12 @@ protected:
   std::vector<std::vector<T> > mat_;
 };
 
+#include <mymat/matrix/flat.hpp>
+#include <mymat/matrix/reshape.hpp>
 #include <mymat/matrix/transposition.hpp>
+#include <mymat/matrix/zero.hpp>
+#include <mymat/matrix/one.hpp>
+#include <mymat/matrix/identity.hpp>
 #include <mymat/matrix/add.hpp>
 #include <mymat/matrix/sub.hpp>
 #include <mymat/matrix/dot.hpp>

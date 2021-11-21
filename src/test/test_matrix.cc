@@ -20,8 +20,18 @@ int main(int argc, char* argv[]) {
   Matrix<int> rmat = dot(mat, tmat);
   std::cout << rmat.str() << std::endl;
 
-  Matrix<int> imat(3,3);
-  imat.identity();
+  Matrix<int> imat = identity<int>(3);
   std::cout << imat.str() << std::endl;
+
+  imat = zero<int>(6, 5);
+  std::cout << imat.str() << std::endl;
+
+  imat = one<int>(3, 4);
+  std::cout << imat.str() << std::endl;
+
+  Matrix<int> reshape_mat = reshape(mat, 10, 4);
+  std::cout << reshape_mat.str() << std::endl;
+  // reshape_mat = reshape(mat, 10, 5); // exception
+
   return 0;
 }
