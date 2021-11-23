@@ -13,7 +13,7 @@ public:
   Vector() {}
   Vector(size_t l, bool row=false) {
     vec_.resize(l);
-    set_value(vec, row);
+    __set_shape(vec_.size(), row);
   }
   Vector(const std::vector<T>& vec, bool row=false) {
     set_value(vec, row);
@@ -27,22 +27,22 @@ public:
   size_t number_of_rows() const { return shape_.first; }
   size_t number_of_columns() const { return shape_.second; }
 
-  void set_value(const std::vector<T>& vec, bool row=false) {
-    vec_ = vec;
-    __set_shape(vec_.size(), row);
+  T operator[] (size_t i) const {
+    return at(i);
   }
 
-  T operator[](size_t i) {
-    return get(i);
-  }
-
-  T at(size_t i) {
+  T at(size_t i) const {
     if (i >= vec_.size()) out_of_range_exception("i = %lu", i);
     return vec_[i];
   }
 
-  T get(size_t i) {
+  T get(size_t i) const {
     return at(i);
+  }
+
+  void set_value(const std::vector<T>& vec, bool row=false) {
+    vec_ = vec;
+    __set_shape(vec_.size(), row);
   }
 
   void set(size_t i, const T& v) {
@@ -56,9 +56,16 @@ public:
   std::string str() const {
     std::string s;
     size_t l = vec_.size();
-    for (size_t i = 0; i < l; i++) {
-      s += to_string(vec_[i]);
-      if (i != l-1) s += " ";
+    if (shape_.first == 1) {
+      for (size_t i = 0; i < l; i++) {
+        s += to_string(vec_[i]);
+        if (i != l-1) s += " ";
+      }
+    } else {
+      for (size_t i = 0; i < l; i++) {
+        s += to_string(vec_[i]);
+        if (i != l-1) s += "\n";
+      }
     }
     return s;
   }
@@ -80,6 +87,7 @@ protected:
 #include <mymat/vector/one.hpp>
 #include <mymat/vector/add.hpp>
 #include <mymat/vector/sub.hpp>
+#include <mymat/vector/mul.hpp>
 #include <mymat/vector/dot.hpp>
 #include <mymat/vector/cross.hpp>
 #include <mymat/vector/operator.hpp>

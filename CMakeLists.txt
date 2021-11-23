@@ -33,12 +33,33 @@ link_directories(/usr/local/lib)
 set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/common.h
   ${SRC_DIRECTORY}/exception.h
-  # ${SRC_DIRECTORY}/vector.h
+  ${SRC_DIRECTORY}/vector.h
   ${SRC_DIRECTORY}/matrix.h
+  ${SRC_DIRECTORY}/tools.hpp
   ${SRC_DIRECTORY}/matrix/add.hpp
-  ${SRC_DIRECTORY}/matrix/sub.hpp
+  ${SRC_DIRECTORY}/matrix/det.hpp
   ${SRC_DIRECTORY}/matrix/dot.hpp
+  ${SRC_DIRECTORY}/matrix/exception.hpp
+  ${SRC_DIRECTORY}/matrix/flat.hpp
+  ${SRC_DIRECTORY}/matrix/identity.hpp
+  ${SRC_DIRECTORY}/matrix/inverse.hpp
+  ${SRC_DIRECTORY}/matrix/one.hpp
+  ${SRC_DIRECTORY}/matrix/operator.hpp
+  ${SRC_DIRECTORY}/matrix/random.hpp
+  ${SRC_DIRECTORY}/matrix/reshape.hpp
+  ${SRC_DIRECTORY}/matrix/sub.hpp
   ${SRC_DIRECTORY}/matrix/transposition.hpp
+  ${SRC_DIRECTORY}/matrix/zero.hpp
+  ${SRC_DIRECTORY}/vector/add.hpp
+  ${SRC_DIRECTORY}/vector/cross.hpp
+  ${SRC_DIRECTORY}/vector/dot.hpp
+  ${SRC_DIRECTORY}/vector/exception.hpp
+  ${SRC_DIRECTORY}/vector/mul.hpp
+  ${SRC_DIRECTORY}/vector/one.hpp
+  ${SRC_DIRECTORY}/vector/operator.hpp
+  ${SRC_DIRECTORY}/vector/sub.hpp
+  ${SRC_DIRECTORY}/vector/transposition.hpp
+  ${SRC_DIRECTORY}/vector/zero.hpp
 )
 
 #
@@ -48,6 +69,8 @@ set(BUILD_TEST TRUE)
 if(BUILD_TEST)
 add_executable(test_matrix ${SRC_DIRECTORY}/test/test_matrix.cc)
 target_link_libraries(test_matrix my mynum gtest pthread)
+add_executable(test_vector ${SRC_DIRECTORY}/test/test_vector.cc)
+target_link_libraries(test_vector my mynum gtest pthread)
 endif(BUILD_TEST)
 
 #
@@ -83,6 +106,8 @@ target_link_libraries(${PROJECT_NAME} my mynum)
 enable_testing()
 add_test(NAME test_matrix COMMAND test_matrix)
 set_tests_properties(test_matrix PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_vector COMMAND test_vector)
+set_tests_properties(test_vector PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 
 #
 # Install Set

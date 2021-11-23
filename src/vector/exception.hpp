@@ -35,3 +35,12 @@
       vec.number_of_rows(), vec.number_of_columns()); \
   } \
 }
+
+#define vector_size_is_not_matched_exception2(v1, v2) { \
+  if (v1.size() != v2.size()) { \
+    throw my::MyException("<mymat> Vector size is not matched", \
+      __FILE__, __LINE__, __FUNCTION__, \
+      "size of v1 = %lu, size of v2 = %lu", \
+      v1.size(), v2.size()); \
+  } \
+}
