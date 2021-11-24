@@ -4,9 +4,10 @@ std::vector<T> flat(const Matrix<T>& mat) {
   std::vector<T> vec(i * j);
 
   size_t s = 0;
+  std::vector<std::vector<T> > _mat = mat.value();
   for (size_t m = 0; m < i; m++) {
     for (size_t n = 0; n < j; n++) {
-      vec[s++] = mat[m][n];
+      vec[s++] = _mat[m][n];
     }
   }
   return vec;

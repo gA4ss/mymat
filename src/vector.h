@@ -7,6 +7,7 @@
 
 namespace mymat {
 
+#include <mymat/vector/__fix_index.hpp>
 template <class T>
 class Vector {
 public:
@@ -31,13 +32,14 @@ public:
     return at(i);
   }
 
-  T at(size_t i) const {
-    if (i >= vec_.size()) out_of_range_exception("i = %lu", i);
-    return vec_[i];
-  }
-
   T get(size_t i) const {
     return at(i);
+  }
+
+  T at(size_t i) const {
+    i = __fix_index(i);
+    vector_size_is_out_of_range_exception(vec_, i);
+    return vec_[i];
   }
 
   void set_value(const std::vector<T>& vec, bool row=false) {
@@ -46,7 +48,8 @@ public:
   }
 
   void set(size_t i, const T& v) {
-    if (i >= vec_.size()) out_of_range_exception("i = %lu", i);
+    i = __fix_index(i);
+    vector_size_is_out_of_range_exception(vec_, i);
     vec_[i] = v;
   }
 
@@ -76,6 +79,9 @@ protected:
     else shape_ = {l, 1};
   }
 
+  void __create_from_string(const char* n, int base=10) {
+  }
+
 protected:
   std::vector<T> vec_;
   std::pair<size_t, size_t> shape_;
@@ -90,6 +96,8 @@ protected:
 #include <mymat/vector/mul.hpp>
 #include <mymat/vector/dot.hpp>
 #include <mymat/vector/cross.hpp>
+#include <mymat/vector/append.hpp>
+#include <mymat/vector/slice.hpp>
 #include <mymat/vector/operator.hpp>
 
 } // namespace mymat

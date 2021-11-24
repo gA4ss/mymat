@@ -1,16 +1,18 @@
 template <class T>
-Matrix<T> reshape(const Matrix<T>& mat, size_t i, size_t k=0) {
-  size_t j = k;
+Matrix<T> reshape(const Matrix<T>& mat, size_t i, size_t j=0) {
   if (j == 0) j = i;
+  // i = __fix_index_row(i); j = __fix_index_column(j);
   matrix_reshape_arguments_is_not_matched(mat, i, j);
 
   size_t s = 0;
   std::vector<T> vec = flat(mat);
-  Matrix<T> rmat(i, j);
+  std::vector<std::vector<T> > rmat;
+  rmat.resize(i);
   for (size_t m = 0; m < i; m++) {
+    rmat[m].resize(j);
     for (size_t n = 0; n < j; n++) {
-      rmat.set(m, n, vec[s++]);
+      rmat[m][n] = vec[s++];
     }
   }
-  return rmat;
+  return Matrix<T>(rmat);
 }

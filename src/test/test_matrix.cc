@@ -33,5 +33,11 @@ int main(int argc, char* argv[]) {
   std::cout << reshape_mat.str() << std::endl;
   // reshape_mat = reshape(mat, 10, 5); // exception
 
+  Matrix<int> slice_mat = slice(reshape_mat, 5, 3, 2, 2);
+  std::cout << slice_mat.str() << std::endl;
+
+  Matrix<int> vecmat =one(1,4);
+  Matrix<int> append_mat = append(reshape_mat, vecmat, false);
+  std::cout << append_mat.str() << std::endl;
   return 0;
 }

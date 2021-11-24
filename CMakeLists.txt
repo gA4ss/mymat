@@ -36,6 +36,7 @@ set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/vector.h
   ${SRC_DIRECTORY}/matrix.h
   ${SRC_DIRECTORY}/tools.hpp
+  ${SRC_DIRECTORY}/matrix/__fix_index_xxx.hpp
   ${SRC_DIRECTORY}/matrix/add.hpp
   ${SRC_DIRECTORY}/matrix/det.hpp
   ${SRC_DIRECTORY}/matrix/dot.hpp
@@ -50,6 +51,11 @@ set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/matrix/sub.hpp
   ${SRC_DIRECTORY}/matrix/transposition.hpp
   ${SRC_DIRECTORY}/matrix/zero.hpp
+  ${SRC_DIRECTORY}/matrix/append.hpp
+  ${SRC_DIRECTORY}/matrix/slice.hpp
+  ${SRC_DIRECTORY}/matrix/expansion.hpp
+  ${SRC_DIRECTORY}/matrix/adjoint.hpp
+  ${SRC_DIRECTORY}/vector/__fix_index.hpp
   ${SRC_DIRECTORY}/vector/add.hpp
   ${SRC_DIRECTORY}/vector/cross.hpp
   ${SRC_DIRECTORY}/vector/dot.hpp
@@ -60,6 +66,8 @@ set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/vector/sub.hpp
   ${SRC_DIRECTORY}/vector/transposition.hpp
   ${SRC_DIRECTORY}/vector/zero.hpp
+  ${SRC_DIRECTORY}/vector/append.hpp
+  ${SRC_DIRECTORY}/vector/slice.hpp
 )
 
 #

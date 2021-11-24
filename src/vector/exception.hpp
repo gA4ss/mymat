@@ -1,3 +1,10 @@
+#define vector_size_is_out_of_range_exception(vec, i) { \
+  if (i >= vec.size()) { \
+    throw my::MyException("<mymat> Vector's size is out of range", \
+      __FILE__, __LINE__, __FUNCTION__, "size = %lu", vec.size()); \
+  } \
+}
+
 #define vector_shape_is_not_matched_exception1(v1, v2) { \
   if ((v1.number_of_rows() != v2.number_of_rows()) || \
       (v1.number_of_columns() != v2.number_of_columns())) { \

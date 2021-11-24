@@ -30,7 +30,7 @@
   if (mat1.number_of_columns() != mat2.number_of_rows()) { \
     throw my::MyException("<mymat> Matrix shape is not matched", \
       __FILE__, __LINE__, __FUNCTION__, \
-      "columns of mat1 = %lu, rows of mat2 = %lu", \
+      "number of columns of mat1 = %lu, number of rows of mat2 = %lu", \
       mat1.number_of_columns(), mat2.number_of_rows()); \
   } \
 }
@@ -77,6 +77,44 @@
       __FILE__, __LINE__, __FUNCTION__, \
       "original matrix's shape = (%lu, %lu), reshape's shape = (%lu, %lu)", \
       mat.size(), mat.[0].size(), r, c); \
+  } \
+}
+
+#define matrix_append_by_horizontal_is_not_matched(mat1, mat2) { \
+  if (mat1.number_of_rows() != mat2.number_of_rows()) { \
+    throw my::MyException("<mymat> Matrix append by horizontal is not matched.", \
+      __FILE__, __LINE__, __FUNCTION__, \
+      "number of rows of mat1 = %lu, number of rows of mat2 = %lu", \
+      mat1.number_of_rows(), mat2.number_of_rows()); \
+  } \
+}
+
+#define matrix_append_by_vertical_is_not_matched(mat1, mat2) { \
+  if (mat1.number_of_columns() != mat2.number_of_columns()) { \
+    throw my::MyException("<mymat> Matrix append by vertical is not matched.", \
+      __FILE__, __LINE__, __FUNCTION__, \
+      "number of columns of mat1 = %lu, number of columns of mat2 = %lu", \
+      mat1.number_of_columns(), mat2.number_of_columns()); \
+  } \
+}
+
+#define matrix_append_vector_by_horizontal_is_not_matched(mat, vec) { \
+  vector_is_not_column_exception(vec); \
+  if (mat.number_of_rows() != vec.size()) { \
+    throw my::MyException("<mymat> Matrix append vector by horizontal is not matched.", \
+      __FILE__, __LINE__, __FUNCTION__, \
+      "number of rows of mat = %lu, number of rows of vec = %lu", \
+      mat.number_of_rows(), vec.size()); \
+  } \
+}
+
+#define matrix_append_vector_by_vertical_is_not_matched(mat, vec) { \
+  vector_is_not_row_exception(vec); \
+  if (mat.number_of_columns() != vec.size()) { \
+    throw my::MyException("<mymat> Matrix append vector by vertical is not matched.", \
+      __FILE__, __LINE__, __FUNCTION__, \
+      "number of columns of mat = %lu, number of columns of vec = %lu", \
+      mat.number_of_columns(), vec.size()); \
   } \
 }
 

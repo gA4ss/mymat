@@ -8,12 +8,15 @@ namespace mymat {
 
 typedef std::pair<size_t, size_t> shape_t;
 
+#include <mymat/matrix/__fix_index_xxx.hpp>
 template <class T>
 class Matrix {
 public:
   Matrix() { __create_matrix(3, 3); }
   Matrix(size_t i, size_t j) { __create_matrix(i, j); }
   Matrix(const std::vector<std::vector<T> >& mat) : mat_(mat) {}
+  Matrix(const char* s, int base=10) { __create_from_string(s, 10); }
+  Matrix(std::string& s, int base=10) { __create_from_string(s.c_str(), 10); }
   virtual ~Matrix() {}
 
   size_t number_of_rows() const { return mat_.size(); }
@@ -23,11 +26,13 @@ public:
   shape_t shape() const {return {number_of_rows(), number_of_columns()}; }
 
   std::vector<T> row(size_t i) const {
+    i = __fix_index_row(i);
     __matrix_rows_is_out_of_range_exception(mat_, i);
     return mat_[i];
   }
 
   std::vector<T> column(size_t j) const {
+    j = __fix_index_column(j);
     __matrix_columns_is_out_of_range_exception(mat_, j);
     size_t k = mat_.size();
     std::vector<T> c(k);
@@ -37,11 +42,13 @@ public:
   }
 
   std::vector<T> operator[](size_t i) const {
+    i = __fix_index_row(i);
     __matrix_rows_is_out_of_range_exception(mat_, i);
     return mat_[i];
   }
 
   T at(size_t i, size_t j) const {
+    i = __fix_index_row(i); j = __fix_index_column(j);
     __matrix_rows_is_out_of_range_exception(mat_, i);
     __matrix_columns_is_out_of_range_exception(mat_, j);
     return mat_[i][j];
@@ -52,6 +59,7 @@ public:
   }
 
   void set(size_t i, size_t j, const T& v) {
+    i = __fix_index_row(i); j = __fix_index_column(j);
     __matrix_rows_is_out_of_range_exception(mat_, i);
     __matrix_columns_is_out_of_range_exception(mat_, j);
     mat_[i][j] = v;
@@ -78,6 +86,9 @@ protected:
     for (size_t k = 0; k < i; k++) mat_[k].resize(j);
   }
 
+  void __create_from_string(const char* n, int base=10) {
+  }
+
 protected:
   std::vector<std::vector<T> > mat_;
 };
@@ -91,6 +102,9 @@ protected:
 #include <mymat/matrix/add.hpp>
 #include <mymat/matrix/sub.hpp>
 #include <mymat/matrix/dot.hpp>
+#include <mymat/matrix/append.hpp>
+#include <mymat/matrix/slice.hpp>
+#include <mymat/matrix/expansion.hpp>
 #include <mymat/matrix/operator.hpp>
 
 } // namespace mymat

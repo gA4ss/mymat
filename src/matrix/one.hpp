@@ -1,12 +1,14 @@
 template <class T>
-Matrix<T> one(size_t i, size_t k=0) {
-  size_t j = k;
+Matrix<T> one(size_t i, size_t j=0) {
   if (j == 0) j = i;
-  Matrix<T> mat(i, j);
+  i = __fix_index_row(i); j = __fix_index_column(j);
+  std::vector<std::vector<T> > omat;
+  omat.resize(i);
   for (size_t m = 0; m < i; m++) {
+    omat[m].resize(j);
     for (size_t n = 0; n < j; n++) {
-      mat.set(m, n, 1);
+      omat[m][n] = 1;
     }
   }
-  return mat;
+  return Matrix<T>(omat);
 }
