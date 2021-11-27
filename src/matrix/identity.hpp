@@ -1,13 +1,18 @@
 template <class T>
-Matrix<T> identity(size_t i) {
-  std::vector<std::vector<T> > omat;
-  omat.resize(i);
-  for (size_t m = 0; m < i; m++) {
-    omat[m].resize(i);
-    for (size_t n = 0; n < i; n++) {
-      if (m == n) omat[m][n] = 1;
-      else omat[m][n] = 0;
-    }
+class IdentityMap : public MapFunction {
+public:
+  virtual bool condition(size_t i, size_t j) {
+    if (i == j) return true;
+    return false;
   }
-  return Matrix<T>(omat);
+
+  virtual T call(size_t i, size_t j) {
+    return 1;
+  }
+};
+
+template <class T>
+Matrix<T> identity(size_t i) {
+  IdentityMap<T> callback;
+  return generate_map<T>(i, i, callback);
 }

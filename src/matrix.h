@@ -5,6 +5,7 @@
 #include <mymat/tools.hpp>
 
 namespace mymat {
+namespace matrix {
 
 typedef std::pair<size_t, size_t> shape_t;
 
@@ -93,20 +94,30 @@ protected:
   std::vector<std::vector<T> > mat_;
 };
 
+#include <mymat/matrix/map.hpp>
+#include <mymat/matrix/assign.hpp>
+#include <mymat/matrix/add.hpp>
+#include <mymat/matrix/adjoint.hpp>
+#include <mymat/matrix/append.hpp>
+#include <mymat/matrix/det.hpp>
+#include <mymat/matrix/dot.hpp>
+#include <mymat/matrix/exception.hpp>
+#include <mymat/matrix/expansion.hpp>
 #include <mymat/matrix/flat.hpp>
+#include <mymat/matrix/function.hpp>
+#include <mymat/matrix/identity.hpp>
+#include <mymat/matrix/inverse.hpp>
+#include <mymat/matrix/mul.hpp>
+#include <mymat/matrix/one.hpp>
+#include <mymat/matrix/operator.hpp>
+#include <mymat/matrix/random.hpp>
 #include <mymat/matrix/reshape.hpp>
+#include <mymat/matrix/slice.hpp>
+#include <mymat/matrix/sub.hpp>
 #include <mymat/matrix/transposition.hpp>
 #include <mymat/matrix/zero.hpp>
-#include <mymat/matrix/one.hpp>
-#include <mymat/matrix/identity.hpp>
-#include <mymat/matrix/add.hpp>
-#include <mymat/matrix/sub.hpp>
-#include <mymat/matrix/dot.hpp>
-#include <mymat/matrix/append.hpp>
-#include <mymat/matrix/slice.hpp>
-#include <mymat/matrix/expansion.hpp>
-#include <mymat/matrix/operator.hpp>
 
+} // namespace matrix
 } // namespace mymat
 
 #endif // MYMAT_MATRIX_H_

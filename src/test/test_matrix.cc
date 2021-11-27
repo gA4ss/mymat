@@ -1,6 +1,6 @@
 #include <mymat/matrix.h>
 
-using namespace mymat;
+using namespace mymat::matrix;
 
 int main(int argc, char* argv[]) {
   std::vector<std::vector<int>> m;

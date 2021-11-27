@@ -1,6 +1,7 @@
 #ifndef MYMAT_COMMON_H_
 #define MYMAT_COMMON_H_
 
+#include <cmath>
 #include <cctype>
 #include <iostream>
 

@@ -2,10 +2,10 @@
 #define MYMAT_VECTOR_H_
 
 #include <mymat/common.h>
-#include <mymat/matrix.h>
 #include <mymat/tools.hpp>
 
 namespace mymat {
+namespace vector {
 
 #include <mymat/vector/__fix_index.hpp>
 template <class T>
@@ -87,19 +87,23 @@ protected:
   std::pair<size_t, size_t> shape_;
 };
 
-
-#include <mymat/vector/transposition.hpp>
-#include <mymat/vector/zero.hpp>
-#include <mymat/vector/one.hpp>
+#include <mymat/vector/map.hpp>
+#include <mymat/vector/assign.hpp>
 #include <mymat/vector/add.hpp>
 #include <mymat/vector/sub.hpp>
-#include <mymat/vector/mul.hpp>
-#include <mymat/vector/dot.hpp>
-#include <mymat/vector/cross.hpp>
 #include <mymat/vector/append.hpp>
-#include <mymat/vector/slice.hpp>
+#include <mymat/vector/cross.hpp>
+#include <mymat/vector/dot.hpp>
+#include <mymat/vector/function.hpp>
+#include <mymat/vector/mul.hpp>
+#include <mymat/vector/one.hpp>
+#include <mymat/vector/zero.hpp>
 #include <mymat/vector/operator.hpp>
+#include <mymat/vector/random.hpp>
+#include <mymat/vector/slice.hpp>
+#include <mymat/vector/transposition.hpp>
 
+} // namespace vector
 } // namespace mymat
 
 #endif // MYMAT_VECTOR_H_

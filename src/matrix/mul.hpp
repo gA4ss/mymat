@@ -1,17 +1,17 @@
 template <class T>
-class AddMap : public MapFunction {
+class MulMap : public MapFunction {
 public:
-  AddMap(const T& v) { value_ = v; }
+  MulMap(const T& v) { value_ = v; }
 
   virtual T call(const Matrix<T>& mat, size_t i, size_t j) {
-    return mat[i][j] + value_;
+    return mat[i][j] * value_;
   }
 
   virtual T calls(const std::vector<Matrix<T> >& mats, size_t i, size_t j) {
-    T r = 0;
     size_t l = mats.size();
-    for (size_t m = 0; m < l; m++) {
-      r += mats[m][i][j];
+    T r = mats[0][i][j];
+    for (size_t m = 1; m < l; m++) {
+      r *= mats[m][i][j];
     }
     return r;
   }
@@ -21,14 +21,14 @@ public:
 };
 
 template <class T>
-Matrix<T> add(const Matrix<T>& mat1, const Matrix<T>& mat2) {
+Matrix<T> mul(const Matrix<T>& mat1, const Matrix<T>& mat2) {
   matrix_shape_is_not_matched_exception2(mat1, mat2);
-  AddMap<T> callback;
+  MulMap<T> callback;
   return maps<T>({mat1, mat2}, callback);
 }
 
 template <class T>
-Matrix<T> add(const Matrix<T>& mat, const T& v) {
-  AddMap<T> callback(v);
+Matrix<T> mul(const Matrix<T>& mat, const T& v) {
+  MulMap<T> callback(v);
   return map<T>(mat, callback);
 }

@@ -28,6 +28,58 @@ include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
 #
+# Mymat matrix
+#
+set(MYMAT_MATRIX_HEADERS
+  ${SRC_DIRECTORY}/matrix/__fix_index_xxx.hpp
+  ${SRC_DIRECTORY}/matrix/add.hpp
+  ${SRC_DIRECTORY}/matrix/adjoint.hpp
+  ${SRC_DIRECTORY}/matrix/append.hpp
+  ${SRC_DIRECTORY}/matrix/assign.hpp
+  ${SRC_DIRECTORY}/matrix/det.hpp
+  ${SRC_DIRECTORY}/matrix/dot.hpp
+  ${SRC_DIRECTORY}/matrix/exception.hpp
+  ${SRC_DIRECTORY}/matrix/expansion.hpp
+  ${SRC_DIRECTORY}/matrix/flat.hpp
+  ${SRC_DIRECTORY}/matrix/function.hpp
+  ${SRC_DIRECTORY}/matrix/identity.hpp
+  ${SRC_DIRECTORY}/matrix/inverse.hpp
+  ${SRC_DIRECTORY}/matrix/map.hpp
+  ${SRC_DIRECTORY}/matrix/mul.hpp
+  ${SRC_DIRECTORY}/matrix/one.hpp
+  ${SRC_DIRECTORY}/matrix/operator.hpp
+  ${SRC_DIRECTORY}/matrix/random.hpp
+  ${SRC_DIRECTORY}/matrix/reshape.hpp
+  ${SRC_DIRECTORY}/matrix/slice.hpp
+  ${SRC_DIRECTORY}/matrix/sub.hpp
+  ${SRC_DIRECTORY}/matrix/transposition.hpp
+  ${SRC_DIRECTORY}/matrix/zero.hpp
+)
+
+#
+# Mymat vector
+#
+set(MYMAT_VECTOR_HEADERS
+  ${SRC_DIRECTORY}/vector/__fix_index.hpp
+  ${SRC_DIRECTORY}/vector/add.hpp
+  ${SRC_DIRECTORY}/vector/append.hpp
+  ${SRC_DIRECTORY}/vector/assign.hpp
+  ${SRC_DIRECTORY}/vector/cross.hpp
+  ${SRC_DIRECTORY}/vector/dot.hpp
+  ${SRC_DIRECTORY}/vector/exception.hpp
+  ${SRC_DIRECTORY}/vector/function.hpp
+  ${SRC_DIRECTORY}/vector/map.hpp
+  ${SRC_DIRECTORY}/vector/mul.hpp
+  ${SRC_DIRECTORY}/vector/one.hpp
+  ${SRC_DIRECTORY}/vector/operator.hpp
+  ${SRC_DIRECTORY}/vector/random.hpp
+  ${SRC_DIRECTORY}/vector/slice.hpp
+  ${SRC_DIRECTORY}/vector/sub.hpp
+  ${SRC_DIRECTORY}/vector/transposition.hpp
+  ${SRC_DIRECTORY}/vector/zero.hpp
+)
+
+#
 # Mymat public header file
 #
 set(MYMAT_HEADERS
@@ -36,38 +88,6 @@ set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/vector.h
   ${SRC_DIRECTORY}/matrix.h
   ${SRC_DIRECTORY}/tools.hpp
-  ${SRC_DIRECTORY}/matrix/__fix_index_xxx.hpp
-  ${SRC_DIRECTORY}/matrix/add.hpp
-  ${SRC_DIRECTORY}/matrix/det.hpp
-  ${SRC_DIRECTORY}/matrix/dot.hpp
-  ${SRC_DIRECTORY}/matrix/exception.hpp
-  ${SRC_DIRECTORY}/matrix/flat.hpp
-  ${SRC_DIRECTORY}/matrix/identity.hpp
-  ${SRC_DIRECTORY}/matrix/inverse.hpp
-  ${SRC_DIRECTORY}/matrix/one.hpp
-  ${SRC_DIRECTORY}/matrix/operator.hpp
-  ${SRC_DIRECTORY}/matrix/random.hpp
-  ${SRC_DIRECTORY}/matrix/reshape.hpp
-  ${SRC_DIRECTORY}/matrix/sub.hpp
-  ${SRC_DIRECTORY}/matrix/transposition.hpp
-  ${SRC_DIRECTORY}/matrix/zero.hpp
-  ${SRC_DIRECTORY}/matrix/append.hpp
-  ${SRC_DIRECTORY}/matrix/slice.hpp
-  ${SRC_DIRECTORY}/matrix/expansion.hpp
-  ${SRC_DIRECTORY}/matrix/adjoint.hpp
-  ${SRC_DIRECTORY}/vector/__fix_index.hpp
-  ${SRC_DIRECTORY}/vector/add.hpp
-  ${SRC_DIRECTORY}/vector/cross.hpp
-  ${SRC_DIRECTORY}/vector/dot.hpp
-  ${SRC_DIRECTORY}/vector/exception.hpp
-  ${SRC_DIRECTORY}/vector/mul.hpp
-  ${SRC_DIRECTORY}/vector/one.hpp
-  ${SRC_DIRECTORY}/vector/operator.hpp
-  ${SRC_DIRECTORY}/vector/sub.hpp
-  ${SRC_DIRECTORY}/vector/transposition.hpp
-  ${SRC_DIRECTORY}/vector/zero.hpp
-  ${SRC_DIRECTORY}/vector/append.hpp
-  ${SRC_DIRECTORY}/vector/slice.hpp
 )
 
 #
@@ -122,3 +142,5 @@ set_tests_properties(test_vector PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 #
 INSTALL(TARGETS mymat ARCHIVE DESTINATION lib)
 INSTALL(FILES ${MYMAT_HEADERS} DESTINATION include/mymat)
+INSTALL(FILES ${MYMAT_VECTOR_HEADERS} DESTINATION include/mymat/vector)
+INSTALL(FILES ${MYMAT_MATRIX_HEADERS} DESTINATION include/mymat/matrix)
