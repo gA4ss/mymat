@@ -15,5 +15,10 @@ int main(int argc, char* argv[]) {
   std::cout << "add(vec1,vec2) = " << vector::add(vec1, vec2).str() << std::endl;
   std::cout << "sub(vec2,vec1) = " << vector::sub(vec2, vec1).str() << std::endl;
   std::cout << "mul(vec1,vec2) = " << vector::mul(vec1, vec2).str() << std::endl;
+
+  vector::Vector<int> slice_vec = vector::slice(vec2, 2, 4);
+  std::cout << "slice_vec = " << slice_vec.str() << std::endl;
+  slice_vec = vector::slice(vec2, 2);
+  std::cout << "slice_vec = " << slice_vec.str() << std::endl;
   return 0;
 }

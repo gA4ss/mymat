@@ -33,7 +33,6 @@ link_directories(/usr/local/lib)
 set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/__fix_index_xxx.hpp
   ${SRC_DIRECTORY}/matrix/add.hpp
-  ${SRC_DIRECTORY}/matrix/adjoint.hpp
   ${SRC_DIRECTORY}/matrix/append.hpp
   ${SRC_DIRECTORY}/matrix/assign.hpp
   ${SRC_DIRECTORY}/matrix/det.hpp
@@ -54,6 +53,13 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/sub.hpp
   ${SRC_DIRECTORY}/matrix/transposition.hpp
   ${SRC_DIRECTORY}/matrix/zero.hpp
+  ${SRC_DIRECTORY}/matrix/main_diagonal.hpp
+  ${SRC_DIRECTORY}/matrix/counter_diagonal.hpp
+  ${SRC_DIRECTORY}/matrix/row_simplest_form.hpp
+  ${SRC_DIRECTORY}/matrix/cofactor_matrix.hpp
+  ${SRC_DIRECTORY}/matrix/cofactor.hpp
+  ${SRC_DIRECTORY}/matrix/algebraic_cofactor.hpp
+  ${SRC_DIRECTORY}/matrix/adjoint.hpp
 )
 
 #

@@ -2,6 +2,6 @@
 
 namespace mymat {
 
-config_t __config = { 1 };
+config_t __config = { 0.0000000000000001 };
 
 } // namespace mymat

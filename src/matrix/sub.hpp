@@ -1,13 +1,13 @@
 template <class T>
-class SubMap : public MapFunction {
+class SubMap : public MapFunction<T> {
 public:
   SubMap(const T& v) { value_ = v; }
 
-  virtual T call(const Matrix<T>& mat, size_t i, size_t j) {
+  virtual T call(const Matrix<T>& mat, size_t i, size_t j) const {
     return mat[i][j] - value_;
   }
 
-  virtual T calls(const std::vector<Matrix<T> >& mats, size_t i, size_t j) {
+  virtual T calls(const std::vector<Matrix<T> >& mats, size_t i, size_t j) const {
     size_t l = mats.size();
     T r = mats[0][i][j];
     for (size_t m = 1; m < l; m++) {

@@ -3,6 +3,7 @@
 
 #include <mymat/common.h>
 #include <mymat/tools.hpp>
+#include <mymat/vector.h>
 
 namespace mymat {
 namespace matrix {
@@ -15,6 +16,8 @@ class Matrix {
 public:
   Matrix() { __create_matrix(3, 3); }
   Matrix(size_t i, size_t j) { __create_matrix(i, j); }
+  Matrix(const vector::Vector<T>& vec) { __create_from_vector(vec.value(), vec.is_row()); }
+  Matrix(const std::vector<T>& vec, bool row=false) { __create_from_vector(vec, row); }
   Matrix(const std::vector<std::vector<T> >& mat) : mat_(mat) {}
   Matrix(const char* s, int base=10) { __create_from_string(s, 10); }
   Matrix(std::string& s, int base=10) { __create_from_string(s.c_str(), 10); }
@@ -59,8 +62,22 @@ public:
     return at(i, j);
   }
 
+  // i,j使用原始索引
+  T _at(size_t i, size_t j) const {
+    __matrix_rows_is_out_of_range_exception(mat_, i);
+    __matrix_columns_is_out_of_range_exception(mat_, j);
+    return mat_[i][j];
+  }
+
   void set(size_t i, size_t j, const T& v) {
     i = __fix_index_row(i); j = __fix_index_column(j);
+    __matrix_rows_is_out_of_range_exception(mat_, i);
+    __matrix_columns_is_out_of_range_exception(mat_, j);
+    mat_[i][j] = v;
+  }
+
+  // i,j使用原始索引
+  void _set(size_t i, size_t j, const T& v) {
     __matrix_rows_is_out_of_range_exception(mat_, i);
     __matrix_columns_is_out_of_range_exception(mat_, j);
     mat_[i][j] = v;
@@ -87,6 +104,17 @@ protected:
     for (size_t k = 0; k < i; k++) mat_[k].resize(j);
   }
 
+  void __create_from_vector(const std::vector<T>& vec, bool row=false) {
+    if (row) {
+      mat_.push_back(vec);
+    } else {
+      size_t l = vec.size();
+      mat_.resize(l);
+      for (size_t i = 0; i < l; i++)
+        mat_[i].push_back(vec[i]);
+    }
+  }
+
   void __create_from_string(const char* n, int base=10) {
   }
 
@@ -97,25 +125,31 @@ protected:
 #include <mymat/matrix/map.hpp>
 #include <mymat/matrix/assign.hpp>
 #include <mymat/matrix/add.hpp>
-#include <mymat/matrix/adjoint.hpp>
+#include <mymat/matrix/sub.hpp>
+#include <mymat/matrix/mul.hpp>
 #include <mymat/matrix/append.hpp>
-#include <mymat/matrix/det.hpp>
 #include <mymat/matrix/dot.hpp>
 #include <mymat/matrix/exception.hpp>
 #include <mymat/matrix/expansion.hpp>
 #include <mymat/matrix/flat.hpp>
 #include <mymat/matrix/function.hpp>
 #include <mymat/matrix/identity.hpp>
-#include <mymat/matrix/inverse.hpp>
-#include <mymat/matrix/mul.hpp>
 #include <mymat/matrix/one.hpp>
-#include <mymat/matrix/operator.hpp>
+#include <mymat/matrix/zero.hpp>
 #include <mymat/matrix/random.hpp>
 #include <mymat/matrix/reshape.hpp>
 #include <mymat/matrix/slice.hpp>
-#include <mymat/matrix/sub.hpp>
 #include <mymat/matrix/transposition.hpp>
-#include <mymat/matrix/zero.hpp>
+#include <mymat/matrix/main_diagonal.hpp>
+#include <mymat/matrix/counter_diagonal.hpp>
+#include <mymat/matrix/row_simplest_form.hpp>
+#include <mymat/matrix/det.hpp>
+#include <mymat/matrix/cofactor_matrix.hpp>
+#include <mymat/matrix/cofactor.hpp>
+#include <mymat/matrix/algebraic_cofactor.hpp>
+#include <mymat/matrix/adjoint.hpp>
+#include <mymat/matrix/inverse.hpp>
+#include <mymat/matrix/operator.hpp>
 
 } // namespace matrix
 } // namespace mymat

@@ -6,7 +6,7 @@ Matrix<T> append(const Matrix<T>& mat1, const Matrix<T>& mat2, bool horizontal=f
     matrix_append_by_horizontal_is_not_matched(mat1, mat2);
     size_t l = mat2.number_of_rows();
     for (size_t i = 0; i < l; i++) {
-      omat[i].insert(omat[i].end, imat2.begin(), imat2.end());
+      omat[i].insert(omat[i].end(), imat2[i].begin(), imat2[i].end());
     }
   } else {              // 纵向扩展，需要两个矩阵列数相同。
     matrix_append_by_vertical_is_not_matched(mat1, mat2);

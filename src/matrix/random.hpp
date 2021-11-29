@@ -1,8 +1,8 @@
 template <class T>
-class RandomMap : public MapFunction {
+class RandomMap : public MapFunction<T> {
 public:
-  virtual T call(size_t i, size_t j) {
-    return random();
+  virtual T call(size_t i, size_t j) const {
+    return random<T>();
   }
 };
 

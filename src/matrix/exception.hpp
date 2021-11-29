@@ -1,29 +1,39 @@
 #define matrix_rows_is_out_of_range_exception(mat, r) { \
-  if (r >= mat.number_of_rows()) { \
+  if ((r <= 0) || (r > mat.number_of_rows())) { \
     throw my::MyException("<mymat> Matrix rows is out of range", \
       __FILE__, __LINE__, __FUNCTION__, "rows = %lu, target = %lu", r, mat.number_of_rows()); \
   } \
 }
 
 #define matrix_columns_is_out_of_range_exception(mat, c) { \
-  if (c >= mat.number_of_columns()) { \
+  if ((c <= 0) || (c > mat.number_of_columns())) { \
     throw my::MyException("<mymat> Matrix columns is out of range", \
       __FILE__, __LINE__, __FUNCTION__, "columns = %lu, target = %lu", c, mat.number_of_columns()); \
   } \
 }
 
+#define matrix_is_out_of_range_exception(mat, r, c) { \
+  matrix_rows_is_out_of_range_exception(mat, r); \
+  matrix_columns_is_out_of_range_exception(mat, c); \
+}
+
 #define __matrix_rows_is_out_of_range_exception(mat, r) { \
-  if (r >= mat.size()) { \
+  if ((r < 0) || (r >= mat.size())) { \
     throw my::MyException("<mymat> Matrix rows is out of range", \
       __FILE__, __LINE__, __FUNCTION__, "rows = %lu, target = %lu", r, mat.size()); \
   } \
 }
 
 #define __matrix_columns_is_out_of_range_exception(mat, c) { \
-  if (c >= mat[0].size()) { \
+  if ((c < 0) || (c >= mat[0].size())) { \
     throw my::MyException("<mymat> Matrix columns is out of range", \
       __FILE__, __LINE__, __FUNCTION__, "columns = %lu, target = %lu", c, mat[0].size()); \
   } \
+}
+
+#define __matrix_is_out_of_range_exception(mat, r, c) { \
+  __matrix_rows_is_out_of_range_exception(mat, r); \
+  __matrix_columns_is_out_of_range_exception(mat, c); \
 }
 
 #define matrix_shape_is_not_matched_exception1(mat1, mat2) { \

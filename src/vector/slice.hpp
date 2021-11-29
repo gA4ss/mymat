@@ -1,6 +1,7 @@
 template <class T>
-Vector<T> slice(const Vector<T>& vec, size_t i, size_t ic) {
+Vector<T> slice(const Vector<T>& vec, size_t i, size_t ic=0) {
   i = __fix_index(i);
+  if (ic == 0) ic = vec.size() - i;
   vector_size_is_out_of_range_exception(vec, i+ic-1);
 
   std::vector<T> _vec;

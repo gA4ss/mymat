@@ -16,7 +16,7 @@ using namespace my;
 //        全局配置结构        //
 //////////////////////////////
 typedef struct Config {
-  int i;
+  double epsilon;
 } config_t;
 
 extern config_t __config;

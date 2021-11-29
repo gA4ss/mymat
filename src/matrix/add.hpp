@@ -1,13 +1,13 @@
 template <class T>
-class AddMap : public MapFunction {
+class AddMap : public MapFunction<T> {
 public:
   AddMap(const T& v) { value_ = v; }
 
-  virtual T call(const Matrix<T>& mat, size_t i, size_t j) {
+  virtual T call(const Matrix<T>& mat, size_t i, size_t j) const {
     return mat[i][j] + value_;
   }
 
-  virtual T calls(const std::vector<Matrix<T> >& mats, size_t i, size_t j) {
+  virtual T calls(const std::vector<Matrix<T> >& mats, size_t i, size_t j) const {
     T r = 0;
     size_t l = mats.size();
     for (size_t m = 0; m < l; m++) {
