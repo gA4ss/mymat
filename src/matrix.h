@@ -9,18 +9,16 @@ namespace mymat {
 namespace matrix {
 
 typedef std::pair<size_t, size_t> shape_t;
-
+static const int kDefMatrixSize = 3;
 #include <mymat/matrix/__fix_index_xxx.hpp>
 template <class T>
 class Matrix {
 public:
-  Matrix() { __create_matrix(3, 3); }
+  Matrix() { __create_matrix(kDefMatrixSize, kDefMatrixSize); }
   Matrix(size_t i, size_t j) { __create_matrix(i, j); }
   Matrix(const vector::Vector<T>& vec) { __create_from_vector(vec.value(), vec.is_row()); }
   Matrix(const std::vector<T>& vec, bool row=false) { __create_from_vector(vec, row); }
   Matrix(const std::vector<std::vector<T> >& mat) : mat_(mat) {}
-  Matrix(const char* s, int base=10) { __create_from_string(s, 10); }
-  Matrix(std::string& s, int base=10) { __create_from_string(s.c_str(), 10); }
   virtual ~Matrix() {}
 
   size_t number_of_rows() const { return mat_.size(); }
@@ -89,13 +87,31 @@ public:
     for (size_t m = 0; m < i; m++) {
       for (size_t n = 0; n < j; n++) {
         s += to_string<T>(mat_[m][n]);
-        if (n == j-1)
-          s += "\n";
-        else
+        if (n == j-1) {
+          if (m != i-1)
+            s += "\n";
+        } else
           s += " ";
       }
     }
     return s;
+  }
+
+  Matrix& operator , (const T& v) {
+    if (j_ == mat_[0].size()) {
+      j_ = 0;
+      ++i_;
+    }
+
+    if (i_ < mat_.size())
+      mat_[i_][j_++] = v;
+    return *this;
+  }
+
+  Matrix& operator << (const T& v) {
+    mat_[0][0] = v;
+    i_ = 0, j_ = 1;
+    return *this;
   }
 
 protected:
@@ -115,11 +131,11 @@ protected:
     }
   }
 
-  void __create_from_string(const char* n, int base=10) {
-  }
-
 protected:
   std::vector<std::vector<T> > mat_;
+private:
+  size_t i_;
+  size_t j_;
 };
 
 #include <mymat/matrix/map.hpp>
@@ -140,6 +156,7 @@ protected:
 #include <mymat/matrix/reshape.hpp>
 #include <mymat/matrix/slice.hpp>
 #include <mymat/matrix/transposition.hpp>
+#include <mymat/matrix/judgment.hpp>
 #include <mymat/matrix/main_diagonal.hpp>
 #include <mymat/matrix/counter_diagonal.hpp>
 #include <mymat/matrix/row_simplest_form.hpp>

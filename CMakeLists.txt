@@ -52,6 +52,7 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/slice.hpp
   ${SRC_DIRECTORY}/matrix/sub.hpp
   ${SRC_DIRECTORY}/matrix/transposition.hpp
+  ${SRC_DIRECTORY}/matrix/judgment.hpp
   ${SRC_DIRECTORY}/matrix/zero.hpp
   ${SRC_DIRECTORY}/matrix/main_diagonal.hpp
   ${SRC_DIRECTORY}/matrix/counter_diagonal.hpp
@@ -103,8 +104,14 @@ set(BUILD_TEST TRUE)
 if(BUILD_TEST)
 add_executable(test_matrix ${SRC_DIRECTORY}/test/test_matrix.cc)
 target_link_libraries(test_matrix my mynum gtest pthread)
+add_executable(test_matrix_judgment ${SRC_DIRECTORY}/test/test_matrix_judgment.cc)
+target_link_libraries(test_matrix_judgment my mynum gtest pthread)
+add_executable(test_matrix_operator ${SRC_DIRECTORY}/test/test_matrix_operator.cc)
+target_link_libraries(test_matrix_operator my mynum gtest pthread)
 add_executable(test_vector ${SRC_DIRECTORY}/test/test_vector.cc)
 target_link_libraries(test_vector my mynum gtest pthread)
+add_executable(test_vector_operator ${SRC_DIRECTORY}/test/test_vector_operator.cc)
+target_link_libraries(test_vector_operator my mynum gtest pthread)
 endif(BUILD_TEST)
 
 #
@@ -140,8 +147,14 @@ target_link_libraries(${PROJECT_NAME} my mynum)
 enable_testing()
 add_test(NAME test_matrix COMMAND test_matrix)
 set_tests_properties(test_matrix PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_judgment COMMAND test_matrix_judgment)
+set_tests_properties(test_matrix_judgment PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_operator COMMAND test_matrix_operator)
+set_tests_properties(test_matrix_operator PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_vector COMMAND test_vector)
 set_tests_properties(test_vector PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_vector_operator COMMAND test_vector_operator)
+set_tests_properties(test_vector_operator PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 
 #
 # Install Set

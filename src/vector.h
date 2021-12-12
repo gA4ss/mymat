@@ -1,6 +1,8 @@
 #ifndef MYMAT_VECTOR_H_
 #define MYMAT_VECTOR_H_
 
+#include <ostream>
+
 #include <mymat/common.h>
 #include <mymat/tools.hpp>
 
@@ -73,13 +75,20 @@ public:
     return s;
   }
 
+  Vector& operator , (const T& v) {
+    vec_.push_back(v);
+    return *this;
+  }
+
+  Vector& operator << (const T& v) {
+    vec_.push_back(v);
+    return *this;
+  }
+
 protected:
   void __set_shape(size_t l, bool row=false) {
     if (row) shape_ = {1, l};
     else shape_ = {l, 1};
-  }
-
-  void __create_from_string(const char* n, int base=10) {
   }
 
 protected:
@@ -98,10 +107,10 @@ protected:
 #include <mymat/vector/mul.hpp>
 #include <mymat/vector/one.hpp>
 #include <mymat/vector/zero.hpp>
-#include <mymat/vector/operator.hpp>
 #include <mymat/vector/random.hpp>
 #include <mymat/vector/slice.hpp>
 #include <mymat/vector/transposition.hpp>
+#include <mymat/vector/operator.hpp>
 
 } // namespace vector
 } // namespace mymat
