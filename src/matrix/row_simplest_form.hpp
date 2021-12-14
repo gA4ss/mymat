@@ -45,8 +45,22 @@ struct __process_node {
 };
 
 template <class T>
+static void __exchange_rows(std::vector<std::vector<T> >& mat, 
+                            std::vector<__process_node<T> >& process, 
+                            double epsilon=0.00000001) {
+  return;
+}
+
+template <class T>
 Matrix<T> row_simplest_form(const Matrix<T>& mat, std::vector<__process_node<T> >& process,
                             double epsilon=0.00000001) {
+  //
+  // 1. 检查当前矩阵是否是行最简形，直接返回。
+  // 2. 检查当前矩阵是否是行阶段梯形，如果是则直接化为行最简型。
+  // 3. 进入行交换子流程。
+  // 4. 进入选定行
+  //
   Matrix<T> res;
+  std::vector<std::vector<T> > _mat = mat.value();
   return res;
 }
