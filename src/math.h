@@ -7,6 +7,7 @@
 #include <sstream>
 #include <random>
 #include <utility>
+#include <algorithm>
 
 #include <mymat/common.h>
 #include <mymat/type.hpp>

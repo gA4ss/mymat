@@ -55,6 +55,7 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/zero.hpp
   ${SRC_DIRECTORY}/matrix/main_diagonal.hpp
   ${SRC_DIRECTORY}/matrix/counter_diagonal.hpp
+  ${SRC_DIRECTORY}/matrix/row_echelon_form.hpp
   ${SRC_DIRECTORY}/matrix/row_simplest_form.hpp
   ${SRC_DIRECTORY}/matrix/cofactor_matrix.hpp
   ${SRC_DIRECTORY}/matrix/cofactor.hpp

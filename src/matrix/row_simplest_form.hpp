@@ -1,4 +1,7 @@
-/* epsilon <= 0, 则值设为0。*/
+/*******************************************************
+ * 1. 矩阵是行阶梯形的                                   *
+ * 2. 每一行的第一个非零元是该列唯一的非零元。               *
+ *******************************************************/
 template <class T>
 Matrix<T> row_simplest_form(const Matrix<T>& mat, double epsilon=0.00000001) {
   std::vector<std::vector<T> > _mat = mat.value();

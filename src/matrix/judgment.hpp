@@ -69,6 +69,10 @@ bool is_zero_matrix(const Matrix<T>& mat) {
   return true;
 }
 
+/* 1. 每一个非零行中的第一个非零元为1；
+ * 2. 第k行的元不全为零时，第k+1行首变量之前零的个数多余第k行首变量之前零的个数；
+ * 3. 所有元素均为零的行必在不全为零的行之后。
+ */
 template <class T>
 bool is_row_echelon_form_matrix(const Matrix<T>& mat, bool row_simplest=false) {
   // matrix_is_not_square(mat); 行阶梯形是没有方阵限制的
@@ -118,6 +122,9 @@ bool is_row_echelon_form_matrix(const Matrix<T>& mat, bool row_simplest=false) {
   return true;
 }
 
+/* 1. 矩阵是行阶梯形的
+ * 2. 每一行的第一个非零元是该列唯一的非零元。
+ */
 template <class T>
 bool is_row_simplest_form_matrix(const Matrix<T>& mat) {
   return is_row_echelon_form_matrix(mat, true);
