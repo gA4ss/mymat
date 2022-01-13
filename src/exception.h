@@ -4,6 +4,9 @@
 namespace mymat {
 
 #define unknown_mymat_exception() { throw my::MyException("<mymat> Unknown MyMatrix", __FILE__, __LINE__, __FUNCTION__, "%s", ""); }
+#define unknown_mymat_support_type_exception() { \
+  throw my::MyException("<mymat> Unknown Support type", __FILE__, __LINE__, __FUNCTION__, "%s", ""); \
+}
 #define shape_is_not_matched_exception(m, n, format, ...) { \
   if (m != n) { \
     throw my::MyException("<mymat> Operand Shape is not matched", \

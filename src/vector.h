@@ -4,7 +4,7 @@
 #include <ostream>
 
 #include <mymat/common.h>
-#include <mymat/tools.hpp>
+#include <mymat/type.hpp>
 
 namespace mymat {
 namespace vector {
@@ -107,7 +107,6 @@ protected:
 #include <mymat/vector/mul.hpp>
 #include <mymat/vector/one.hpp>
 #include <mymat/vector/zero.hpp>
-#include <mymat/vector/random.hpp>
 #include <mymat/vector/slice.hpp>
 #include <mymat/vector/transposition.hpp>
 #include <mymat/vector/operator.hpp>

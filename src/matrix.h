@@ -2,7 +2,8 @@
 #define MYMAT_MATRIX_H_
 
 #include <mymat/common.h>
-#include <mymat/tools.hpp>
+#include <mymat/math.h>
+#include <mymat/type.hpp>
 #include <mymat/vector.h>
 
 namespace mymat {
@@ -152,7 +153,6 @@ private:
 #include <mymat/matrix/identity.hpp>
 #include <mymat/matrix/one.hpp>
 #include <mymat/matrix/zero.hpp>
-#include <mymat/matrix/random.hpp>
 #include <mymat/matrix/reshape.hpp>
 #include <mymat/matrix/slice.hpp>
 #include <mymat/matrix/transposition.hpp>

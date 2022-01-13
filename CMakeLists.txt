@@ -47,7 +47,6 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/mul.hpp
   ${SRC_DIRECTORY}/matrix/one.hpp
   ${SRC_DIRECTORY}/matrix/operator.hpp
-  ${SRC_DIRECTORY}/matrix/random.hpp
   ${SRC_DIRECTORY}/matrix/reshape.hpp
   ${SRC_DIRECTORY}/matrix/slice.hpp
   ${SRC_DIRECTORY}/matrix/sub.hpp
@@ -79,11 +78,102 @@ set(MYMAT_VECTOR_HEADERS
   ${SRC_DIRECTORY}/vector/mul.hpp
   ${SRC_DIRECTORY}/vector/one.hpp
   ${SRC_DIRECTORY}/vector/operator.hpp
-  ${SRC_DIRECTORY}/vector/random.hpp
   ${SRC_DIRECTORY}/vector/slice.hpp
   ${SRC_DIRECTORY}/vector/sub.hpp
   ${SRC_DIRECTORY}/vector/transposition.hpp
   ${SRC_DIRECTORY}/vector/zero.hpp
+)
+
+#
+# Random public header file
+#
+# set(MYMAT_RANDOM_HEADERS
+# )
+
+#
+# CMath interface public header file
+#
+set(MYMAT_CMATH_HEADERS
+  ${SRC_DIRECTORY}/math/cmath/abs.hpp
+  ${SRC_DIRECTORY}/math/cmath/acos.hpp
+  ${SRC_DIRECTORY}/math/cmath/acosh.hpp
+  ${SRC_DIRECTORY}/math/cmath/asin.hpp
+  ${SRC_DIRECTORY}/math/cmath/asinh.hpp
+  ${SRC_DIRECTORY}/math/cmath/atan.hpp
+  ${SRC_DIRECTORY}/math/cmath/atan2.hpp
+  ${SRC_DIRECTORY}/math/cmath/atanh.hpp
+  ${SRC_DIRECTORY}/math/cmath/cbrt.hpp
+  ${SRC_DIRECTORY}/math/cmath/ceil.hpp
+  ${SRC_DIRECTORY}/math/cmath/copysign.hpp
+  ${SRC_DIRECTORY}/math/cmath/cos.hpp
+  ${SRC_DIRECTORY}/math/cmath/cosh.hpp
+  ${SRC_DIRECTORY}/math/cmath/erf.hpp
+  ${SRC_DIRECTORY}/math/cmath/erfc.hpp
+  ${SRC_DIRECTORY}/math/cmath/exp.hpp
+  ${SRC_DIRECTORY}/math/cmath/exp2.hpp
+  ${SRC_DIRECTORY}/math/cmath/expm1.hpp
+  ${SRC_DIRECTORY}/math/cmath/fabs.hpp
+  ${SRC_DIRECTORY}/math/cmath/fdim.hpp
+  ${SRC_DIRECTORY}/math/cmath/floor.hpp
+  ${SRC_DIRECTORY}/math/cmath/fma.hpp
+  ${SRC_DIRECTORY}/math/cmath/fmax.hpp
+  ${SRC_DIRECTORY}/math/cmath/fmin.hpp
+  ${SRC_DIRECTORY}/math/cmath/fmod.hpp
+  ${SRC_DIRECTORY}/math/cmath/fpclassify.hpp
+  ${SRC_DIRECTORY}/math/cmath/frexp.hpp
+  ${SRC_DIRECTORY}/math/cmath/hypot.hpp
+  ${SRC_DIRECTORY}/math/cmath/ilogb.hpp
+  ${SRC_DIRECTORY}/math/cmath/isfinite.hpp
+  ${SRC_DIRECTORY}/math/cmath/isgreater.hpp
+  ${SRC_DIRECTORY}/math/cmath/isgreaterequal.hpp
+  ${SRC_DIRECTORY}/math/cmath/isinf.hpp
+  ${SRC_DIRECTORY}/math/cmath/isless.hpp
+  ${SRC_DIRECTORY}/math/cmath/islessequal.hpp
+  ${SRC_DIRECTORY}/math/cmath/islessgreater.hpp
+  ${SRC_DIRECTORY}/math/cmath/isnan.hpp
+  ${SRC_DIRECTORY}/math/cmath/isnormal.hpp
+  ${SRC_DIRECTORY}/math/cmath/isunordered.hpp
+  ${SRC_DIRECTORY}/math/cmath/ldexp.hpp
+  ${SRC_DIRECTORY}/math/cmath/lgamma.hpp
+  ${SRC_DIRECTORY}/math/cmath/llrint.hpp
+  ${SRC_DIRECTORY}/math/cmath/llround.hpp
+  ${SRC_DIRECTORY}/math/cmath/log.hpp
+  ${SRC_DIRECTORY}/math/cmath/log10.hpp
+  ${SRC_DIRECTORY}/math/cmath/log1p.hpp
+  ${SRC_DIRECTORY}/math/cmath/log2.hpp
+  ${SRC_DIRECTORY}/math/cmath/logb.hpp
+  ${SRC_DIRECTORY}/math/cmath/lrint.hpp
+  ${SRC_DIRECTORY}/math/cmath/lround.hpp
+  ${SRC_DIRECTORY}/math/cmath/modf.hpp
+  ${SRC_DIRECTORY}/math/cmath/nan.hpp
+  ${SRC_DIRECTORY}/math/cmath/nanf.hpp
+  ${SRC_DIRECTORY}/math/cmath/nanl.hpp
+  ${SRC_DIRECTORY}/math/cmath/nearbyint.hpp
+  ${SRC_DIRECTORY}/math/cmath/nextafter.hpp
+  ${SRC_DIRECTORY}/math/cmath/nexttoward.hpp
+  ${SRC_DIRECTORY}/math/cmath/pow.hpp
+  ${SRC_DIRECTORY}/math/cmath/remainder.hpp
+  ${SRC_DIRECTORY}/math/cmath/remquo.hpp
+  ${SRC_DIRECTORY}/math/cmath/rint.hpp
+  ${SRC_DIRECTORY}/math/cmath/round.hpp
+  ${SRC_DIRECTORY}/math/cmath/scalbln.hpp
+  ${SRC_DIRECTORY}/math/cmath/scalbn.hpp
+  ${SRC_DIRECTORY}/math/cmath/signbit.hpp
+  ${SRC_DIRECTORY}/math/cmath/sin.hpp
+  ${SRC_DIRECTORY}/math/cmath/sinh.hpp
+  ${SRC_DIRECTORY}/math/cmath/sqrt.hpp
+  ${SRC_DIRECTORY}/math/cmath/tan.hpp
+  ${SRC_DIRECTORY}/math/cmath/tanh.hpp
+  ${SRC_DIRECTORY}/math/cmath/tgamma.hpp
+  ${SRC_DIRECTORY}/math/cmath/trunc.hpp
+)
+
+#
+# Math interface public header file
+#
+set(MYMAT_MATH_HEADERS
+  ${SRC_DIRECTORY}/math/near.h
+  ${SRC_DIRECTORY}/math/fraction.h
 )
 
 #
@@ -94,7 +184,17 @@ set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/exception.h
   ${SRC_DIRECTORY}/vector.h
   ${SRC_DIRECTORY}/matrix.h
-  ${SRC_DIRECTORY}/tools.hpp
+  ${SRC_DIRECTORY}/math.h
+  ${SRC_DIRECTORY}/random.h
+  ${SRC_DIRECTORY}/convert.hpp
+  ${SRC_DIRECTORY}/type.hpp
+)
+
+set(MYMAT_CODES
+  ${SRC_DIRECTORY}/common.cc
+  ${SRC_DIRECTORY}/type.cc
+  ${SRC_DIRECTORY}/math/near.cc
+  ${SRC_DIRECTORY}/math/fraction.cc
 )
 
 #
@@ -102,6 +202,10 @@ set(MYMAT_HEADERS
 #
 set(BUILD_TEST TRUE)
 if(BUILD_TEST)
+add_executable(test_type ${SRC_DIRECTORY}/test/test_type.cc)
+target_link_libraries(test_type my mynum gtest pthread)
+add_executable(test_math ${SRC_DIRECTORY}/test/test_math.cc)
+target_link_libraries(test_math my mynum mymat gtest pthread)
 add_executable(test_matrix ${SRC_DIRECTORY}/test/test_matrix.cc)
 target_link_libraries(test_matrix my mynum gtest pthread)
 add_executable(test_matrix_judgment ${SRC_DIRECTORY}/test/test_matrix_judgment.cc)
@@ -137,7 +241,7 @@ endif(BUILD_RESEARCH)
 # Library Build
 #
 add_library(${PROJECT_NAME} STATIC
-  ${SRC_DIRECTORY}/common.cc
+  ${MYMAT_CODES}
 )
 target_link_libraries(${PROJECT_NAME} my mynum)
 
@@ -145,6 +249,8 @@ target_link_libraries(${PROJECT_NAME} my mynum)
 # Enable Test
 #
 enable_testing()
+add_test(NAME test_math COMMAND test_math)
+set_tests_properties(test_math PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_matrix COMMAND test_matrix)
 set_tests_properties(test_matrix PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_matrix_judgment COMMAND test_matrix_judgment)
@@ -163,3 +269,5 @@ INSTALL(TARGETS mymat ARCHIVE DESTINATION lib)
 INSTALL(FILES ${MYMAT_HEADERS} DESTINATION include/mymat)
 INSTALL(FILES ${MYMAT_VECTOR_HEADERS} DESTINATION include/mymat/vector)
 INSTALL(FILES ${MYMAT_MATRIX_HEADERS} DESTINATION include/mymat/matrix)
+INSTALL(FILES ${MYMAT_MATH_HEADERS} DESTINATION include/mymat/math)
+INSTALL(FILES ${MYMAT_CMATH_HEADERS} DESTINATION include/mymat/math/cmath)
