@@ -12,7 +12,7 @@
 namespace mymat {
 namespace math {
 
-typedef int64_t intfr_t;
+typedef my::integer_t intfr_t;
 typedef std::pair<intfr_t, intfr_t> fraction_t;
 #include <mymat/math/fraction.hpp>
 fraction_t fraction_add(const fraction_t& x, const fraction_t& y);
