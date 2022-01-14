@@ -4,11 +4,11 @@
 using namespace mymat;
 
 void test_fraction() {
-  std::pair<size_t, size_t> ret = mymat::math::fraction(123.456);
+  std::pair<size_t, size_t> ret = mymat::math::fraction<float>(123.456);
   std::cout << "m = " << ret.first << " n = " << ret.second << std::endl;
-  mymat::math::fraction_big_t retb = mymat::math::fraction("3.141592");
+  mymat::math::mp_fraction_t retb = mymat::math::mp_fraction("3.141592");
   std::cout << "m = " << retb.first << " n = " << retb.second << std::endl;
-  ret = mymat::math::fraction(567);
+  ret = mymat::math::fraction<int>(567);
   std::cout << "m = " << ret.first << " n = " << ret.second << std::endl;
 }
 

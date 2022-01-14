@@ -1,14 +1,14 @@
 #ifndef MYMAT_MATH_NEAR_H_
 #define MYMAT_MATH_NEAR_H_
 
-#include <mynum/math.h>
+#include <cfloat>
 #include <mymat/common.h>
 
 namespace mymat {
 namespace math {
 
-bool near(long double x, long double y);
-bool near(std::string x, std::string y);
+#include <mymat/math/near.hpp>
+bool mp_near(std::string x, std::string y);
 
 } // namespace math
 } // namespace mymat

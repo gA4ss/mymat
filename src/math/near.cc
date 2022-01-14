@@ -4,13 +4,7 @@
 namespace mymat {
 namespace math {
 
-bool near(long double x, long double y) {
-  if (std::abs(x-y) <= DBL_EPSILON)
-    return true;
-  return false;
-}
-
-bool near(std::string x, std::string y) {
+bool mp_near(std::string x, std::string y) {
   if (mynum::abs(mynum::Float(x)-mynum::Float(y)) <= DBL_EPSILON)
     return true;
   return false;

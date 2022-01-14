@@ -6,12 +6,17 @@
 #include <cmath>
 #include <sstream>
 #include <random>
-#include <utility>
 #include <algorithm>
 
 #include <mymat/common.h>
 #include <mymat/type.hpp>
 #include <mynum/math.h>
+
+//
+// Math库实现
+//
+#include <mymat/math/near.h>
+#include <mymat/math/fraction.h>
 
 namespace mymat {
 namespace math {
@@ -91,11 +96,5 @@ namespace math {
 
 } // namespace math
 } // namespace mymat
-
-//
-// 非cmath接口
-//
-#include <mymat/math/near.h>
-#include <mymat/math/fraction.h>
 
 #endif // MYMAT_MATH_H_

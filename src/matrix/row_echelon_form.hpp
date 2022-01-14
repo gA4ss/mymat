@@ -21,11 +21,11 @@ public:
 
   int __find_pivot(const std::vector<T>& x, const std::vector<T>& y, size_t& pivot) {
     for (size_t i = 0; i < x.size(); i++) {
-      if (math::near(x[i], 0) && math::near(y[i], 0)) {
+      if (math::near<T>(x[i], 0) && math::near<T>(y[i], 0)) {
         continue;
-      } else if (math::near(x[i], 0) || math::near(y[i], 0)) {
+      } else if (math::near<T>(x[i], 0) || math::near<T>(y[i], 0)) {
         pivot = i;
-        if (math::near(x[i], 0)) return 1;
+        if (math::near<T>(x[i], 0)) return 1;
         else return -1;
       } else {  // 两个都不为0
         pivot = i;
@@ -42,7 +42,7 @@ public:
     n = 0;
     bool s = false;
     for (size_t i = pivot+1; i < x.size(); i++) {
-      if (math::near(x[i], 0)) {
+      if (math::near<T>(x[i], 0)) {
         c++;
       } else {
         if (!s) {
@@ -66,7 +66,7 @@ public:
     // 那么直接看数值，数值越大则向量越大。
     //
     if (pivot == (x.size()-1)) {
-      if ((math::near(x[pivot], y[pivot])) || 
+      if ((math::near<T>(x[pivot], y[pivot])) || 
           (x[pivot] < y[pivot])) return true;
       else return false;
     }
@@ -92,11 +92,21 @@ public:
 
     // 这里断言 c0x == c0y
     // 同级别的向量，主元相等，主元之后的0个数相同，在主元之后连续0的个数相同，之后第一个非0元的数值越大则向量越大。
-    if ((math::near(x[pivot+1+c0x], y[pivot+1+c0y])) || 
+    if ((math::near<T>(x[pivot+1+c0x], y[pivot+1+c0y])) || 
         (x[pivot+1+c0x] < y[pivot+1+c0y])) return true;
     return false;
   }
 };
+
+template <class T>
+size_t __find_pivot(const std::vector<T>& x) {
+  for (size_t i = 0; i < x.size(); i++) {
+    if (!math::near<T>(x[i], 0)) {
+      return i;
+    }
+  }
+  return x.size();
+}
 
 /* 1. 对矩阵的每行进行排序，找到一个最适合的形式。（交换某两行）
  *    到这个阶段应当可以满足最接近行阶梯形的一个形式;
@@ -112,10 +122,18 @@ Matrix<T> row_echelon_form(const Matrix<T>& mat) {
   //
   // 到这里应该是一个很不错的形式了
   //
-  size_t number_of_rows = _mat.size(),
-         number_of_columns = _mat[0].size();
-  for (size_t i = 0; i < number_of_rows; i++) {
-    
+  const size_t number_of_rows = _mat.size();
+  const size_t number_of_columns = _mat[0].size();
+  for (size_t pivotal_row = 0; pivotal_row < number_of_rows; pivotal_row++) {
+    size_t pivot = __find_pivot(_mat[pivotal_row]);
+    if (!math::near<T>(_mat[pivotal_row][pivot],1)) {
+      //
+      // 如果主元非1，则当前行乘以一个与主元互为倒数的k。
+      //
+      math::fraction_t p = math::fraction<T>(_mat[pivotal_row][pivot]);
+      math::fraction_t p_reciprocal = {p.second, p.first};
+      
+    }
   }
   //math::fraction_t frac1, frac2;
   return Matrix<T>(_mat);
