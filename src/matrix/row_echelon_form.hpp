@@ -98,14 +98,21 @@ public:
   }
 };
 
-template <class T>
-size_t __find_pivot(const std::vector<T>& x) {
-  for (size_t i = 0; i < x.size(); i++) {
-    if (!math::near<T>(x[i], 0)) {
+static size_t __find_pivot(const math::fvector_t& vec) {
+  for (size_t i = 0; i < vec.size(); i++) {
+    if (vec[i].first != 0) {
       return i;
     }
   }
-  return x.size();
+  return vec.size();
+}
+
+static bool __is_zero(const math::fraction_t& x) {
+  return (x.first == 0);
+}
+
+static bool __is_one(const math::fraction_t& x) {
+  return (x.first == 1 && x.second == 1);
 }
 
 /* 1. 对矩阵的每行进行排序，找到一个最适合的形式。（交换某两行）
@@ -113,29 +120,70 @@ size_t __find_pivot(const std::vector<T>& x) {
  * 2. 使用第k行将第k+1行的第一个非零行为1;
  */
 template <class T>
-Matrix<T> row_echelon_form(const Matrix<T>& mat) {
-  if (mat.size() == 0) return mat;
+math::fmatrix_t row_echelon_form(const Matrix<T>& mat) {
+  matrix_is_empty_exception(mat);
 
-  std::vector<std::vector<math::fraction_t> > _frac_mat();
   std::vector<std::vector<T> > _mat = mat.value();
   std::sort(_mat.begin(), _mat.end(), __row_echelon_form_compare_object<T>());
+
+  const size_t number_of_rows = _mat.size();
+  const size_t number_of_columns = _mat[0].size();
+
+  //
+  // 声明一个分数矩阵
+  //
+  math::fmatrix_t frac_mat = math::fraction(_mat);
+  // std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
 
   //
   // 到这里应该是一个很不错的形式了
   //
-  const size_t number_of_rows = _mat.size();
-  const size_t number_of_columns = _mat[0].size();
   for (size_t pivotal_row = 0; pivotal_row < number_of_rows; pivotal_row++) {
-    size_t pivot = __find_pivot(_mat[pivotal_row]);
-    if (!math::near<T>(_mat[pivotal_row][pivot],1)) {
+    //
+    // 找主元
+    //
+    size_t pivot = __find_pivot(frac_mat[pivotal_row]);
+
+    //
+    // 如果主元为1，则直接消去主元所在列。
+    // 如果不为1，则先变为1。
+    //
+    if (!__is_one(frac_mat[pivotal_row][pivot])) {
       //
       // 如果主元非1，则当前行乘以一个与主元互为倒数的k。
       //
-      math::fraction_t p = math::fraction<T>(_mat[pivotal_row][pivot]);
-      math::fraction_t p_reciprocal = {p.second, p.first};
+      math::fraction_t p = frac_mat[pivotal_row][pivot];
+      math::fraction_t p_reciprocal = math::fraction_reciprocal(p);
       
-    }
+      //
+      // 主行的主元消去为1
+      //
+      for (size_t j = 0; j < number_of_columns; j++) {
+        frac_mat[pivotal_row][j] = math::fraction_mul(frac_mat[pivotal_row][j], p_reciprocal);
+      }
+    }/* end if */
+
+    // std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
+
+    //
+    // 消去主行所在列的所有元
+    //
+    for (size_t i = pivotal_row+1; i < number_of_rows; i++) {
+      // 如果为0，则跳过。
+      if (__is_zero(frac_mat[i][pivot])) continue;
+
+      //
+      // 取出要消去的行的主元并乘以主行，再减去要消去的行。
+      //
+      math::fraction_t i_pivot = frac_mat[i][pivot];
+      for (size_t k = 0; k < number_of_columns; k++) {
+        math::fraction_t v1 = math::fraction_mul(frac_mat[pivotal_row][k], i_pivot);
+        math::fraction_t v2 = frac_mat[i][k];
+        frac_mat[i][k] = math::fraction_sub(v2, v1);
+      }
+    }/* end for */
+    // std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
   }
   //math::fraction_t frac1, frac2;
-  return Matrix<T>(_mat);
+  return frac_mat;
 }

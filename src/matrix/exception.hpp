@@ -128,6 +128,13 @@
   } \
 }
 
+#define matrix_is_empty_exception(mat) { \
+  if (mat.size() == 0) { \
+    throw my::MyException("<mymat> Matrix is empty", \
+      __FILE__, __LINE__, __FUNCTION__, "%s", ""); \
+  } \
+}
+
 // #define divisor_is_zero_exception(format, ...) { throw my::MyException("<mynum> Divisor is Zero", __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__); }
 // #define operand_value_is_invalid_exception(format, ...) { throw my::MyException("<mynum> Operand Value is Invalid", __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__); }
 // #define operation_is_not_implement_exception(format, ...) { throw my::MyException("<mynum> Operation is not Implement", __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__); }

@@ -200,6 +200,7 @@ set(MYMAT_MATH_CODES
   ${SRC_DIRECTORY}/math/fraction/fraction_mul.cc
   ${SRC_DIRECTORY}/math/fraction/fraction_div.cc
   ${SRC_DIRECTORY}/math/fraction/fraction_str.cc
+  ${SRC_DIRECTORY}/math/fraction/fraction_reciprocal.cc
   ${SRC_DIRECTORY}/math/fraction.cc
 )
 
