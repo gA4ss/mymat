@@ -1,5 +1,5 @@
-#ifndef MYMAT_VECTOR_H_
-#define MYMAT_VECTOR_H_
+#ifndef MYMAT_VECTOR_HPP_
+#define MYMAT_VECTOR_HPP_
 
 #include <ostream>
 
@@ -114,4 +114,4 @@ protected:
 } // namespace vector
 } // namespace mymat
 
-#endif // MYMAT_VECTOR_H_
+#endif // MYMAT_VECTOR_HPP_

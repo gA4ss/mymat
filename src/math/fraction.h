@@ -19,6 +19,7 @@ fraction_t fraction_add(const fraction_t& x, const fraction_t& y);
 fraction_t fraction_sub(const fraction_t& x, const fraction_t& y);
 fraction_t fraction_mul(const fraction_t& x, const fraction_t& y);
 fraction_t fraction_div(const fraction_t& x, const fraction_t& y);
+std::string fraction_str(const std::vector<std::vector<fraction_t> >& fmat);
 
 //
 // MP支持
@@ -30,6 +31,7 @@ mp_fraction_t mp_fraction_add(const mp_fraction_t& x, const mp_fraction_t& y);
 mp_fraction_t mp_fraction_sub(const mp_fraction_t& x, const mp_fraction_t& y);
 mp_fraction_t mp_fraction_mul(const mp_fraction_t& x, const mp_fraction_t& y);
 mp_fraction_t mp_fraction_div(const mp_fraction_t& x, const mp_fraction_t& y);
+std::string mp_fraction_str(const std::vector<std::vector<mp_fraction_t> >& fmat);
 
 } // namespace math
 } // namespace mymat

@@ -1,4 +1,4 @@
-#include <mymat/vector.h>
+#include <mymat/vector.hpp>
 
 using namespace mymat;
 

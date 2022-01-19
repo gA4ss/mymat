@@ -1,4 +1,4 @@
-#include <mymat/matrix.h>
+#include <mymat/matrix.hpp>
 
 using namespace mymat;
 

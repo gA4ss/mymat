@@ -8,9 +8,10 @@
 #include <random>
 #include <algorithm>
 
+#include <mynum/math.h>
+
 #include <mymat/common.h>
 #include <mymat/type.hpp>
-#include <mynum/math.h>
 
 //
 // Math库实现

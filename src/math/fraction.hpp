@@ -41,14 +41,13 @@ fraction_t fraction(const T& x) {
 }
 
 template <class T>
-std::vector<std::vector<math::fraction_t> > fraction(const Matrix<T>& mat) {
-  std::vector<std::vector<T> > _mat = mat.value();
-  size_t m = _mat.size(), n = _mat[0].size();
+std::vector<std::vector<math::fraction_t> > fraction(const std::vector<std::vector<T> >& mat) {
+  size_t m = mat.size(), n = mat[0].size();
   std::vector<std::vector<math::fraction_t> > omat(m);
   for (size_t i = 0; i < m; i++) {
     omat[i].resize(n);
     for (size_t j = 0; j < n; j++) {
-      omat[i][j] = fraction<T>(_mat[i][j]);
+      omat[i][j] = fraction<T>(mat[i][j]);
     }
   }
   return omat;

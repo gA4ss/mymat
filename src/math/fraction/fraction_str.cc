@@ -3,23 +3,38 @@
 namespace mymat {
 namespace math {
 
-fraction_t fraction_str(const std::vector<std::vector<fraction_t> >& fmat) {
-  intfr_t d = x.second * y.second;
-  intfr_t n = (x.first * y.second) + (y.first * x.second);
-  intfr_t g = std::__gcd(n, d);
-  n /= g;
-  d /= g;
-  return {n, d};
+std::string fraction_str(const std::vector<std::vector<fraction_t> >& fmat) {
+  std::string out, item;
+  size_t i = fmat.size(), j = fmat[0].size();
+  for (size_t m = 0; m < i; m++) {
+    for (size_t n = 0; n < j; n++) {
+      item = std::to_string(fmat[m][n].first) + "/" + std::to_string(fmat[m][n].second);
+      out += item;
+      if (n == j-1) {
+        if (m != i-1)
+          out += "\n";
+      } else
+        out += " ";
+    }
+  }
+  return out;
 }
 
-mp_fraction_t mp_fraction_str(const std::vector<std::vector<mp_fraction_t> >& fmat) {
-  mynum::Integer d = mynum::Integer(x.second) * mynum::Integer(y.second);
-  mynum::Integer n = (mynum::Integer(x.first) * mynum::Integer(y.second)) + 
-                     (mynum::Integer(y.first) * mynum::Integer(x.second));
-  mynum::Integer g = mynum::gcd(n, d);
-  n /= g;
-  d /= g;
-  return {n.str(), d.str()};
+std::string mp_fraction_str(const std::vector<std::vector<mp_fraction_t> >& fmat) {
+  std::string out, item;
+  size_t i = fmat.size(), j = fmat[0].size();
+  for (size_t m = 0; m < i; m++) {
+    for (size_t n = 0; n < j; n++) {
+      item = fmat[m][n].first + "/" + fmat[m][n].second;
+      out += item;
+      if (n == j-1) {
+        if (m != i-1)
+          out += "\n";
+      } else
+        out += " ";
+    }
+  }
+  return out;
 }
 
 } // namespace math

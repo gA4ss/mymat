@@ -116,6 +116,7 @@ template <class T>
 Matrix<T> row_echelon_form(const Matrix<T>& mat) {
   if (mat.size() == 0) return mat;
 
+  std::vector<std::vector<math::fraction_t> > _frac_mat();
   std::vector<std::vector<T> > _mat = mat.value();
   std::sort(_mat.begin(), _mat.end(), __row_echelon_form_compare_object<T>());
 

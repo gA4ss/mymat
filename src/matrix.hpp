@@ -1,10 +1,10 @@
-#ifndef MYMAT_MATRIX_H_
-#define MYMAT_MATRIX_H_
+#ifndef MYMAT_MATRIX_HPP_
+#define MYMAT_MATRIX_HPP_
 
 #include <mymat/common.h>
-#include <mymat/math.h>
 #include <mymat/type.hpp>
-#include <mymat/vector.h>
+#include <mymat/vector.hpp>
+#include <mymat/math.h>
 
 namespace mymat {
 namespace matrix {
@@ -26,6 +26,7 @@ public:
   size_t number_of_columns() const { return mat_[0].size(); }
   size_t size() const { return number_of_rows() * number_of_columns(); }
   std::vector<std::vector<T> > value() const { return mat_; }
+  std::vector<std::vector<math::fraction_t> > fraction() const { return math::fraction(mat_); }
   shape_t shape() const {return {number_of_rows(), number_of_columns()}; }
 
   std::vector<T> row(size_t i) const {
@@ -96,6 +97,11 @@ public:
       }
     }
     return s;
+  }
+
+  // 分数形式
+  std::string str2() const { 
+    return math::fraction_str(math::fraction(mat_));
   }
 
   Matrix& operator , (const T& v) {
@@ -172,4 +178,4 @@ private:
 } // namespace matrix
 } // namespace mymat
 
-#endif // MYMAT_MATRIX_H_
+#endif // MYMAT_MATRIX_HPP_

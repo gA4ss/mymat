@@ -185,8 +185,8 @@ set(MYMAT_MATH_HEADERS
 set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/common.h
   ${SRC_DIRECTORY}/exception.h
-  ${SRC_DIRECTORY}/vector.h
-  ${SRC_DIRECTORY}/matrix.h
+  ${SRC_DIRECTORY}/vector.hpp
+  ${SRC_DIRECTORY}/matrix.hpp
   ${SRC_DIRECTORY}/math.h
   ${SRC_DIRECTORY}/random.h
   ${SRC_DIRECTORY}/convert.hpp
@@ -199,6 +199,7 @@ set(MYMAT_MATH_CODES
   ${SRC_DIRECTORY}/math/fraction/fraction_sub.cc
   ${SRC_DIRECTORY}/math/fraction/fraction_mul.cc
   ${SRC_DIRECTORY}/math/fraction/fraction_div.cc
+  ${SRC_DIRECTORY}/math/fraction/fraction_str.cc
   ${SRC_DIRECTORY}/math/fraction.cc
 )
 
