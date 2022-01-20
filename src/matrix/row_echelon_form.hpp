@@ -98,23 +98,6 @@ public:
   }
 };
 
-static size_t __find_pivot(const math::fvector_t& vec) {
-  for (size_t i = 0; i < vec.size(); i++) {
-    if (vec[i].first != 0) {
-      return i;
-    }
-  }
-  return vec.size();
-}
-
-static bool __is_zero(const math::fraction_t& x) {
-  return (x.first == 0);
-}
-
-static bool __is_one(const math::fraction_t& x) {
-  return (x.first == 1 && x.second == 1);
-}
-
 /* 1. 对矩阵的每行进行排序，找到一个最适合的形式。（交换某两行）
  *    到这个阶段应当可以满足最接近行阶梯形的一个形式;
  * 2. 使用第k行将第k+1行的第一个非零行为1;
@@ -142,13 +125,20 @@ math::fmatrix_t row_echelon_form(const Matrix<T>& mat) {
     //
     // 找主元
     //
-    size_t pivot = __find_pivot(frac_mat[pivotal_row]);
+    size_t pivot = 0;
+    while (pivot < number_of_columns) {
+      if (!math::fraction_is_zero(frac_mat[pivotal_row][pivot]))
+        break;
+      pivot++;
+    }
+    // 如果没有主元，整行为0则说明至此以后所有的行都为0。之前的排序保证了这点。
+    if (pivot == number_of_columns) break;
 
     //
     // 如果主元为1，则直接消去主元所在列。
     // 如果不为1，则先变为1。
     //
-    if (!__is_one(frac_mat[pivotal_row][pivot])) {
+    if (!math::fraction_is_one(frac_mat[pivotal_row][pivot])) {
       //
       // 如果主元非1，则当前行乘以一个与主元互为倒数的k。
       //
@@ -170,7 +160,7 @@ math::fmatrix_t row_echelon_form(const Matrix<T>& mat) {
     //
     for (size_t i = pivotal_row+1; i < number_of_rows; i++) {
       // 如果为0，则跳过。
-      if (__is_zero(frac_mat[i][pivot])) continue;
+      if (math::fraction_is_zero(frac_mat[i][pivot])) continue;
 
       //
       // 取出要消去的行的主元并乘以主行，再减去要消去的行。

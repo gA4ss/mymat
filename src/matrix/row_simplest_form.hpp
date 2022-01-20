@@ -3,67 +3,34 @@
  * 2. 每一行的第一个非零元是该列唯一的非零元。               *
  *******************************************************/
 template <class T>
-Matrix<T> row_simplest_form(const Matrix<T>& mat, double epsilon=0.00000001) {
-  std::vector<std::vector<T> > _mat = mat.value();
-  size_t l = _mat.size() - 1;     // 少一行
-  T t1 = 0, t2 = 0, k = 0;
-  for (size_t i = 0; i < l; i++) {
-    t1 = _mat[i][i];
-    if (t1 == 0) continue;
-
-    t2 = _mat[i+1][i];
-    if (t2 == 0) continue;
-
-    //
-    // 计算k值
-    //
-    k = -(t2 / t1);
-
-    //
-    // 将'i'的'k'倍加到'i+1'行
-    //
-    for (size_t j = i; j < l+1; j++) {
-      _mat[i+1][j] += (k * _mat[i][j]);
-
-      //
-      // 调整精度
-      //
-      if ((_mat[i+1][j] <= epsilon) || (epsilon <= 0))
-        _mat[i+1][j] = 0;
-    }
-  }
-  return Matrix<T>(_mat);
-}
-
-template <class T>
-struct __process_node {
-  T k;
-  std::pair<T, T> fraction_k;
-
-  std::pair<int, int> k_plus_to;
-  bool k_plus_to_row;
-
-  std::pair<int, int> exchange;
-  bool exchange_row;
-};
-
-template <class T>
-static void __exchange_rows(std::vector<std::vector<T> >& mat, 
-                            std::vector<__process_node<T> >& process, 
-                            double epsilon=0.00000001) {
-  return;
-}
-
-template <class T>
-Matrix<T> row_simplest_form(const Matrix<T>& mat, std::vector<__process_node<T> >& process,
-                            double epsilon=0.00000001) {
+math::fmatrix_t row_simplest_form(const Matrix<T>& mat) {
   //
   // 1. 检查当前矩阵是否是行最简形，直接返回。
   // 2. 检查当前矩阵是否是行阶段梯形，如果是则直接化为行最简型。
   // 3. 进入行交换子流程。
   // 4. 进入选定行
   //
-  Matrix<T> res;
-  std::vector<std::vector<T> > _mat = mat.value();
-  return res;
+  matrix_is_empty_exception(mat);
+
+  // 是否已经是行最简型
+  if (is_row_simplest_form_matrix<T>(mat))
+    return math::fraction<T>(mat.value());
+
+  // 是否是行阶梯形矩阵
+  math::fmatrix_t frac_mat;
+  if (!is_row_echelon_form_matrix<T>(mat))
+    frac_mat = row_echelon_form<T>(mat);
+  else
+    frac_mat = math::fraction<T>(mat.value());
+
+  const size_t number_of_rows = frac_mat.size();
+  const size_t number_of_columns = frac_mat[0].size();
+  const size_t l = number_of_rows < number_of_columns ? number_of_rows : number_of_columns;
+  for (size_t i = 0; i < l; i++) {
+    for (size_t j = i+1; j < number_of_columns; j++) {
+      frac_mat[i][j].first = 0;
+      frac_mat[i][j].second = 1;
+    }
+  }
+  return frac_mat;
 }

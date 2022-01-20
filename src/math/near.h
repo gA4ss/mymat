@@ -8,7 +8,6 @@ namespace mymat {
 namespace math {
 
 #include <mymat/math/near.hpp>
-bool mp_near(std::string x, std::string y);
 
 } // namespace math
 } // namespace mymat
