@@ -32,6 +32,7 @@ link_directories(/usr/local/lib)
 #
 set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/__fix_index_xxx.hpp
+  ${SRC_DIRECTORY}/matrix/matrix/__good_form_compare_object.hpp
   ${SRC_DIRECTORY}/matrix/add.hpp
   ${SRC_DIRECTORY}/matrix/append.hpp
   ${SRC_DIRECTORY}/matrix/assign.hpp
@@ -57,6 +58,7 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/counter_diagonal.hpp
   ${SRC_DIRECTORY}/matrix/row_echelon_form.hpp
   ${SRC_DIRECTORY}/matrix/row_simplest_form.hpp
+  ${SRC_DIRECTORY}/matrix/matrix/upper_triangular_form.hpp
   ${SRC_DIRECTORY}/matrix/cofactor_matrix.hpp
   ${SRC_DIRECTORY}/matrix/cofactor.hpp
   ${SRC_DIRECTORY}/matrix/algebraic_cofactor.hpp

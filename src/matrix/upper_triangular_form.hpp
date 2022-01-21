@@ -1,19 +1,14 @@
 /************************************************************************
- * 1. 每一个非零行中的第一个非零元为1；                                      *
- * 2. 第k行的元不全为零时，第k+1行首变量之前零的个数多余第k行首变量之前零的个数；  *
- * 3. 所有元素均为零的行必在不全为零的行之后。                                *
+ * 1. 矩阵是方阵。                                                        *
+ * 2. 方阵的主对角线之下全部为0。
  ************************************************************************/
 
-/* 1. 对矩阵的每行进行排序，找到一个最适合的形式。（交换某两行）
- *    到这个阶段应当可以满足最接近行阶梯形的一个形式;
- * 2. 使用第k行将第k+1行的第一个非零行为1;
- */
 template <class T>
-math::fmatrix_t row_echelon_form(const Matrix<T>& mat) {
-  matrix_is_empty_exception(mat);
+math::fmatrix_t upper_triangular_form(const Matrix<T>& mat) {
+  matrix_is_not_square(mat);
 
+  // size_t exchange_count = 0;
   std::vector<std::vector<T> > _mat = mat.value();
-  std::sort(_mat.begin(), _mat.end(), __good_form_compare_object<T>());
 
   const size_t number_of_rows = _mat.size();
   const size_t number_of_columns = _mat[0].size();
@@ -64,54 +59,19 @@ __find_pivot:
       goto __find_pivot;
     } else if (pivot > pivotal_row) {
       //
-      // 如果当前主元的所在列，在主行之下都是0，则直接处理。
-      // 如果不全部是0则进入交换流程。
-      // 
-      // 交换流程：
       // 检查当前主元是否超出行数范围，如果超出则将此行交换到最后一行。
       // 如果没有超出则将此行插入到对应主元行处的下一行，删除当前行。
       //
-      bool exchange_row = false;
-      for (size_t i = pivotal_row+1; i < number_of_rows; i++) {
-        if (!math::fraction_is_zero(frac_mat[i][pivot])) {
-          exchange_row = true;
-          break;
-        }
-      }
+      if (pivot >= number_of_rows)
+        frac_mat.insert(frac_mat.end(), frac_mat[pivotal_row]);
+      else
+        frac_mat.insert(frac_mat.begin() + pivot + 1, frac_mat[pivotal_row]);
 
-      if (exchange_row) {
-        if (pivot >= number_of_rows)
-          frac_mat.insert(frac_mat.end(), frac_mat[pivotal_row]);
-        else
-          frac_mat.insert(frac_mat.begin() + pivot + 1, frac_mat[pivotal_row]);
-
-        // 删除当前行
-        math::fmatrix_t::iterator it = frac_mat.begin() + pivotal_row;
-        frac_mat.erase(it);
-        goto __find_pivot;
-      }
+      // 删除当前行
+      math::fmatrix_t::iterator it = frac_mat.begin() + pivotal_row;
+      frac_mat.erase(it);
+      goto __find_pivot;
     }
-
-    //
-    // 如果主元为1，则直接消去主元所在列。
-    // 如果不为1，则先变为1。
-    //
-    if (!math::fraction_is_one(frac_mat[pivotal_row][pivot])) {
-      //
-      // 如果主元非1，则当前行乘以一个与主元互为倒数的k。
-      //
-      math::fraction_t p = frac_mat[pivotal_row][pivot];
-      math::fraction_t p_reciprocal = math::fraction_reciprocal(p);
-      
-      //
-      // 主行的主元消去为1
-      //
-      for (size_t j = 0; j < number_of_columns; j++) {
-        frac_mat[pivotal_row][j] = math::fraction_mul(frac_mat[pivotal_row][j], p_reciprocal);
-      }
-    }/* end if */
-
-    // std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
 
     //
     // 消去主行所在列的所有元
@@ -121,11 +81,13 @@ __find_pivot:
       if (math::fraction_is_zero(frac_mat[i][pivot])) continue;
 
       //
-      // 取出要消去的行的主元并乘以主行，再减去要消去的行。
+      // 取出主元与要处理行的主元，合成一个倒数并于当前行相乘。
       //
+      math::fraction_t p = frac_mat[pivotal_row][pivot];
       math::fraction_t i_pivot = frac_mat[i][pivot];
+      math::fraction_t multiple = math::fraction_div(i_pivot, p);
       for (size_t k = 0; k < number_of_columns; k++) {
-        math::fraction_t v1 = math::fraction_mul(frac_mat[pivotal_row][k], i_pivot);
+        math::fraction_t v1 = math::fraction_mul(frac_mat[pivotal_row][k], multiple);
         math::fraction_t v2 = frac_mat[i][k];
         frac_mat[i][k] = math::fraction_sub(v2, v1);
       }

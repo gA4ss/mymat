@@ -145,6 +145,7 @@ private:
   size_t j_;
 };
 
+#include <mymat/matrix/__good_form_compare_object.hpp>
 #include <mymat/matrix/map.hpp>
 #include <mymat/matrix/assign.hpp>
 #include <mymat/matrix/add.hpp>
@@ -167,6 +168,7 @@ private:
 #include <mymat/matrix/counter_diagonal.hpp>
 #include <mymat/matrix/row_echelon_form.hpp>
 #include <mymat/matrix/row_simplest_form.hpp>
+#include <mymat/matrix/upper_triangular_form.hpp>
 #include <mymat/matrix/det.hpp>
 #include <mymat/matrix/cofactor_matrix.hpp>
 #include <mymat/matrix/cofactor.hpp>

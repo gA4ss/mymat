@@ -37,6 +37,26 @@ void test_row_echelon_form() {
   std::cout << math::fraction_str(out) << std::endl;
 }
 
+void test_det() {
+  matrix::Matrix<double> mat(3,3);
+  mat << 0,2,3,
+         0,4,5,
+         0,9,8;
+  my::float_t d = matrix::det<double>(mat);
+  math::fmatrix_t fmat = matrix::row_echelon_form<double>(mat);
+  std::cout << math::fraction_str(fmat) << std::endl;
+  std::cout << "det = " << d << std::endl << std::endl;
+
+  // mat << 7,8,9,
+  //        1,2,3,
+  //        1,4,5;
+  // d = matrix::det<double>(mat);
+  // fmat = matrix::upper_triangular_form<double>(mat);
+  // std::cout << math::fraction_str(fmat) << std::endl;
+  // std::cout << "det = " << d << std::endl;
+}
+
 int main(int argc, char* argv[]) {
+  test_det();
   return 0;
 }
