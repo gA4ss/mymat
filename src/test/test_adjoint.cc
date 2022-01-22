@@ -3,60 +3,29 @@
 
 using namespace mymat;
 
-void test_row_echelon_form() {
-  matrix::Matrix<double> mat(5,4);
-  mat << 4.5,2,3,4,
-         0,1,0,8.8,
-         0,1,6.7,8.8,
-         1,6,7,8,
-         9,10,0,0;
-  // std::cout << mat << std::endl;
-  std::cout << mat.str() << std::endl << std::endl;
-  std::cout << mat.str2() << std::endl << std::endl;
-  math::fmatrix_t out = matrix::row_echelon_form<double>(mat);
-  std::cout << math::fraction_str(out) << std::endl << std::endl << std::endl;
-
-  matrix::Matrix<double> mat2(5,4);
-  mat2 << 4.5,2.134,3.14159,4.618,
-          0.123334444,1.12322,0.56,8.8,
-          -0.123,1.56,6.7,8.8,
-          1.456,-6.145,7.78,8.897,
-          9.12,10.45,0.09,0.87;
-  std::cout << mat2.str() << std::endl << std::endl;
-  std::cout << mat2.str2() << std::endl << std::endl;
-  out = matrix::row_echelon_form<double>(mat2);
-  std::cout << math::fraction_str(out) << std::endl << std::endl;
-
+void test_adjoint() {
   matrix::Matrix<double> mat3(3,3);
+  matrix::Matrix<double> mat2(2,2);
+  mat3 << 0,2,3,
+          0,4,5,
+          0,9,8;
+  mat2 = matrix::adjoint<double>(mat3);
+  std::cout << mat2.str2() << std::endl << std::endl;
+
+  mat3 << 7,8,9,
+          1,2,3,
+          1,4,5;
+  mat2 = matrix::adjoint<double>(mat3);
+  std::cout << mat2.str2() << std::endl << std::endl;
+
   mat3 << 1,2,3,
           4,5,6,
           7,8,9;
-  std::cout << mat3.str() << std::endl << std::endl;
-  std::cout << mat3.str2() << std::endl << std::endl;
-  out = matrix::row_echelon_form<double>(mat3);
-  std::cout << math::fraction_str(out) << std::endl;
-}
-
-void test_det() {
-  matrix::Matrix<double> mat(3,3);
-  mat << 0,2,3,
-         0,4,5,
-         0,9,8;
-  my::float_t d = matrix::det<double>(mat);
-  math::fmatrix_t fmat = matrix::row_echelon_form<double>(mat);
-  std::cout << math::fraction_str(fmat) << std::endl;
-  std::cout << "det = " << d << std::endl << std::endl;
-
-  // mat << 7,8,9,
-  //        1,2,3,
-  //        1,4,5;
-  // d = matrix::det<double>(mat);
-  // fmat = matrix::upper_triangular_form<double>(mat);
-  // std::cout << math::fraction_str(fmat) << std::endl;
-  // std::cout << "det = " << d << std::endl;
+  mat2 = matrix::adjoint<double>(mat3);
+  std::cout << mat2.str2() << std::endl << std::endl;
 }
 
 int main(int argc, char* argv[]) {
-  test_det();
+  test_adjoint();
   return 0;
 }

@@ -71,7 +71,7 @@ void test_vector() {
   std::vector<int> a = {9,9,9,9,9};
   mat.insert(it, a);
 
-  for (int i = 0; i < mat.size(); i++) {
+  for (int i = 0; i < static_cast<int>(mat.size()); i++) {
     for (int j = 0; j < 5; j++)
       std::cout << mat[i][j] << " ";
     std::cout << std::endl;
@@ -80,7 +80,7 @@ void test_vector() {
 
   it = mat.begin()+1;
   mat.erase(it);
-  for (int i = 0; i < mat.size(); i++) {
+  for (int i = 0; i < static_cast<int>(mat.size()); i++) {
     for (int j = 0; j < 5; j++)
       std::cout << mat[i][j] << " ";
     std::cout << std::endl;

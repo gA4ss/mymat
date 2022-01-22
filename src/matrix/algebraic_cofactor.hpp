@@ -1,7 +1,7 @@
 template <class T>
-T algebraic_cofactor(const Matrix<T>& mat, size_t i, size_t j) {
+my::float_t algebraic_cofactor(const Matrix<T>& mat, size_t i, size_t j) {
   matrix_is_out_of_range_exception(mat, i, j);
-  T c = cofactor<T>(mat, i, j);
-  if ((i + j) % 2 == 0) return c;
+  my::float_t c = cofactor<T>(mat, i, j);
+  if (((i + j) & 1) == 0) return c;     // i + j 为偶数
   return (c * -1);
 }

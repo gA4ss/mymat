@@ -3,11 +3,12 @@
  * 2. 方阵的主对角线之下全部为0。
  ************************************************************************/
 
+// #define DBG_UTF
 template <class T>
-math::fmatrix_t upper_triangular_form(const Matrix<T>& mat) {
+math::fmatrix_t upper_triangular_form(const Matrix<T>& mat, size_t* c=nullptr) {
   matrix_is_not_square(mat);
 
-  // size_t exchange_count = 0;
+  size_t _c = 0;
   std::vector<std::vector<T> > _mat = mat.value();
 
   const size_t number_of_rows = _mat.size();
@@ -17,61 +18,67 @@ math::fmatrix_t upper_triangular_form(const Matrix<T>& mat) {
   // 声明一个分数矩阵
   //
   math::fmatrix_t frac_mat = math::fraction(_mat);
-  // std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
+#ifdef DBG_UTF
+  std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
+#endif
+
+  // 行与列，哪个少取哪个。
+  const size_t count = (number_of_rows < number_of_columns) ? 
+                        number_of_rows : 
+                        number_of_columns;
 
   //
   // 到这里应该是一个很不错的形式了
   //
-  for (size_t pivotal_row = 0; pivotal_row < number_of_rows; pivotal_row++) {
+  for (size_t pivotal_row = 0; pivotal_row < count; pivotal_row++) {
     //
-    // 找主元
+    // 找主元，找到道理应该是k行k列是非零元。
+    // 如果k行k列为0,则寻找k+1到k+n行内
+    // 某k列不为0的行，并做交换。
+    // 如果没有合适的，则找k+1列不为零的行。
+    // 在排序与消元保证的情况下，k-1列之前
+    // 基本都为0了。
+    // 如果全部为0则退出。
     //
+    size_t pivot = pivotal_row;
 __find_pivot:
-    size_t pivot = 0;
-    while (pivot < number_of_columns) {
-      if (!math::fraction_is_zero(frac_mat[pivotal_row][pivot]))
-        break;
-      pivot++;
-    }
-
-    //
-    // 这里会出现两种畸形的情况：
-    // 1. 没有主元，整行为0。
-    // 2. 存在主元，但是主元所在列大于当前所在行数。
-    //
-    // 主元小于主行的情况，应该不存在。经过排序已经进行了第一阶段的筛选
-    // 经过第k次的消元比主行数之前的元已经变为0。
-    //
-    if (pivot == number_of_columns) {
+    if (math::fraction_is_zero(frac_mat[pivotal_row][pivot])) {
       //
-      // 没有主元，这种情况下。将当前行放置到最后一行
-      // 随后继续。
-      // 如果已经是最后一行，则直接退出。
+      // 如果主元为0，则在k+1与k+n行内找k列不为0的行，并且
+      // 离k行距离越近越占优势。
       //
-      if (pivotal_row == (number_of_rows-1)) break;
+      size_t found = count;
+      for (size_t i = pivotal_row+1; i < count; i++) {
+        // 找到则交换两行
+        if (!math::fraction_is_zero(frac_mat[i][pivot])) {
+          math::fvector_t pivotal_row_vec = frac_mat[pivotal_row];
+          frac_mat[pivotal_row] = frac_mat[i];
+          frac_mat[i] = pivotal_row_vec;
+          found = i;      // 对应交换的行
+          ++_c;
+          break;
+        }
+      }/* end for */
 
       //
-      // 交换当前行与最后一行
+      // 如果没有找到，则查看k+1列为主元是否合适。
       //
-      math::fvector_t vec = frac_mat[pivotal_row];
-      frac_mat[pivotal_row] = frac_mat[number_of_rows-1];
-      frac_mat[number_of_rows-1] = vec;
-      goto __find_pivot;
-    } else if (pivot > pivotal_row) {
-      //
-      // 检查当前主元是否超出行数范围，如果超出则将此行交换到最后一行。
-      // 如果没有超出则将此行插入到对应主元行处的下一行，删除当前行。
-      //
-      if (pivot >= number_of_rows)
-        frac_mat.insert(frac_mat.end(), frac_mat[pivotal_row]);
-      else
-        frac_mat.insert(frac_mat.begin() + pivot + 1, frac_mat[pivotal_row]);
+      if (found == count) {
+        //
+        // 如果主元索引超出限制，则说明k行以下的向量全部为0。则直接退出。
+        //
+        if (pivot == count) {
+          if (c) *c = _c;
+          return frac_mat;
+        }
 
-      // 删除当前行
-      math::fmatrix_t::iterator it = frac_mat.begin() + pivotal_row;
-      frac_mat.erase(it);
-      goto __find_pivot;
-    }
+        //
+        // 增加主元索引
+        //
+        ++pivot;
+        goto __find_pivot;
+      }/* end if */
+    }/* end __find_pivot */
 
     //
     // 消去主行所在列的所有元
@@ -92,7 +99,11 @@ __find_pivot:
         frac_mat[i][k] = math::fraction_sub(v2, v1);
       }
     }/* end for */
-    // std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
+#ifdef DBG_UTF
+    std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
+#endif
   }
+
+  if (c) *c = _c;
   return frac_mat;
 }
