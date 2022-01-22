@@ -1,6 +1,8 @@
 #ifndef MYMAT_MATRIX_HPP_
 #define MYMAT_MATRIX_HPP_
 
+#include <utility>
+
 #include <mymat/common.h>
 #include <mymat/type.hpp>
 #include <mymat/vector.hpp>
@@ -169,6 +171,7 @@ private:
 #include <mymat/matrix/row_echelon_form.hpp>
 #include <mymat/matrix/row_simplest_form.hpp>
 #include <mymat/matrix/upper_triangular_form.hpp>
+#include <mymat/matrix/lu.hpp>
 #include <mymat/matrix/det.hpp>
 #include <mymat/matrix/cofactor_matrix.hpp>
 #include <mymat/matrix/cofactor.hpp>

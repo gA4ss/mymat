@@ -55,6 +55,18 @@ public:
     vec_[i] = v;
   }
 
+  // i使用原始索引
+  T _at(size_t i) const {
+    vector_size_is_out_of_range_exception(vec_, i);
+    return vec_[i];
+  }
+
+  // i使用原始索引
+  void _set(size_t i, const T& v) {
+    vector_size_is_out_of_range_exception(vec_, i);
+    vec_[i] = v;
+  }
+
   void to_row() { shape_ = {1, vec_.size()}; }
   void to_column() { shape_ = {vec_.size(), 1}; }
 
@@ -76,12 +88,14 @@ public:
   }
 
   Vector& operator , (const T& v) {
-    vec_.push_back(v);
+    if (i_ < vec_.size())
+      vec_[i_++] = v;
     return *this;
   }
 
   Vector& operator << (const T& v) {
-    vec_.push_back(v);
+    vec_[0] = v;
+    i_ = 1;
     return *this;
   }
 
@@ -94,6 +108,8 @@ protected:
 protected:
   std::vector<T> vec_;
   std::pair<size_t, size_t> shape_;
+private:
+  size_t i_;
 };
 
 #include <mymat/vector/map.hpp>

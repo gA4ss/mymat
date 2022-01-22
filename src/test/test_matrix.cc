@@ -1,8 +1,9 @@
 #include <mymat/matrix.hpp>
+#include <mymat/operator.hpp>
 
 using namespace mymat;
 
-int main(int argc, char* argv[]) {
+void test_basic() {
   std::vector<std::vector<int>> m;
   std::vector<int> v;
   for (int i = 0; i < 5; i++) {
@@ -66,8 +67,31 @@ int main(int argc, char* argv[]) {
     std::cout << vec[i] << " ";
   }
   std::cout << std::endl;
+}
 
-  // matrix::Matrix<int> simplest_form = row_simplest_form(mat2);
-  // std::cout << simplest_form.str() << std::endl;
+void test_mul() {
+  matrix::Matrix<double> mat1(3,3);
+  matrix::Matrix<double> mat2(3,3);
+  mat1 << 1,2,3,
+          2,4,5,
+          3,9,8;
+  
+  mat2 << 3,4,5,
+          10,9,8,
+          11,12,3;
+  std::cout << (mat1 * mat2).str() << std::endl << std::endl;
+  std::cout << (mat2 * mat1).str() << std::endl << std::endl;
+
+
+  vector::Vector<double> vec1(5);
+  vec1 << 1,2,3,4,5;
+  vector::Vector<double> vec2(5);
+  vec2 << 5,4,3,2,1;
+  std::cout << (vec1 * vector::transposition(vec2)).str() << std::endl << std::endl;
+  std::cout << (vector::transposition(vec1) * vec2).str() << std::endl << std::endl;
+}
+
+int main(int argc, char* argv[]) {
+  test_mul();
   return 0;
 }

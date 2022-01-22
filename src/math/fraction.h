@@ -30,6 +30,13 @@ bool fraction_is_zero(const fraction_t& x);
 bool fraction_is_one(const fraction_t& x);
 int fraction_cmp(const fraction_t& x, const fraction_t& y);
 
+//
+// 计算值
+//
+my::float_t fraction_eval(const fraction_t& x);
+std::vector<my::float_t> fraction_eval(const fvector_t& x);
+std::vector<std::vector<my::float_t> > fraction_eval(const fmatrix_t& x);
+
 } // namespace math
 } // namespace mymat
 

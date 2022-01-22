@@ -59,6 +59,7 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/row_echelon_form.hpp
   ${SRC_DIRECTORY}/matrix/row_simplest_form.hpp
   ${SRC_DIRECTORY}/matrix/matrix/upper_triangular_form.hpp
+  ${SRC_DIRECTORY}/matrix/matrix/lu.hpp
   ${SRC_DIRECTORY}/matrix/cofactor_matrix.hpp
   ${SRC_DIRECTORY}/matrix/cofactor.hpp
   ${SRC_DIRECTORY}/matrix/algebraic_cofactor.hpp
@@ -94,84 +95,6 @@ set(MYMAT_VECTOR_HEADERS
 # )
 
 #
-# CMath interface public header file
-#
-# set(MYMAT_CMATH_HEADERS
-#   ${SRC_DIRECTORY}/math/cmath/abs.hpp
-#   ${SRC_DIRECTORY}/math/cmath/acos.hpp
-#   ${SRC_DIRECTORY}/math/cmath/acosh.hpp
-#   ${SRC_DIRECTORY}/math/cmath/asin.hpp
-#   ${SRC_DIRECTORY}/math/cmath/asinh.hpp
-#   ${SRC_DIRECTORY}/math/cmath/atan.hpp
-#   ${SRC_DIRECTORY}/math/cmath/atan2.hpp
-#   ${SRC_DIRECTORY}/math/cmath/atanh.hpp
-#   ${SRC_DIRECTORY}/math/cmath/cbrt.hpp
-#   ${SRC_DIRECTORY}/math/cmath/ceil.hpp
-#   ${SRC_DIRECTORY}/math/cmath/copysign.hpp
-#   ${SRC_DIRECTORY}/math/cmath/cos.hpp
-#   ${SRC_DIRECTORY}/math/cmath/cosh.hpp
-#   ${SRC_DIRECTORY}/math/cmath/erf.hpp
-#   ${SRC_DIRECTORY}/math/cmath/erfc.hpp
-#   ${SRC_DIRECTORY}/math/cmath/exp.hpp
-#   ${SRC_DIRECTORY}/math/cmath/exp2.hpp
-#   ${SRC_DIRECTORY}/math/cmath/expm1.hpp
-#   ${SRC_DIRECTORY}/math/cmath/fabs.hpp
-#   ${SRC_DIRECTORY}/math/cmath/fdim.hpp
-#   ${SRC_DIRECTORY}/math/cmath/floor.hpp
-#   ${SRC_DIRECTORY}/math/cmath/fma.hpp
-#   ${SRC_DIRECTORY}/math/cmath/fmax.hpp
-#   ${SRC_DIRECTORY}/math/cmath/fmin.hpp
-#   ${SRC_DIRECTORY}/math/cmath/fmod.hpp
-#   ${SRC_DIRECTORY}/math/cmath/fpclassify.hpp
-#   ${SRC_DIRECTORY}/math/cmath/frexp.hpp
-#   ${SRC_DIRECTORY}/math/cmath/hypot.hpp
-#   ${SRC_DIRECTORY}/math/cmath/ilogb.hpp
-#   ${SRC_DIRECTORY}/math/cmath/isfinite.hpp
-#   ${SRC_DIRECTORY}/math/cmath/isgreater.hpp
-#   ${SRC_DIRECTORY}/math/cmath/isgreaterequal.hpp
-#   ${SRC_DIRECTORY}/math/cmath/isinf.hpp
-#   ${SRC_DIRECTORY}/math/cmath/isless.hpp
-#   ${SRC_DIRECTORY}/math/cmath/islessequal.hpp
-#   ${SRC_DIRECTORY}/math/cmath/islessgreater.hpp
-#   ${SRC_DIRECTORY}/math/cmath/isnan.hpp
-#   ${SRC_DIRECTORY}/math/cmath/isnormal.hpp
-#   ${SRC_DIRECTORY}/math/cmath/isunordered.hpp
-#   ${SRC_DIRECTORY}/math/cmath/ldexp.hpp
-#   ${SRC_DIRECTORY}/math/cmath/lgamma.hpp
-#   ${SRC_DIRECTORY}/math/cmath/llrint.hpp
-#   ${SRC_DIRECTORY}/math/cmath/llround.hpp
-#   ${SRC_DIRECTORY}/math/cmath/log.hpp
-#   ${SRC_DIRECTORY}/math/cmath/log10.hpp
-#   ${SRC_DIRECTORY}/math/cmath/log1p.hpp
-#   ${SRC_DIRECTORY}/math/cmath/log2.hpp
-#   ${SRC_DIRECTORY}/math/cmath/logb.hpp
-#   ${SRC_DIRECTORY}/math/cmath/lrint.hpp
-#   ${SRC_DIRECTORY}/math/cmath/lround.hpp
-#   ${SRC_DIRECTORY}/math/cmath/modf.hpp
-#   ${SRC_DIRECTORY}/math/cmath/nan.hpp
-#   ${SRC_DIRECTORY}/math/cmath/nanf.hpp
-#   ${SRC_DIRECTORY}/math/cmath/nanl.hpp
-#   ${SRC_DIRECTORY}/math/cmath/nearbyint.hpp
-#   ${SRC_DIRECTORY}/math/cmath/nextafter.hpp
-#   ${SRC_DIRECTORY}/math/cmath/nexttoward.hpp
-#   ${SRC_DIRECTORY}/math/cmath/pow.hpp
-#   ${SRC_DIRECTORY}/math/cmath/remainder.hpp
-#   ${SRC_DIRECTORY}/math/cmath/remquo.hpp
-#   ${SRC_DIRECTORY}/math/cmath/rint.hpp
-#   ${SRC_DIRECTORY}/math/cmath/round.hpp
-#   ${SRC_DIRECTORY}/math/cmath/scalbln.hpp
-#   ${SRC_DIRECTORY}/math/cmath/scalbn.hpp
-#   ${SRC_DIRECTORY}/math/cmath/signbit.hpp
-#   ${SRC_DIRECTORY}/math/cmath/sin.hpp
-#   ${SRC_DIRECTORY}/math/cmath/sinh.hpp
-#   ${SRC_DIRECTORY}/math/cmath/sqrt.hpp
-#   ${SRC_DIRECTORY}/math/cmath/tan.hpp
-#   ${SRC_DIRECTORY}/math/cmath/tanh.hpp
-#   ${SRC_DIRECTORY}/math/cmath/tgamma.hpp
-#   ${SRC_DIRECTORY}/math/cmath/trunc.hpp
-# )
-
-#
 # Math interface public header file
 #
 set(MYMAT_MATH_HEADERS
@@ -193,6 +116,7 @@ set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/random.h
   ${SRC_DIRECTORY}/convert.hpp
   ${SRC_DIRECTORY}/type.hpp
+  ${SRC_DIRECTORY}/operator.hpp
 )
 
 set(MYMAT_MATH_CODES
@@ -206,6 +130,7 @@ set(MYMAT_MATH_CODES
   ${SRC_DIRECTORY}/math/fraction/fraction_is_zero.cc
   ${SRC_DIRECTORY}/math/fraction/fraction_is_one.cc
   ${SRC_DIRECTORY}/math/fraction/fraction_cmp.cc
+  ${SRC_DIRECTORY}/math/fraction/fraction_eval.cc
   ${SRC_DIRECTORY}/math/fraction.cc
 )
 
@@ -224,12 +149,16 @@ add_executable(test_type ${SRC_DIRECTORY}/test/test_type.cc)
 target_link_libraries(test_type my mynum gtest pthread)
 add_executable(test_math ${SRC_DIRECTORY}/test/test_math.cc)
 target_link_libraries(test_math my mynum mymat gtest pthread)
-add_executable(test_adjoint ${SRC_DIRECTORY}/test/test_adjoint.cc)
-target_link_libraries(test_adjoint my mynum mymat gtest pthread)
-add_executable(test_det ${SRC_DIRECTORY}/test/test_det.cc)
-target_link_libraries(test_det my mynum mymat gtest pthread)
-add_executable(test_xxx_form ${SRC_DIRECTORY}/test/test_xxx_form.cc)
-target_link_libraries(test_xxx_form my mynum mymat gtest pthread)
+add_executable(test_matrix_adjoint ${SRC_DIRECTORY}/test/test_matrix_adjoint.cc)
+target_link_libraries(test_matrix_adjoint my mynum mymat gtest pthread)
+add_executable(test_matrix_inverse ${SRC_DIRECTORY}/test/test_matrix_inverse.cc)
+target_link_libraries(test_matrix_inverse my mynum mymat gtest pthread)
+add_executable(test_matrix_det ${SRC_DIRECTORY}/test/test_matrix_det.cc)
+target_link_libraries(test_matrix_det my mynum mymat gtest pthread)
+add_executable(test_matrix_xxx_form ${SRC_DIRECTORY}/test/test_matrix_xxx_form.cc)
+target_link_libraries(test_matrix_xxx_form my mynum mymat gtest pthread)
+add_executable(test_matrix_lu ${SRC_DIRECTORY}/test/test_matrix_lu.cc)
+target_link_libraries(test_matrix_lu my mynum gtest pthread)
 add_executable(test_matrix ${SRC_DIRECTORY}/test/test_matrix.cc)
 target_link_libraries(test_matrix my mynum gtest pthread)
 add_executable(test_matrix_judgment ${SRC_DIRECTORY}/test/test_matrix_judgment.cc)
@@ -275,18 +204,22 @@ target_link_libraries(${PROJECT_NAME} my mynum)
 enable_testing()
 add_test(NAME test_math COMMAND test_math)
 set_tests_properties(test_math PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
-add_test(NAME test_adjoint COMMAND test_adjoint)
-set_tests_properties(test_adjoint PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
-add_test(NAME test_xxx_form COMMAND test_xxx_form)
-set_tests_properties(test_xxx_form PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
-add_test(NAME test_det COMMAND test_det)
-set_tests_properties(test_det PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_adjoint COMMAND test_matrix_adjoint)
+set_tests_properties(test_matrix_adjoint PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_xxx_form COMMAND test_matrix_xxx_form)
+set_tests_properties(test_matrix_xxx_form PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_det COMMAND test_matrix_det)
+set_tests_properties(test_matrix_det PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_matrix COMMAND test_matrix)
 set_tests_properties(test_matrix PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_matrix_judgment COMMAND test_matrix_judgment)
 set_tests_properties(test_matrix_judgment PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_matrix_operator COMMAND test_matrix_operator)
 set_tests_properties(test_matrix_operator PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_inverse COMMAND test_matrix_inverse)
+set_tests_properties(test_matrix_inverse PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_lu COMMAND test_matrix_lu)
+set_tests_properties(test_matrix_lu PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_vector COMMAND test_vector)
 set_tests_properties(test_vector PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_vector_operator COMMAND test_vector_operator)
@@ -300,4 +233,3 @@ INSTALL(FILES ${MYMAT_HEADERS} DESTINATION include/mymat)
 INSTALL(FILES ${MYMAT_VECTOR_HEADERS} DESTINATION include/mymat/vector)
 INSTALL(FILES ${MYMAT_MATRIX_HEADERS} DESTINATION include/mymat/matrix)
 INSTALL(FILES ${MYMAT_MATH_HEADERS} DESTINATION include/mymat/math)
-# INSTALL(FILES ${MYMAT_CMATH_HEADERS} DESTINATION include/mymat/math/cmath)
