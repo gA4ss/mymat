@@ -22,6 +22,8 @@ public:
   Matrix(const vector::Vector<T>& vec) { __create_from_vector(vec.value(), vec.is_row()); }
   Matrix(const std::vector<T>& vec, bool row=false) { __create_from_vector(vec, row); }
   Matrix(const std::vector<std::vector<T> >& mat) : mat_(mat) {}
+  Matrix(const math::fvector_t& fvec) {}
+  Matrix(const math::fmatrix_t& fmat) {}
   virtual ~Matrix() {}
 
   size_t number_of_rows() const { return mat_.size(); }
@@ -171,13 +173,13 @@ private:
 #include <mymat/matrix/row_echelon_form.hpp>
 #include <mymat/matrix/row_simplest_form.hpp>
 #include <mymat/matrix/upper_triangular_form.hpp>
-#include <mymat/matrix/lu.hpp>
 #include <mymat/matrix/det.hpp>
 #include <mymat/matrix/cofactor_matrix.hpp>
 #include <mymat/matrix/cofactor.hpp>
 #include <mymat/matrix/algebraic_cofactor.hpp>
 #include <mymat/matrix/adjoint.hpp>
 #include <mymat/matrix/inverse.hpp>
+#include <mymat/matrix/lu.hpp>
 #include <mymat/matrix/operator.hpp>
 
 } // namespace matrix

@@ -61,7 +61,14 @@ void test_upper_triangular_form() {
   matrix::Matrix<double> mat3(3,3);
   mat3 << 1,2,3,
           4,5,6,
-          7,8,9;
+          7,11,9;
+  std::cout << mat3.str2() << std::endl << std::endl;
+  out = matrix::upper_triangular_form<double>(mat3);
+  std::cout << math::fraction_str(out) << std::endl;
+
+  mat3 << 2,4,2,
+          1,5,2,
+          4,-1,9;
   std::cout << mat3.str2() << std::endl << std::endl;
   out = matrix::upper_triangular_form<double>(mat3);
   std::cout << math::fraction_str(out) << std::endl;

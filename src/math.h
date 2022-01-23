@@ -16,7 +16,7 @@
 //
 // Math库实现
 //
-#include <mymat/math/near.h>
+#include <mymat/math/near.hpp>
 #include <mymat/math/fraction.h>
 
 #endif // MYMAT_MATH_H_

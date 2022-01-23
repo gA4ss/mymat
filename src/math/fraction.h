@@ -8,7 +8,6 @@
 #include <mynum/math.h>
 #include <mymat/type.hpp>
 #include <mymat/common.h>
-#include <mymat/math/near.h>
 
 namespace mymat {
 namespace math {

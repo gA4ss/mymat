@@ -10,7 +10,7 @@ std::string fraction_str(const fmatrix_t& fmat) {
     for (size_t n = 0; n < j; n++) {
       if (fmat[m][n].first == 0) {
         item = "0";
-      } else if (math::near<intfr_t>(fmat[m][n].second, 1)) {
+      } else if (fmat[m][n].second == 1) {
         item = std::to_string(fmat[m][n].first);
       } else {
         item = std::to_string(fmat[m][n].first) + "/" + std::to_string(fmat[m][n].second);

@@ -60,6 +60,9 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/row_simplest_form.hpp
   ${SRC_DIRECTORY}/matrix/matrix/upper_triangular_form.hpp
   ${SRC_DIRECTORY}/matrix/matrix/lu.hpp
+  ${SRC_DIRECTORY}/matrix/matrix/qr.hpp
+  ${SRC_DIRECTORY}/matrix/matrix/plu.hpp
+  ${SRC_DIRECTORY}/matrix/matrix/cholesky.hpp
   ${SRC_DIRECTORY}/matrix/cofactor_matrix.hpp
   ${SRC_DIRECTORY}/matrix/cofactor.hpp
   ${SRC_DIRECTORY}/matrix/algebraic_cofactor.hpp
@@ -99,7 +102,6 @@ set(MYMAT_VECTOR_HEADERS
 #
 set(MYMAT_MATH_HEADERS
   ${SRC_DIRECTORY}/math/near.hpp
-  ${SRC_DIRECTORY}/math/near.h
   ${SRC_DIRECTORY}/math/fraction.hpp
   ${SRC_DIRECTORY}/math/fraction.h
 )
@@ -120,7 +122,6 @@ set(MYMAT_HEADERS
 )
 
 set(MYMAT_MATH_CODES
-  ${SRC_DIRECTORY}/math/near.cc
   ${SRC_DIRECTORY}/math/fraction/fraction_add.cc
   ${SRC_DIRECTORY}/math/fraction/fraction_sub.cc
   ${SRC_DIRECTORY}/math/fraction/fraction_mul.cc
@@ -157,8 +158,8 @@ add_executable(test_matrix_det ${SRC_DIRECTORY}/test/test_matrix_det.cc)
 target_link_libraries(test_matrix_det my mynum mymat gtest pthread)
 add_executable(test_matrix_xxx_form ${SRC_DIRECTORY}/test/test_matrix_xxx_form.cc)
 target_link_libraries(test_matrix_xxx_form my mynum mymat gtest pthread)
-add_executable(test_matrix_lu ${SRC_DIRECTORY}/test/test_matrix_lu.cc)
-target_link_libraries(test_matrix_lu my mynum gtest pthread)
+add_executable(test_matrix_decomposition ${SRC_DIRECTORY}/test/test_matrix_decomposition.cc)
+target_link_libraries(test_matrix_decomposition my mynum gtest pthread)
 add_executable(test_matrix ${SRC_DIRECTORY}/test/test_matrix.cc)
 target_link_libraries(test_matrix my mynum gtest pthread)
 add_executable(test_matrix_judgment ${SRC_DIRECTORY}/test/test_matrix_judgment.cc)
@@ -218,8 +219,8 @@ add_test(NAME test_matrix_operator COMMAND test_matrix_operator)
 set_tests_properties(test_matrix_operator PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_matrix_inverse COMMAND test_matrix_inverse)
 set_tests_properties(test_matrix_inverse PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
-add_test(NAME test_matrix_lu COMMAND test_matrix_lu)
-set_tests_properties(test_matrix_lu PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_decomposition COMMAND test_matrix_decomposition)
+set_tests_properties(test_matrix_decomposition PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_vector COMMAND test_vector)
 set_tests_properties(test_vector PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_vector_operator COMMAND test_vector_operator)

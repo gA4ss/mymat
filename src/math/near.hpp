@@ -1,6 +1,15 @@
+#ifndef MYMAT_MATH_NEAR_HPP_
+#define MYMAT_MATH_NEAR_HPP_
+
+#include <cfloat>
+#include <mymat/common.h>
+
+namespace mymat {
+namespace math {
+
 template <class T>
 bool near(const T& x, const T& y) {
-  if (my::get_support_type<T>() >= kStdTypeNumber) {
+  if (my::get_support_type<T>() >= my::kStdTypeNumber) {
     unknown_mymat_support_type_exception();
   }
 
@@ -8,3 +17,8 @@ bool near(const T& x, const T& y) {
     return true;
   return false;
 }
+
+} // namespace math
+} // namespace mymat
+
+#endif // MYMAT_MATH_NEAR_HPP_

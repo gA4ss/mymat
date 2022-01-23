@@ -12,7 +12,7 @@ math::fmatrix_t upper_triangular_form(const Matrix<T>& mat, size_t* c=nullptr) {
   std::vector<std::vector<T> > _mat = mat.value();
 
   const size_t number_of_rows = _mat.size();
-  const size_t number_of_columns = _mat[0].size();
+  const size_t number_of_columns = number_of_rows;
 
   //
   // 声明一个分数矩阵
@@ -22,10 +22,8 @@ math::fmatrix_t upper_triangular_form(const Matrix<T>& mat, size_t* c=nullptr) {
   std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
 #endif
 
-  // 行与列，哪个少取哪个。
-  const size_t count = (number_of_rows < number_of_columns) ? 
-                        number_of_rows : 
-                        number_of_columns;
+  // 行与列，都一样
+  const size_t count = number_of_rows;
 
   //
   // 到这里应该是一个很不错的形式了

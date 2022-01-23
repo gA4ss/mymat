@@ -130,9 +130,17 @@
 
 #define matrix_is_empty_exception(mat) { \
   if (mat.size() == 0) { \
-    throw my::MyException("<mymat> Matrix is empty", \
+    throw my::MyException("<mymat> Matrix is empty.", \
       __FILE__, __LINE__, __FUNCTION__, "%s", ""); \
   } \
+}
+
+//
+// 外部自行定义异常 
+//
+#define matrix_exception(format, ...) { \
+  throw my::MyException("<mymat> Matrix is exception.", \
+    __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__); \
 }
 
 // #define divisor_is_zero_exception(format, ...) { throw my::MyException("<mynum> Divisor is Zero", __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__); }

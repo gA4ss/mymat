@@ -5,6 +5,7 @@
 
 #include <mymat/common.h>
 #include <mymat/type.hpp>
+#include <mymat/math.h>
 
 namespace mymat {
 namespace vector {
@@ -21,6 +22,7 @@ public:
   Vector(const std::vector<T>& vec, bool row=false) {
     set_value(vec, row);
   }
+  Vector(const math::fvector_t& vec, bool row=false) {}
   virtual ~Vector() {}
 
   size_t size() const { return vec_.size(); }
