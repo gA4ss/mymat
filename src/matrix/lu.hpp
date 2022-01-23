@@ -1,7 +1,7 @@
 /* LU分解也称 Doolittle分解
  * LU分解只能通过行运算3（将某行或列的k倍加到某行或列上）。
  */
-#define DBG_LUD
+// #define DBG_LUD
 template <class T>
 std::pair<math::fmatrix_t, math::fmatrix_t> __lu_decomposition(const Matrix<T>& mat) {
   matrix_is_not_square(mat);
@@ -11,11 +11,24 @@ std::pair<math::fmatrix_t, math::fmatrix_t> __lu_decomposition(const Matrix<T>& 
   const size_t number_of_columns = number_of_rows;
 
   //
-  // 声明一个分数矩阵
+  // 从原始矩阵创建分数矩阵
+  // 创建一个下三角矩阵
   //
-  math::fmatrix_t frac_mat = math::fraction(_mat);
+  math::fmatrix_t upper = math::fraction(_mat);
+  // 创建一个单位矩阵为下三角矩阵的基础
+  math::fmatrix_t lower(number_of_rows);
+  for (size_t i = 0; i < number_of_rows; i++) {
+    lower[i].resize(number_of_columns);
+    for (size_t j = 0; j < number_of_columns; j++) {
+      if (i == j) lower[i][j] = {1, 1};   // 主对角线为1
+      else lower[i][j] = {0, 1};
+    }
+  }
 #ifdef DBG_LUD
-  std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
+    std::cout << "upper : " << std::endl;
+    std::cout << math::fraction_str(upper) << std::endl;
+    std::cout << "lower : " << std::endl;
+    std::cout << math::fraction_str(lower) << std::endl << std::endl;
 #endif
 
   // 行与列，都一样。
@@ -26,30 +39,30 @@ std::pair<math::fmatrix_t, math::fmatrix_t> __lu_decomposition(const Matrix<T>& 
   //
   for (size_t pivotal_row = 0; pivotal_row < count; pivotal_row++) {
     //
-    // 找主元，找到道理应该是k行k列是非零元。
-    // 如果k行k列为0,则寻找k+1到k+n行内
-    // 某k列不为0的行，并做交换。
-    // 如果没有合适的，则找k+1列不为零的行。
-    // 在排序与消元保证的情况下，k-1列之前
-    // 基本都为0了。
-    // 如果全部为0则退出。
+    // 按照道理来说，第i行i列为主元所在，但是如果主元为0则尝试遍历第i行所在列
+    // 找到此一不为0的行，随后将此行加到当前行上。如果全部为0则直接退出。
     //
     size_t pivot = pivotal_row;
 __find_pivot:
-    if (math::fraction_is_zero(frac_mat[pivotal_row][pivot])) {
+    if (math::fraction_is_zero(upper[pivotal_row][pivot])) {
       //
       // 如果主元为0，则在k+1与k+n行内找k列不为0的行，并且
       // 离k行距离越近越占优势。
       //
       size_t found = count;
       for (size_t i = pivotal_row+1; i < count; i++) {
-        // 找到则交换两行
-        if (!math::fraction_is_zero(frac_mat[i][pivot])) {
-          math::fvector_t pivotal_row_vec = frac_mat[pivotal_row];
-          frac_mat[pivotal_row] = frac_mat[i];
-          frac_mat[i] = pivotal_row_vec;
-          found = i;      // 对应交换的行
-          ++_c;
+        //
+        // 找到不为0的行，在将此行加上主行上。
+        //
+        if (!math::fraction_is_zero(upper[i][pivot])) {
+          for (size_t j = 0; j < number_of_columns; j++) {
+            upper[pivotal_row][j] = math::fraction_add(upper[pivotal_row][j], upper[i][j]);
+          }
+          found = i;      // 记录对应的行
+          //
+          // 下三角形进行记录变换操作
+          //
+          lower[pivotal_row][i] = {1, 1};
           break;
         }
       }/* end for */
@@ -60,9 +73,10 @@ __find_pivot:
       if (found == count) {
         //
         // 如果主元索引超出限制，则说明k行以下的向量全部为0。则直接退出。
+        // 这种情况应该不会发生。
         //
         if (pivot == count) {
-          return {frac_mat, frac_mat};
+          return {lower, upper};
         }
 
         //
@@ -78,35 +92,40 @@ __find_pivot:
     //
     for (size_t i = pivotal_row+1; i < number_of_rows; i++) {
       // 如果为0，则跳过。
-      if (math::fraction_is_zero(frac_mat[i][pivot])) continue;
+      if (math::fraction_is_zero(upper[i][pivot])) continue;
 
       //
       // 取出主元与要处理行的主元，合成一个倒数并于当前行相乘。
       //
-      math::fraction_t p = frac_mat[pivotal_row][pivot];
-      math::fraction_t i_pivot = frac_mat[i][pivot];
+      math::fraction_t p = upper[pivotal_row][pivot];
+      math::fraction_t i_pivot = upper[i][pivot];
       math::fraction_t multiple = math::fraction_div(i_pivot, p);
       for (size_t k = 0; k < number_of_columns; k++) {
-        math::fraction_t v1 = math::fraction_mul(frac_mat[pivotal_row][k], multiple);
-        math::fraction_t v2 = frac_mat[i][k];
-        frac_mat[i][k] = math::fraction_sub(v2, v1);
+        math::fraction_t v1 = math::fraction_mul(upper[pivotal_row][k], multiple);
+        math::fraction_t v2 = upper[i][k];
+        upper[i][k] = math::fraction_sub(v2, v1);
       }
+      //
+      // 更新下三角矩阵
+      //
+      lower[i][pivotal_row] = multiple;
     }/* end for */
 #ifdef DBG_LUD
-    std::cout << math::fraction_str(frac_mat) << std::endl << std::endl;
+    std::cout << "upper : " << std::endl;
+    std::cout << math::fraction_str(upper) << std::endl;
+    std::cout << "lower : " << std::endl;
+    std::cout << math::fraction_str(lower) << std::endl << std::endl;
 #endif
   }
-  return {frac_mat, frac_mat};
+  return {lower, upper};
 }
 
 template <class T>
 std::pair<Matrix<T>, Matrix<T> > lu(const Matrix<T>& mat) {
-  // 如果det为0，则表示不具备分解的条件。
-  if (det<T>(mat) == 0) {
+  if (det<T>(mat) == 0) {  // 如果det为0，则表示不具备分解的条件。
     matrix_exception("%s", "Matrix is singular.");
   }
 
   std::pair<math::fmatrix_t, math::fmatrix_t> lu_pair = __lu_decomposition(mat);
-  
-  return {mat, mat};
+  return {Matrix<T>(lu_pair.first), Matrix<T>(lu_pair.second)};
 }

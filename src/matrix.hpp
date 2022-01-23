@@ -22,8 +22,8 @@ public:
   Matrix(const vector::Vector<T>& vec) { __create_from_vector(vec.value(), vec.is_row()); }
   Matrix(const std::vector<T>& vec, bool row=false) { __create_from_vector(vec, row); }
   Matrix(const std::vector<std::vector<T> >& mat) : mat_(mat) {}
-  Matrix(const math::fvector_t& fvec) {}
-  Matrix(const math::fmatrix_t& fmat) {}
+  Matrix(const math::fvector_t& fvec, bool row=false) { __create_from_fvector(fvec, row); }
+  Matrix(const math::fmatrix_t& fmat) { __create_from_fmatrix(fmat); }
   virtual ~Matrix() {}
 
   size_t number_of_rows() const { return mat_.size(); }
@@ -131,6 +131,30 @@ protected:
     for (size_t k = 0; k < i; k++) mat_[k].resize(j);
   }
 
+  void __create_from_fmatrix(const math::fmatrix_t& fmat) {
+    mat_.resize(fmat.size());
+    size_t r = fmat.size(), c = fmat[0].size();
+    for (size_t i = 0; i < r; i++) {
+      mat_[i].resize(c);
+      for (size_t j = 0; j < c; j++) {
+        mat_[i][j] = static_cast<T>(math::fraction_eval(fmat[i][j]));
+      }
+    }
+  }
+
+  void __create_from_fvector(const math::fvector_t& fvec, bool row=false) {
+    if (row) {
+      mat_.resize(1);
+      for (size_t i = 0; i < fvec.size(); i++) {
+        mat_[0].push_back(static_cast<T>(math::fraction_eval(fvec[i])));
+      }
+    } else {
+      mat_.resize(fvec.size());
+      for (size_t i = 0; i < fvec.size(); i++)
+        mat_[i].push_back(static_cast<T>(math::fraction_eval(fvec[i])));
+    }
+  }
+
   void __create_from_vector(const std::vector<T>& vec, bool row=false) {
     if (row) {
       mat_.push_back(vec);
@@ -157,6 +181,7 @@ private:
 #include <mymat/matrix/mul.hpp>
 #include <mymat/matrix/append.hpp>
 #include <mymat/matrix/dot.hpp>
+#include <mymat/matrix/diag.hpp>
 #include <mymat/matrix/exception.hpp>
 #include <mymat/matrix/expansion.hpp>
 #include <mymat/matrix/flat.hpp>
@@ -174,12 +199,15 @@ private:
 #include <mymat/matrix/row_simplest_form.hpp>
 #include <mymat/matrix/upper_triangular_form.hpp>
 #include <mymat/matrix/det.hpp>
+#include <mymat/matrix/rank.hpp>
 #include <mymat/matrix/cofactor_matrix.hpp>
 #include <mymat/matrix/cofactor.hpp>
 #include <mymat/matrix/algebraic_cofactor.hpp>
 #include <mymat/matrix/adjoint.hpp>
 #include <mymat/matrix/inverse.hpp>
 #include <mymat/matrix/lu.hpp>
+#include <mymat/matrix/ldu.hpp>
+#include <mymat/matrix/crout.hpp>
 #include <mymat/matrix/operator.hpp>
 
 } // namespace matrix

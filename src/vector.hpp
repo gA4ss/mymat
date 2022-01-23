@@ -22,7 +22,9 @@ public:
   Vector(const std::vector<T>& vec, bool row=false) {
     set_value(vec, row);
   }
-  Vector(const math::fvector_t& vec, bool row=false) {}
+  Vector(const math::fvector_t& fvec, bool row=false) {
+    __create_from_fvector(fvec, row);
+  }
   virtual ~Vector() {}
 
   size_t size() const { return vec_.size(); }
@@ -105,6 +107,12 @@ protected:
   void __set_shape(size_t l, bool row=false) {
     if (row) shape_ = {1, l};
     else shape_ = {l, 1};
+  }
+
+  void __create_from_fvector(const math::fvector_t& fvec, bool row=false) {
+    for (size_t i = 0; i < fvec.size(); i++)
+      vec_.push_back(static_cast<T>(math::fraction_eval(fvec[i])));
+    __set_shape(fvec.size(), row);
   }
 
 protected:

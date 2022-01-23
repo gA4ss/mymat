@@ -36,8 +36,8 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/add.hpp
   ${SRC_DIRECTORY}/matrix/append.hpp
   ${SRC_DIRECTORY}/matrix/assign.hpp
-  ${SRC_DIRECTORY}/matrix/det.hpp
   ${SRC_DIRECTORY}/matrix/dot.hpp
+  ${SRC_DIRECTORY}/matrix/diag.hpp
   ${SRC_DIRECTORY}/matrix/exception.hpp
   ${SRC_DIRECTORY}/matrix/expansion.hpp
   ${SRC_DIRECTORY}/matrix/flat.hpp
@@ -59,7 +59,11 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/row_echelon_form.hpp
   ${SRC_DIRECTORY}/matrix/row_simplest_form.hpp
   ${SRC_DIRECTORY}/matrix/matrix/upper_triangular_form.hpp
+  ${SRC_DIRECTORY}/matrix/det.hpp
+  ${SRC_DIRECTORY}/matrix/rank.hpp
   ${SRC_DIRECTORY}/matrix/matrix/lu.hpp
+  ${SRC_DIRECTORY}/matrix/matrix/ldu.hpp
+  ${SRC_DIRECTORY}/matrix/matrix/crout.hpp
   ${SRC_DIRECTORY}/matrix/matrix/qr.hpp
   ${SRC_DIRECTORY}/matrix/matrix/plu.hpp
   ${SRC_DIRECTORY}/matrix/matrix/cholesky.hpp
@@ -159,7 +163,7 @@ target_link_libraries(test_matrix_det my mynum mymat gtest pthread)
 add_executable(test_matrix_xxx_form ${SRC_DIRECTORY}/test/test_matrix_xxx_form.cc)
 target_link_libraries(test_matrix_xxx_form my mynum mymat gtest pthread)
 add_executable(test_matrix_decomposition ${SRC_DIRECTORY}/test/test_matrix_decomposition.cc)
-target_link_libraries(test_matrix_decomposition my mynum gtest pthread)
+target_link_libraries(test_matrix_decomposition my mynum mymat gtest pthread)
 add_executable(test_matrix ${SRC_DIRECTORY}/test/test_matrix.cc)
 target_link_libraries(test_matrix my mynum gtest pthread)
 add_executable(test_matrix_judgment ${SRC_DIRECTORY}/test/test_matrix_judgment.cc)
