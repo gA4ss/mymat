@@ -10,3 +10,4 @@ template <typename T>
 std::istream& operator >> (std::istream& in, const Vector<T>& vec) {
   return in;
 }
+

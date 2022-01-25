@@ -126,11 +126,11 @@ private:
 #include <mymat/vector/assign.hpp>
 #include <mymat/vector/add.hpp>
 #include <mymat/vector/sub.hpp>
+#include <mymat/vector/mul.hpp>
+#include <mymat/vector/dot.hpp>
 #include <mymat/vector/append.hpp>
 #include <mymat/vector/cross.hpp>
-#include <mymat/vector/dot.hpp>
 #include <mymat/vector/function.hpp>
-#include <mymat/vector/mul.hpp>
 #include <mymat/vector/one.hpp>
 #include <mymat/vector/zero.hpp>
 #include <mymat/vector/slice.hpp>

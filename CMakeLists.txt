@@ -33,6 +33,7 @@ link_directories(/usr/local/lib)
 set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/__fix_index_xxx.hpp
   ${SRC_DIRECTORY}/matrix/matrix/__good_form_compare_object.hpp
+  ${SRC_DIRECTORY}/matrix/norm.hpp
   ${SRC_DIRECTORY}/matrix/add.hpp
   ${SRC_DIRECTORY}/matrix/append.hpp
   ${SRC_DIRECTORY}/matrix/assign.hpp
