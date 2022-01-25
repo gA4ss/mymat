@@ -1,8 +1,6 @@
 template <typename T>
 std::ostream& operator << (std::ostream& out, const Vector<T>& vec) {
-  for (size_t i = 1; i <= vec.size(); i++) {
-    out << vec[i];
-  }
+  out << vec.str();
   return out;
 }
 

@@ -4,7 +4,6 @@
 #include <ostream>
 
 #include <mymat/common.h>
-#include <mymat/type.hpp>
 #include <mymat/math.h>
 
 namespace mymat {
@@ -79,12 +78,12 @@ public:
     size_t l = vec_.size();
     if (shape_.first == 1) {
       for (size_t i = 0; i < l; i++) {
-        s += to_string(vec_[i]);
+        s += std::to_string(vec_[i]);
         if (i != l-1) s += " ";
       }
     } else {
       for (size_t i = 0; i < l; i++) {
-        s += to_string(vec_[i]);
+        s += std::to_string(vec_[i]);
         if (i != l-1) s += "\n";
       }
     }
@@ -124,9 +123,6 @@ private:
 
 #include <mymat/vector/map.hpp>
 #include <mymat/vector/assign.hpp>
-#include <mymat/vector/add.hpp>
-#include <mymat/vector/sub.hpp>
-#include <mymat/vector/mul.hpp>
 #include <mymat/vector/dot.hpp>
 #include <mymat/vector/append.hpp>
 #include <mymat/vector/cross.hpp>
@@ -136,6 +132,7 @@ private:
 #include <mymat/vector/slice.hpp>
 #include <mymat/vector/transposition.hpp>
 #include <mymat/vector/operator.hpp>
+#include <mymat/vector/exception.hpp>
 
 } // namespace vector
 } // namespace mymat

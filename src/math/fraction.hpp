@@ -26,8 +26,8 @@ fraction_t fraction(const T& x) {
   // 如果为负数，则负号跟谁分子。
   // integer 这部分保证了这点。
   //
-  int64_t integer = to_std_type<int64_t>(integer_str),
-          decimal = to_std_type<int64_t>(decimal_str);
+  int64_t integer = my::to_std_type<int64_t>(integer_str),
+          decimal = my::to_std_type<int64_t>(decimal_str);
   if (decimal_str == "0") {
     return {integer, 1};
   }

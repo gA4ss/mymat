@@ -13,6 +13,10 @@ namespace mymat {
       __FILE__, __LINE__, __FUNCTION__, "m = %lu, n = %lu", m, n); \
   } \
 }
+#define mymat_exception(format, ...) { \
+  throw my::MyException("<mymat> Exception", \
+    __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__); \
+}
 
 #include <mymat/matrix/exception.hpp>
 #include <mymat/vector/exception.hpp>

@@ -32,13 +32,12 @@ link_directories(/usr/local/lib)
 #
 set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/__fix_index_xxx.hpp
-  ${SRC_DIRECTORY}/matrix/matrix/__good_form_compare_object.hpp
+  ${SRC_DIRECTORY}/matrix/__good_form_compare_object.hpp
   ${SRC_DIRECTORY}/matrix/norm.hpp
-  ${SRC_DIRECTORY}/matrix/add.hpp
   ${SRC_DIRECTORY}/matrix/append.hpp
   ${SRC_DIRECTORY}/matrix/assign.hpp
-  ${SRC_DIRECTORY}/matrix/dot.hpp
   ${SRC_DIRECTORY}/matrix/diag.hpp
+  ${SRC_DIRECTORY}/matrix/mul.hpp
   ${SRC_DIRECTORY}/matrix/exception.hpp
   ${SRC_DIRECTORY}/matrix/expansion.hpp
   ${SRC_DIRECTORY}/matrix/flat.hpp
@@ -46,12 +45,10 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/identity.hpp
   ${SRC_DIRECTORY}/matrix/inverse.hpp
   ${SRC_DIRECTORY}/matrix/map.hpp
-  ${SRC_DIRECTORY}/matrix/mul.hpp
   ${SRC_DIRECTORY}/matrix/one.hpp
   ${SRC_DIRECTORY}/matrix/operator.hpp
   ${SRC_DIRECTORY}/matrix/reshape.hpp
   ${SRC_DIRECTORY}/matrix/slice.hpp
-  ${SRC_DIRECTORY}/matrix/sub.hpp
   ${SRC_DIRECTORY}/matrix/transposition.hpp
   ${SRC_DIRECTORY}/matrix/judgment.hpp
   ${SRC_DIRECTORY}/matrix/zero.hpp
@@ -59,15 +56,17 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/counter_diagonal.hpp
   ${SRC_DIRECTORY}/matrix/row_echelon_form.hpp
   ${SRC_DIRECTORY}/matrix/row_simplest_form.hpp
-  ${SRC_DIRECTORY}/matrix/matrix/upper_triangular_form.hpp
+  ${SRC_DIRECTORY}/matrix/upper_triangular_form.hpp
   ${SRC_DIRECTORY}/matrix/det.hpp
   ${SRC_DIRECTORY}/matrix/rank.hpp
-  ${SRC_DIRECTORY}/matrix/matrix/lu.hpp
-  ${SRC_DIRECTORY}/matrix/matrix/ldu.hpp
-  ${SRC_DIRECTORY}/matrix/matrix/crout.hpp
-  ${SRC_DIRECTORY}/matrix/matrix/qr.hpp
-  ${SRC_DIRECTORY}/matrix/matrix/plu.hpp
-  ${SRC_DIRECTORY}/matrix/matrix/cholesky.hpp
+  ${SRC_DIRECTORY}/matrix/nullity.hpp
+  ${SRC_DIRECTORY}/matrix/trace.hpp
+  ${SRC_DIRECTORY}/matrix/lu.hpp
+  ${SRC_DIRECTORY}/matrix/ldu.hpp
+  ${SRC_DIRECTORY}/matrix/crout.hpp
+  ${SRC_DIRECTORY}/matrix/qr.hpp
+  ${SRC_DIRECTORY}/matrix/plu.hpp
+  ${SRC_DIRECTORY}/matrix/cholesky.hpp
   ${SRC_DIRECTORY}/matrix/cofactor_matrix.hpp
   ${SRC_DIRECTORY}/matrix/cofactor.hpp
   ${SRC_DIRECTORY}/matrix/algebraic_cofactor.hpp
@@ -79,7 +78,6 @@ set(MYMAT_MATRIX_HEADERS
 #
 set(MYMAT_VECTOR_HEADERS
   ${SRC_DIRECTORY}/vector/__fix_index.hpp
-  ${SRC_DIRECTORY}/vector/add.hpp
   ${SRC_DIRECTORY}/vector/append.hpp
   ${SRC_DIRECTORY}/vector/assign.hpp
   ${SRC_DIRECTORY}/vector/cross.hpp
@@ -87,13 +85,11 @@ set(MYMAT_VECTOR_HEADERS
   ${SRC_DIRECTORY}/vector/exception.hpp
   ${SRC_DIRECTORY}/vector/function.hpp
   ${SRC_DIRECTORY}/vector/map.hpp
-  ${SRC_DIRECTORY}/vector/mul.hpp
-  ${SRC_DIRECTORY}/vector/one.hpp
-  ${SRC_DIRECTORY}/vector/operator.hpp
   ${SRC_DIRECTORY}/vector/slice.hpp
-  ${SRC_DIRECTORY}/vector/sub.hpp
   ${SRC_DIRECTORY}/vector/transposition.hpp
+  ${SRC_DIRECTORY}/vector/one.hpp
   ${SRC_DIRECTORY}/vector/zero.hpp
+  ${SRC_DIRECTORY}/vector/operator.hpp
 )
 
 #
@@ -122,7 +118,6 @@ set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/math.h
   ${SRC_DIRECTORY}/random.h
   ${SRC_DIRECTORY}/convert.hpp
-  ${SRC_DIRECTORY}/type.hpp
   ${SRC_DIRECTORY}/operator.hpp
 )
 
@@ -142,7 +137,6 @@ set(MYMAT_MATH_CODES
 
 set(MYMAT_CODES
   ${SRC_DIRECTORY}/common.cc
-  ${SRC_DIRECTORY}/type.cc
   ${MYMAT_MATH_CODES}
 )
 
@@ -163,6 +157,8 @@ add_executable(test_matrix_det ${SRC_DIRECTORY}/test/test_matrix_det.cc)
 target_link_libraries(test_matrix_det my mynum mymat gtest pthread)
 add_executable(test_matrix_xxx_form ${SRC_DIRECTORY}/test/test_matrix_xxx_form.cc)
 target_link_libraries(test_matrix_xxx_form my mynum mymat gtest pthread)
+add_executable(test_matrix_rank ${SRC_DIRECTORY}/test/test_matrix_rank.cc)
+target_link_libraries(test_matrix_rank my mynum mymat gtest pthread)
 add_executable(test_matrix_decomposition ${SRC_DIRECTORY}/test/test_matrix_decomposition.cc)
 target_link_libraries(test_matrix_decomposition my mynum mymat gtest pthread)
 add_executable(test_matrix ${SRC_DIRECTORY}/test/test_matrix.cc)
@@ -220,6 +216,8 @@ add_test(NAME test_matrix COMMAND test_matrix)
 set_tests_properties(test_matrix PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_matrix_judgment COMMAND test_matrix_judgment)
 set_tests_properties(test_matrix_judgment PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_rank COMMAND test_matrix_rank)
+set_tests_properties(test_matrix_rank PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_matrix_operator COMMAND test_matrix_operator)
 set_tests_properties(test_matrix_operator PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_matrix_inverse COMMAND test_matrix_inverse)

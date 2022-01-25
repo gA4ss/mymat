@@ -4,7 +4,6 @@
 #include <utility>
 
 #include <mymat/common.h>
-#include <mymat/type.hpp>
 #include <mymat/vector.hpp>
 #include <mymat/math.h>
 
@@ -92,7 +91,7 @@ public:
     size_t i = mat_.size(), j = mat_[0].size();
     for (size_t m = 0; m < i; m++) {
       for (size_t n = 0; n < j; n++) {
-        s += to_string<T>(mat_[m][n]);
+        s += std::to_string(mat_[m][n]);
         if (n == j-1) {
           if (m != i-1)
             s += "\n";
@@ -176,13 +175,9 @@ private:
 #include <mymat/matrix/__good_form_compare_object.hpp>
 #include <mymat/matrix/map.hpp>
 #include <mymat/matrix/assign.hpp>
-#include <mymat/matrix/add.hpp>
-#include <mymat/matrix/sub.hpp>
 #include <mymat/matrix/mul.hpp>
 #include <mymat/matrix/append.hpp>
-#include <mymat/matrix/dot.hpp>
 #include <mymat/matrix/diag.hpp>
-#include <mymat/matrix/exception.hpp>
 #include <mymat/matrix/expansion.hpp>
 #include <mymat/matrix/flat.hpp>
 #include <mymat/matrix/function.hpp>
@@ -200,6 +195,8 @@ private:
 #include <mymat/matrix/upper_triangular_form.hpp>
 #include <mymat/matrix/det.hpp>
 #include <mymat/matrix/rank.hpp>
+#include <mymat/matrix/nullity.hpp>
+#include <mymat/matrix/trace.hpp>
 #include <mymat/matrix/cofactor_matrix.hpp>
 #include <mymat/matrix/cofactor.hpp>
 #include <mymat/matrix/algebraic_cofactor.hpp>
@@ -209,6 +206,7 @@ private:
 #include <mymat/matrix/ldu.hpp>
 #include <mymat/matrix/crout.hpp>
 #include <mymat/matrix/operator.hpp>
+#include <mymat/matrix/exception.hpp>
 
 } // namespace matrix
 } // namespace mymat

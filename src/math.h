@@ -11,7 +11,6 @@
 #include <mynum/math.h>
 
 #include <mymat/common.h>
-#include <mymat/type.hpp>
 
 //
 // Math库实现

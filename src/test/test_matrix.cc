@@ -18,7 +18,7 @@ void test_basic() {
   matrix::Matrix<int> tmat = matrix::transposition<int>(mat);
   std::cout << tmat.str() << std::endl;
 
-  matrix::Matrix<int> rmat = matrix::dot(mat, tmat);
+  matrix::Matrix<int> rmat = matrix::mul(mat, tmat);
   std::cout << rmat.str() << std::endl;
 
   matrix::Matrix<int> imat = matrix::identity<int>(3);

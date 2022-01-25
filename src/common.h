@@ -13,10 +13,18 @@ namespace mymat {
 using namespace my;
 
 //////////////////////////////
+//        分布引擎常量        //
+//////////////////////////////
+typedef enum {
+  kBernoulliT = 0
+} distribution_type_t;
+
+//////////////////////////////
 //        全局配置结构        //
 //////////////////////////////
 typedef struct Config {
   double epsilon;
+  distribution_type_t distribution;
 } config_t;
 
 extern config_t __config;

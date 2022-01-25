@@ -139,7 +139,7 @@
 // 外部自行定义异常 
 //
 #define matrix_exception(format, ...) { \
-  throw my::MyException("<mymat> Matrix is exception.", \
+  throw my::MyException("<mymat> Matrix Exception", \
     __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__); \
 }
 

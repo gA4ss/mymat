@@ -4,7 +4,7 @@ std::vector<T> main_diagonal(const Matrix<T>& mat) {
   size_t l = mat.number_of_rows();
   std::vector<T> vec(l);
   for(size_t i = 0; i < l; i++) {
-    vec[i] = mat[i+1][i+1];
+    vec[i] = mat._at(i, i);
   }
   return vec;
 }

@@ -6,7 +6,6 @@
 #include <numeric>
 #include <utility>
 #include <mynum/math.h>
-#include <mymat/type.hpp>
 #include <mymat/common.h>
 
 namespace mymat {
