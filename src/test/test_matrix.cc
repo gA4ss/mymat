@@ -81,17 +81,17 @@ void test_mul() {
           11,12,3;
   std::cout << (mat1 * mat2).str() << std::endl << std::endl;
   std::cout << (mat2 * mat1).str() << std::endl << std::endl;
+}
 
-
-  vector::Vector<double> vec1(5);
-  vec1 << 1,2,3,4,5;
-  vector::Vector<double> vec2(5);
-  vec2 << 5,4,3,2,1;
-  std::cout << (vec1 * vector::transposition(vec2)).str() << std::endl << std::endl;
-  std::cout << (vector::transposition(vec1) * vec2).str() << std::endl << std::endl;
+void test_random() {
+  matrix::Matrix<double> mat1 = matrix::random<double>(7, 9, 3, 6);
+  matrix::Matrix<int> mat2 = matrix::random<int>(5, 4, 0, 100);
+  std::cout << mat1 << std::endl << std::endl;
+  std::cout << mat2 << std::endl << std::endl;
 }
 
 int main(int argc, char* argv[]) {
   test_mul();
+  test_random();
   return 0;
 }

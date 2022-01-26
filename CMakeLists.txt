@@ -33,7 +33,6 @@ link_directories(/usr/local/lib)
 set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/__fix_index_xxx.hpp
   ${SRC_DIRECTORY}/matrix/__good_form_compare_object.hpp
-  ${SRC_DIRECTORY}/matrix/norm.hpp
   ${SRC_DIRECTORY}/matrix/append.hpp
   ${SRC_DIRECTORY}/matrix/assign.hpp
   ${SRC_DIRECTORY}/matrix/diag.hpp
@@ -46,6 +45,7 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/inverse.hpp
   ${SRC_DIRECTORY}/matrix/map.hpp
   ${SRC_DIRECTORY}/matrix/one.hpp
+  ${SRC_DIRECTORY}/matrix/random.hpp
   ${SRC_DIRECTORY}/matrix/operator.hpp
   ${SRC_DIRECTORY}/matrix/reshape.hpp
   ${SRC_DIRECTORY}/matrix/slice.hpp
@@ -54,6 +54,7 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/zero.hpp
   ${SRC_DIRECTORY}/matrix/main_diagonal.hpp
   ${SRC_DIRECTORY}/matrix/counter_diagonal.hpp
+  ${SRC_DIRECTORY}/matrix/orthogonalization.hpp
   ${SRC_DIRECTORY}/matrix/row_echelon_form.hpp
   ${SRC_DIRECTORY}/matrix/row_simplest_form.hpp
   ${SRC_DIRECTORY}/matrix/upper_triangular_form.hpp
@@ -80,6 +81,7 @@ set(MYMAT_VECTOR_HEADERS
   ${SRC_DIRECTORY}/vector/__fix_index.hpp
   ${SRC_DIRECTORY}/vector/append.hpp
   ${SRC_DIRECTORY}/vector/assign.hpp
+  ${SRC_DIRECTORY}/vector/norm.hpp
   ${SRC_DIRECTORY}/vector/cross.hpp
   ${SRC_DIRECTORY}/vector/dot.hpp
   ${SRC_DIRECTORY}/vector/exception.hpp
@@ -89,6 +91,7 @@ set(MYMAT_VECTOR_HEADERS
   ${SRC_DIRECTORY}/vector/transposition.hpp
   ${SRC_DIRECTORY}/vector/one.hpp
   ${SRC_DIRECTORY}/vector/zero.hpp
+  ${SRC_DIRECTORY}/vector/random.hpp
   ${SRC_DIRECTORY}/vector/operator.hpp
 )
 
@@ -116,7 +119,6 @@ set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/vector.hpp
   ${SRC_DIRECTORY}/matrix.hpp
   ${SRC_DIRECTORY}/math.h
-  ${SRC_DIRECTORY}/random.h
   ${SRC_DIRECTORY}/convert.hpp
   ${SRC_DIRECTORY}/operator.hpp
 )
@@ -167,6 +169,8 @@ add_executable(test_matrix_judgment ${SRC_DIRECTORY}/test/test_matrix_judgment.c
 target_link_libraries(test_matrix_judgment my mynum gtest pthread)
 add_executable(test_matrix_operator ${SRC_DIRECTORY}/test/test_matrix_operator.cc)
 target_link_libraries(test_matrix_operator my mynum gtest pthread)
+add_executable(test_matrix_orth ${SRC_DIRECTORY}/test/test_matrix_orth.cc)
+target_link_libraries(test_matrix_orth my mynum mymat gtest pthread)
 add_executable(test_vector ${SRC_DIRECTORY}/test/test_vector.cc)
 target_link_libraries(test_vector my mynum gtest pthread)
 add_executable(test_vector_operator ${SRC_DIRECTORY}/test/test_vector_operator.cc)
@@ -224,6 +228,8 @@ add_test(NAME test_matrix_inverse COMMAND test_matrix_inverse)
 set_tests_properties(test_matrix_inverse PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_matrix_decomposition COMMAND test_matrix_decomposition)
 set_tests_properties(test_matrix_decomposition PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_orth COMMAND test_matrix_orth)
+set_tests_properties(test_matrix_orth PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_vector COMMAND test_vector)
 set_tests_properties(test_vector PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_vector_operator COMMAND test_vector_operator)

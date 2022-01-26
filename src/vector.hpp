@@ -1,6 +1,7 @@
 #ifndef MYMAT_VECTOR_HPP_
 #define MYMAT_VECTOR_HPP_
 
+#include <random>
 #include <ostream>
 
 #include <mymat/common.h>
@@ -123,12 +124,14 @@ private:
 
 #include <mymat/vector/map.hpp>
 #include <mymat/vector/assign.hpp>
+#include <mymat/vector/norm.hpp>
 #include <mymat/vector/dot.hpp>
 #include <mymat/vector/append.hpp>
 #include <mymat/vector/cross.hpp>
 #include <mymat/vector/function.hpp>
 #include <mymat/vector/one.hpp>
 #include <mymat/vector/zero.hpp>
+#include <mymat/vector/random.hpp>
 #include <mymat/vector/slice.hpp>
 #include <mymat/vector/transposition.hpp>
 #include <mymat/vector/operator.hpp>

@@ -184,15 +184,20 @@ private:
 #include <mymat/matrix/identity.hpp>
 #include <mymat/matrix/one.hpp>
 #include <mymat/matrix/zero.hpp>
+#include <mymat/matrix/random.hpp>
 #include <mymat/matrix/reshape.hpp>
 #include <mymat/matrix/slice.hpp>
 #include <mymat/matrix/transposition.hpp>
 #include <mymat/matrix/judgment.hpp>
 #include <mymat/matrix/main_diagonal.hpp>
 #include <mymat/matrix/counter_diagonal.hpp>
+#include <mymat/matrix/orthogonalization.hpp>
 #include <mymat/matrix/row_echelon_form.hpp>
 #include <mymat/matrix/row_simplest_form.hpp>
 #include <mymat/matrix/upper_triangular_form.hpp>
+#include <mymat/matrix/lu.hpp>
+#include <mymat/matrix/ldu.hpp>
+#include <mymat/matrix/crout.hpp>
 #include <mymat/matrix/det.hpp>
 #include <mymat/matrix/rank.hpp>
 #include <mymat/matrix/nullity.hpp>
@@ -202,9 +207,6 @@ private:
 #include <mymat/matrix/algebraic_cofactor.hpp>
 #include <mymat/matrix/adjoint.hpp>
 #include <mymat/matrix/inverse.hpp>
-#include <mymat/matrix/lu.hpp>
-#include <mymat/matrix/ldu.hpp>
-#include <mymat/matrix/crout.hpp>
 #include <mymat/matrix/operator.hpp>
 #include <mymat/matrix/exception.hpp>
 
