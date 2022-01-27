@@ -11,7 +11,7 @@
  * 2. 使用第k行将第k+1行的第一个非零行为1;
  */
 template <class T>
-Matrix<my::float_t> row_echelon_form(const Matrix<T>& mat, xxxx) {
+Matrix<my::float_t> row_echelon_form(const Matrix<T>& mat) {
   matrix_is_empty_exception(mat);
 
   const size_t number_of_rows = mat.number_of_rows();

@@ -3,32 +3,49 @@
  */
 // #define DBG_LUD
 template <class T>
-std::pair<math::fmatrix_t, math::fmatrix_t> __lu_decomposition(const Matrix<T>& mat) {
+std::pair<matrix_t, matrix_t> __lu_decomposition(const Matrix<T>& mat) {
   matrix_is_not_square(mat);
-  std::vector<std::vector<T> > _mat = mat.value();
 
-  const size_t number_of_rows = _mat.size();
+  const size_t number_of_rows = mat.number_of_rows();
   const size_t number_of_columns = number_of_rows;
 
   //
   // 从原始矩阵创建分数矩阵
   // 创建一个下三角矩阵
   //
-  math::fmatrix_t upper = math::fraction(_mat);
+  std::vector<std::vector<my::float_t> > upper(number_of_rows);
+  for (size_t i = 0; i < number_of_rows; i++) {
+    upper[i].resize(number_of_columns);
+    for (size_t j = 0; j < number_of_columns; j++) {
+      upper[i][j] = static_cast<my::float_t>(mat._at(i, j));
+    }
+  }
   // 创建一个单位矩阵为下三角矩阵的基础
-  math::fmatrix_t lower(number_of_rows);
+  std::vector<std::vector<my::float_t> > lower(number_of_rows);
   for (size_t i = 0; i < number_of_rows; i++) {
     lower[i].resize(number_of_columns);
     for (size_t j = 0; j < number_of_columns; j++) {
-      if (i == j) lower[i][j] = {1, 1};   // 主对角线为1
-      else lower[i][j] = {0, 1};
+      if (i == j) lower[i][j] = 1.0;
+      else lower[i][j] = 0.0;
     }
   }
+
 #ifdef DBG_LUD
     std::cout << "upper : " << std::endl;
-    std::cout << math::fraction_str(upper) << std::endl;
-    std::cout << "lower : " << std::endl;
-    std::cout << math::fraction_str(lower) << std::endl << std::endl;
+    for (size_t _dbg_i = 0; _dbg_i < number_of_rows; _dbg_i++) {
+      for (size_t _dbg_j = 0; _dbg_j < number_of_columns; _dbg_j++) {
+        std::cout << upper[_dbg_i][_dbg_j] << " ";
+      }
+      std::cout << std::endl;
+    }
+    std::cout << std::endl << "lower : " << std::endl;
+    for (size_t _dbg_i = 0; _dbg_i < number_of_rows; _dbg_i++) {
+      for (size_t _dbg_j = 0; _dbg_j < number_of_columns; _dbg_j++) {
+        std::cout << lower[_dbg_i][_dbg_j] << " ";
+      }
+      std::cout << std::endl;
+    }
+    std::cout << std::endl << std::endl;
 #endif
 
   // 行与列，都一样。
@@ -44,7 +61,7 @@ std::pair<math::fmatrix_t, math::fmatrix_t> __lu_decomposition(const Matrix<T>& 
     //
     size_t pivot = pivotal_row;
 __find_pivot:
-    if (math::fraction_is_zero(upper[pivotal_row][pivot])) {
+    if (math::near<my::float_t>(upper[pivotal_row][pivot], 0)) {
       //
       // 如果主元为0，则在k+1与k+n行内找k列不为0的行，并且
       // 离k行距离越近越占优势。
@@ -54,15 +71,15 @@ __find_pivot:
         //
         // 找到不为0的行，在将此行加上主行上。
         //
-        if (!math::fraction_is_zero(upper[i][pivot])) {
+        if (!math::near<my::float_t>(upper[i][pivot], 0)) {
           for (size_t j = 0; j < number_of_columns; j++) {
-            upper[pivotal_row][j] = math::fraction_add(upper[pivotal_row][j], upper[i][j]);
+            upper[pivotal_row][j] += upper[i][j];
           }
           found = i;      // 记录对应的行
           //
           // 下三角形进行记录变换操作
           //
-          lower[pivotal_row][i] = {1, 1};
+          lower[pivotal_row][i] = 1;
           break;
         }
       }/* end for */
@@ -92,18 +109,15 @@ __find_pivot:
     //
     for (size_t i = pivotal_row+1; i < number_of_rows; i++) {
       // 如果为0，则跳过。
-      if (math::fraction_is_zero(upper[i][pivot])) continue;
+      if (math::near<my::float_t>(upper[i][pivot], 0)) continue;
 
       //
       // 取出主元与要处理行的主元，合成一个倒数并于当前行相乘。
       //
-      math::fraction_t p = upper[pivotal_row][pivot];
-      math::fraction_t i_pivot = upper[i][pivot];
-      math::fraction_t multiple = math::fraction_div(i_pivot, p);
+      my::float_t multiple = upper[i][pivot] / upper[pivotal_row][pivot];
       for (size_t k = 0; k < number_of_columns; k++) {
-        math::fraction_t v1 = math::fraction_mul(upper[pivotal_row][k], multiple);
-        math::fraction_t v2 = upper[i][k];
-        upper[i][k] = math::fraction_sub(v2, v1);
+        my::float_t v = upper[pivotal_row][k] * multiple;
+        upper[i][k] -= v;
       }
       //
       // 更新下三角矩阵
@@ -112,22 +126,29 @@ __find_pivot:
     }/* end for */
 #ifdef DBG_LUD
     std::cout << "upper : " << std::endl;
-    std::cout << math::fraction_str(upper) << std::endl;
-    std::cout << "lower : " << std::endl;
-    std::cout << math::fraction_str(lower) << std::endl << std::endl;
+    for (size_t _dbg_i = 0; _dbg_i < number_of_rows; _dbg_i++) {
+      for (size_t _dbg_j = 0; _dbg_j < number_of_columns; _dbg_j++) {
+        std::cout << upper[_dbg_i][_dbg_j] << " ";
+      }
+      std::cout << std::endl;
+    }
+    std::cout << std::endl << "lower : " << std::endl;
+    for (size_t _dbg_i = 0; _dbg_i < number_of_rows; _dbg_i++) {
+      for (size_t _dbg_j = 0; _dbg_j < number_of_columns; _dbg_j++) {
+        std::cout << lower[_dbg_i][_dbg_j] << " ";
+      }
+      std::cout << std::endl;
+    }
+    std::cout << std::endl << std::endl;
 #endif
   }
   return {lower, upper};
 }
 
 template <class T>
-std::pair<Matrix<T>, Matrix<T> > lu(const Matrix<T>& mat) {
-  if (det<T>(mat) == 0) {  // 如果det为0，则表示不具备分解的条件。
-    matrix_exception("%s", "Matrix is singular.");
-  }
-
-  std::pair<math::fmatrix_t, math::fmatrix_t> lu_pair = __lu_decomposition(mat);
-  return {Matrix<T>(lu_pair.first), Matrix<T>(lu_pair.second)};
+std::pair<Matrix<my::float_t>, Matrix<my::float_t> > lu(const Matrix<T>& mat) {
+  std::pair<matrix_t, matrix_t> lu_pair = __lu_decomposition(mat);
+  return {Matrix<my::float_t>(lu_pair.first), Matrix<my::float_t>(lu_pair.second)};
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

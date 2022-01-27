@@ -125,6 +125,7 @@ private:
 #include <mymat/vector/map.hpp>
 #include <mymat/vector/assign.hpp>
 #include <mymat/vector/norm.hpp>
+#include <mymat/vector/normalization.hpp>
 #include <mymat/vector/dot.hpp>
 #include <mymat/vector/append.hpp>
 #include <mymat/vector/cross.hpp>

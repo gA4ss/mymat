@@ -188,6 +188,7 @@ private:
 #include <mymat/matrix/reshape.hpp>
 #include <mymat/matrix/slice.hpp>
 #include <mymat/matrix/transposition.hpp>
+#include <mymat/matrix/normalization.hpp>
 #include <mymat/matrix/judgment.hpp>
 #include <mymat/matrix/main_diagonal.hpp>
 #include <mymat/matrix/counter_diagonal.hpp>
@@ -195,13 +196,15 @@ private:
 #include <mymat/matrix/row_echelon_form.hpp>
 #include <mymat/matrix/row_simplest_form.hpp>
 #include <mymat/matrix/upper_triangular_form.hpp>
+#include <mymat/matrix/det.hpp>
 #include <mymat/matrix/lu.hpp>
 #include <mymat/matrix/ldu.hpp>
 #include <mymat/matrix/crout.hpp>
-#include <mymat/matrix/det.hpp>
+#include <mymat/matrix/qr.hpp>
 #include <mymat/matrix/rank.hpp>
 #include <mymat/matrix/nullity.hpp>
 #include <mymat/matrix/trace.hpp>
+#include <mymat/matrix/eigen.hpp>
 #include <mymat/matrix/cofactor_matrix.hpp>
 #include <mymat/matrix/cofactor.hpp>
 #include <mymat/matrix/algebraic_cofactor.hpp>

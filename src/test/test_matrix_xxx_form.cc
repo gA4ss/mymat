@@ -13,7 +13,7 @@ void test_row_echelon_form() {
   // std::cout << mat << std::endl;
   // std::cout << mat.str() << std::endl << std::endl;
   std::cout << mat.str2() << std::endl << std::endl;
-  math::fmatrix_t out = matrix::row_echelon_form<double>(mat);
+  math::fmatrix_t out = matrix::fraction_row_echelon_form<double>(mat);
   std::cout << math::fraction_str(out) << std::endl << std::endl << std::endl;
 
   matrix::Matrix<double> mat2(5,4);
@@ -24,8 +24,8 @@ void test_row_echelon_form() {
           9.12,10.45,0.09,0.87;
   // std::cout << mat2.str() << std::endl << std::endl;
   std::cout << mat2.str2() << std::endl << std::endl;
-  out = matrix::row_echelon_form<double>(mat2);
-  std::cout << math::fraction_str(out) << std::endl << std::endl;
+  matrix::Matrix<my::float_t> rmat = matrix::row_echelon_form<double>(mat2);
+  std::cout << rmat << std::endl << std::endl;
 
   matrix::Matrix<double> mat3(3,3);
   mat3 << 1,2,3,
@@ -33,8 +33,8 @@ void test_row_echelon_form() {
           7,8,9;
   // std::cout << mat3.str() << std::endl << std::endl;
   std::cout << mat3.str2() << std::endl << std::endl;
-  out = matrix::row_echelon_form<double>(mat3);
-  std::cout << math::fraction_str(out) << std::endl;
+  rmat = matrix::row_echelon_form<double>(mat3);
+  std::cout << rmat << std::endl;
 }
 
 void test_upper_triangular_form() {
@@ -46,7 +46,7 @@ void test_upper_triangular_form() {
          9,10,0,0,4.3;
   // std::cout << mat << std::endl;
   std::cout << mat.str2() << std::endl << std::endl;
-  math::fmatrix_t out = matrix::upper_triangular_form<double>(mat);
+  math::fmatrix_t out = matrix::fraction_upper_triangular_form<double>(mat);
   std::cout << math::fraction_str(out) << std::endl << std::endl << std::endl;
 
   matrix::Matrix<double> mat2(4,4);
@@ -55,23 +55,23 @@ void test_upper_triangular_form() {
           -0.123,1.56,6.7,8.8,
           1.456,-6.145,7.78,8.897;
   std::cout << mat2.str2() << std::endl << std::endl;
-  out = matrix::upper_triangular_form<double>(mat2);
-  std::cout << math::fraction_str(out) << std::endl << std::endl;
+  matrix::Matrix<my::float_t> rmat = matrix::upper_triangular_form<double>(mat2);
+  std::cout << rmat << std::endl << std::endl;
 
   matrix::Matrix<double> mat3(3,3);
   mat3 << 1,2,3,
           4,5,6,
           7,11,9;
   std::cout << mat3.str2() << std::endl << std::endl;
-  out = matrix::upper_triangular_form<double>(mat3);
-  std::cout << math::fraction_str(out) << std::endl;
+  rmat = matrix::upper_triangular_form<double>(mat3);
+  std::cout << rmat << std::endl;
 
   mat3 << 2,4,2,
           1,5,2,
           4,-1,9;
   std::cout << mat3.str2() << std::endl << std::endl;
-  out = matrix::upper_triangular_form<double>(mat3);
-  std::cout << math::fraction_str(out) << std::endl;
+  rmat = matrix::upper_triangular_form<double>(mat3);
+  std::cout << rmat << std::endl;
 }
 
 int main(int argc, char* argv[]) {

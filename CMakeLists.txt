@@ -68,10 +68,12 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/qr.hpp
   ${SRC_DIRECTORY}/matrix/plu.hpp
   ${SRC_DIRECTORY}/matrix/cholesky.hpp
+  ${SRC_DIRECTORY}/matrix/eigen.hpp
   ${SRC_DIRECTORY}/matrix/cofactor_matrix.hpp
   ${SRC_DIRECTORY}/matrix/cofactor.hpp
   ${SRC_DIRECTORY}/matrix/algebraic_cofactor.hpp
   ${SRC_DIRECTORY}/matrix/adjoint.hpp
+  ${SRC_DIRECTORY}/matrix/normalization.hpp
 )
 
 #
@@ -82,6 +84,7 @@ set(MYMAT_VECTOR_HEADERS
   ${SRC_DIRECTORY}/vector/append.hpp
   ${SRC_DIRECTORY}/vector/assign.hpp
   ${SRC_DIRECTORY}/vector/norm.hpp
+  ${SRC_DIRECTORY}/vector/normalization.hpp
   ${SRC_DIRECTORY}/vector/cross.hpp
   ${SRC_DIRECTORY}/vector/dot.hpp
   ${SRC_DIRECTORY}/vector/exception.hpp
@@ -175,7 +178,15 @@ add_executable(test_vector ${SRC_DIRECTORY}/test/test_vector.cc)
 target_link_libraries(test_vector my mynum gtest pthread)
 add_executable(test_vector_operator ${SRC_DIRECTORY}/test/test_vector_operator.cc)
 target_link_libraries(test_vector_operator my mynum gtest pthread)
+add_executable(test_matrix_normalization ${SRC_DIRECTORY}/test/test_matrix_normalization.cc)
+target_link_libraries(test_matrix_normalization my mynum gtest pthread)
+add_executable(test_vector_normalization ${SRC_DIRECTORY}/test/test_vector_normalization.cc)
+target_link_libraries(test_vector_normalization my mynum gtest pthread)
+add_executable(test_matrix_eigen ${SRC_DIRECTORY}/test/test_matrix_eigen.cc)
+target_link_libraries(test_matrix_eigen my mynum gtest pthread)
 endif(BUILD_TEST)
+
+
 
 #
 # Tools Build
@@ -234,6 +245,12 @@ add_test(NAME test_vector COMMAND test_vector)
 set_tests_properties(test_vector PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 add_test(NAME test_vector_operator COMMAND test_vector_operator)
 set_tests_properties(test_vector_operator PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_normalization COMMAND test_matrix_normalization)
+set_tests_properties(test_matrix_normalization PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_vector_normalization COMMAND test_vector_normalization)
+set_tests_properties(test_vector_normalization PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
+add_test(NAME test_matrix_eigen COMMAND test_matrix_eigen)
+set_tests_properties(test_matrix_eigen PROPERTIES FAIL_REGULAR_EXPRESSION "FAILED")
 
 #
 # Install Set

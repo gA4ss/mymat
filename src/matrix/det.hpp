@@ -14,12 +14,11 @@ template <class T>
 my::float_t det(const Matrix<T>& mat) {
   matrix_is_not_square(mat);
   size_t exchange_count = 0;
-  math::fmatrix_t fmat = upper_triangular_form<T>(mat, &exchange_count);
+  Matrix<my::float_t> upper = upper_triangular_form<T>(mat, &exchange_count);
 
   my::float_t d = 1;
-  for (size_t i = 0; i < fmat.size(); i++) {
-    my::float_t v = static_cast<my::float_t>(fmat[i][i].first) / 
-                    static_cast<my::float_t>(fmat[i][i].second);
+  for (size_t i = 0; i < upper.number_of_rows(); i++) {
+    my::float_t v = upper._at(i, i);
     d *= v;
   }
   if (d) {
