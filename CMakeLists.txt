@@ -62,6 +62,7 @@ set(MYMAT_MATRIX_HEADERS
   ${SRC_DIRECTORY}/matrix/rank.hpp
   ${SRC_DIRECTORY}/matrix/nullity.hpp
   ${SRC_DIRECTORY}/matrix/trace.hpp
+  ${SRC_DIRECTORY}/matrix/svd.hpp
   ${SRC_DIRECTORY}/matrix/lu.hpp
   ${SRC_DIRECTORY}/matrix/ldu.hpp
   ${SRC_DIRECTORY}/matrix/crout.hpp

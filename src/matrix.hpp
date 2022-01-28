@@ -197,6 +197,7 @@ private:
 #include <mymat/matrix/row_simplest_form.hpp>
 #include <mymat/matrix/upper_triangular_form.hpp>
 #include <mymat/matrix/det.hpp>
+#include <mymat/matrix/svd.hpp>
 #include <mymat/matrix/lu.hpp>
 #include <mymat/matrix/ldu.hpp>
 #include <mymat/matrix/crout.hpp>
