@@ -24,7 +24,7 @@ void test_row_echelon_form() {
           9.12,10.45,0.09,0.87;
   // std::cout << mat2.str() << std::endl << std::endl;
   std::cout << mat2.str2() << std::endl << std::endl;
-  matrix::Matrix<my::float_t> rmat = matrix::row_echelon_form<double>(mat2);
+  matrix::Matrix<number_t> rmat = matrix::row_echelon_form<double>(mat2);
   std::cout << rmat << std::endl << std::endl;
 
   matrix::Matrix<double> mat3(3,3);
@@ -55,7 +55,7 @@ void test_upper_triangular_form() {
           -0.123,1.56,6.7,8.8,
           1.456,-6.145,7.78,8.897;
   std::cout << mat2.str2() << std::endl << std::endl;
-  matrix::Matrix<my::float_t> rmat = matrix::upper_triangular_form<double>(mat2);
+  matrix::Matrix<number_t> rmat = matrix::upper_triangular_form<double>(mat2);
   std::cout << rmat << std::endl << std::endl;
 
   matrix::Matrix<double> mat3(3,3);

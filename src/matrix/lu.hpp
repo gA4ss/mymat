@@ -16,15 +16,15 @@ std::pair<matrix_t, matrix_t> __lu_decomposition(const Matrix<T>& mat) {
   // 从原始矩阵创建分数矩阵
   // 创建一个下三角矩阵
   //
-  std::vector<std::vector<my::float_t> > upper(number_of_rows);
+  std::vector<std::vector<number_t> > upper(number_of_rows);
   for (size_t i = 0; i < number_of_rows; i++) {
     upper[i].resize(number_of_columns);
     for (size_t j = 0; j < number_of_columns; j++) {
-      upper[i][j] = static_cast<my::float_t>(mat._at(i, j));
+      upper[i][j] = static_cast<number_t>(mat._at(i, j));
     }
   }
   // 创建一个单位矩阵为下三角矩阵的基础
-  std::vector<std::vector<my::float_t> > lower(number_of_rows);
+  std::vector<std::vector<number_t> > lower(number_of_rows);
   for (size_t i = 0; i < number_of_rows; i++) {
     lower[i].resize(number_of_columns);
     for (size_t j = 0; j < number_of_columns; j++) {
@@ -64,7 +64,7 @@ std::pair<matrix_t, matrix_t> __lu_decomposition(const Matrix<T>& mat) {
     //
     size_t pivot = pivotal_row;
 __find_pivot:
-    if (math::near<my::float_t>(upper[pivotal_row][pivot], 0)) {
+    if (math::near<number_t>(upper[pivotal_row][pivot], 0)) {
       //
       // 如果主元为0，则在k+1与k+n行内找k列不为0的行，并且
       // 离k行距离越近越占优势。
@@ -74,7 +74,7 @@ __find_pivot:
         //
         // 找到不为0的行，在将此行加上主行上。
         //
-        if (!math::near<my::float_t>(upper[i][pivot], 0)) {
+        if (!math::near<number_t>(upper[i][pivot], 0)) {
           for (size_t j = 0; j < number_of_columns; j++) {
             upper[pivotal_row][j] += upper[i][j];
           }
@@ -112,14 +112,14 @@ __find_pivot:
     //
     for (size_t i = pivotal_row+1; i < number_of_rows; i++) {
       // 如果为0，则跳过。
-      if (math::near<my::float_t>(upper[i][pivot], 0)) continue;
+      if (math::near<number_t>(upper[i][pivot], 0)) continue;
 
       //
       // 取出主元与要处理行的主元，合成一个倒数并于当前行相乘。
       //
-      my::float_t multiple = upper[i][pivot] / upper[pivotal_row][pivot];
+      number_t multiple = upper[i][pivot] / upper[pivotal_row][pivot];
       for (size_t k = 0; k < number_of_columns; k++) {
-        my::float_t v = upper[pivotal_row][k] * multiple;
+        number_t v = upper[pivotal_row][k] * multiple;
         upper[i][k] -= v;
       }
       //
@@ -149,9 +149,9 @@ __find_pivot:
 }
 
 template <class T>
-std::pair<Matrix<my::float_t>, Matrix<my::float_t> > lu(const Matrix<T>& mat) {
+std::pair<Matrix<number_t>, Matrix<number_t> > lu(const Matrix<T>& mat) {
   std::pair<matrix_t, matrix_t> lu_pair = __lu_decomposition(mat);
-  return {Matrix<my::float_t>(lu_pair.first), Matrix<my::float_t>(lu_pair.second)};
+  return {Matrix<number_t>(lu_pair.first), Matrix<number_t>(lu_pair.second)};
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

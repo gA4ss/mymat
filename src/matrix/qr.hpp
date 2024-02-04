@@ -25,13 +25,13 @@
 /**
   * @brief         计算两个向量的内积。
   */
-my::float_t __inner_product(const std::vector<my::float_t>& a, 
-                            const std::vector<my::float_t>& b) {
+number_t __inner_product(const std::vector<number_t>& a, 
+                            const std::vector<number_t>& b) {
   // if (a.size() != b.size()) {
   //   matrix_exception("Size of vector a is not same as vector b's, (%lu != %lu).",
   //                     a.size(). b.size());
   // }
-  my::float_t p = 0;
+  number_t p = 0;
   size_t n = a.size();
   for (size_t i = 0; i < n; i++)
     p += a[i] * b[i];
@@ -41,8 +41,8 @@ my::float_t __inner_product(const std::vector<my::float_t>& a,
 /**
   * @brief         计算向量的2-范数。
   */
-my::float_t __norm(const std::vector<my::float_t>& a) {
-  my::float_t r = 0.0;
+number_t __norm(const std::vector<number_t>& a) {
+  number_t r = 0.0;
   for (size_t i = 0; i < a.size(); i++) {
     r += (a[i] * a[i]);
   }
@@ -52,10 +52,10 @@ my::float_t __norm(const std::vector<my::float_t>& a) {
 /**
   * @brief         归一化向量。
   */
-std::vector<my::float_t> __normalization(const std::vector<my::float_t>& a) {
-  my::float_t nl = __norm(a);
+std::vector<number_t> __normalization(const std::vector<number_t>& a) {
+  number_t nl = __norm(a);
   size_t n = a.size();
-  std::vector<my::float_t> nvec(n);
+  std::vector<number_t> nvec(n);
   for (size_t i = 0; i < n; i++) {
     nvec[i] = a[i] / nl;
   }
@@ -69,11 +69,11 @@ std::vector<my::float_t> __normalization(const std::vector<my::float_t>& a) {
   * @note          这里的输入需要保证b向量是进行归一化处理的。
   * @return        返回一个新的向量，其中每个元素都是归一化后的值。
   */
-std::vector<my::float_t> __projection(const std::vector<my::float_t>& a, 
-                                      const std::vector<my::float_t>& b) {
-  my::float_t inner = __inner_product(a, b);
+std::vector<number_t> __projection(const std::vector<number_t>& a, 
+                                      const std::vector<number_t>& b) {
+  number_t inner = __inner_product(a, b);
   size_t n = b.size();
-  std::vector<my::float_t> vec(n);
+  std::vector<number_t> vec(n);
   for (size_t i = 0; i < n; i++)
     vec[i] = inner * b[i];
   return vec;
@@ -82,7 +82,7 @@ std::vector<my::float_t> __projection(const std::vector<my::float_t>& a,
 /**
   * @brief         两个向量相减结果保存到向量a中。
   */
-void __vector_sub(std::vector<my::float_t>& a, const std::vector<my::float_t>& b) {
+void __vector_sub(std::vector<number_t>& a, const std::vector<number_t>& b) {
   for (size_t i = 0; i < a.size(); i++)
     a[i] -= b[i];
 }
@@ -91,13 +91,13 @@ void __vector_sub(std::vector<my::float_t>& a, const std::vector<my::float_t>& b
   * @brief         转换mat向量的每一个元素的类型到float。
   */
 template <class T>
-std::vector<std::vector<my::float_t> > __convert(const std::vector<std::vector<T> >& mat) {
+std::vector<std::vector<number_t> > __convert(const std::vector<std::vector<T> >& mat) {
   size_t m = mat.size(), n = mat[0].size();
-  std::vector<std::vector<my::float_t> > _mat(m);
+  std::vector<std::vector<number_t> > _mat(m);
   for (size_t i = 0; i < m; i++) {
     _mat[i].resize(n);
     for (size_t j = 0; j < n; j++)
-      _mat[i][j] = static_cast<my::float_t>(mat[i][j]);
+      _mat[i][j] = static_cast<number_t>(mat[i][j]);
   }
   return _mat;
 }
@@ -121,7 +121,7 @@ std::vector<std::vector<my::float_t> > __convert(const std::vector<std::vector<T
   * 
   * @par 示例
   * @code
-  * std::pair<Matrix<my::float_t>, Matrix<my::float_t> > omats;
+  * std::pair<Matrix<number_t>, Matrix<number_t> > omats;
   * Matrix<int> mat(3,3);
   * mat << 1,2,3,
   *        2,4,5,
@@ -132,7 +132,7 @@ std::vector<std::vector<my::float_t> > __convert(const std::vector<std::vector<T
   * @endcode
   */
 template <class T>
-std::pair<Matrix<my::float_t>, Matrix<my::float_t> > qr(const Matrix<T>& mat) {
+std::pair<Matrix<number_t>, Matrix<number_t> > qr(const Matrix<T>& mat) {
 
   //
   // 判断矩阵的形状，这里忽略了秩的情况。
@@ -154,13 +154,13 @@ std::pair<Matrix<my::float_t>, Matrix<my::float_t> > qr(const Matrix<T>& mat) {
   //
   // 这里的类型要可以自动转换到float_t类型才可以
   //
-  std::vector<std::vector<my::float_t> > a = __convert(tmat.value());
-  std::vector<std::vector<my::float_t> > q(m), r(m);
+  std::vector<std::vector<number_t> > a = __convert(tmat.value());
+  std::vector<std::vector<number_t> > q(m), r(m);
   for (size_t i = 0; i < m; i++) {
     q[i].resize(m);
     r[i].resize(n);
   }
-  std::vector<my::float_t> p(m);
+  std::vector<number_t> p(m);
 
   //
   // 遍历a的每列
@@ -196,7 +196,7 @@ std::pair<Matrix<my::float_t>, Matrix<my::float_t> > qr(const Matrix<T>& mat) {
     }
   }
 
-  return {Matrix<my::float_t>(q), Matrix<my::float_t>(r)};
+  return {Matrix<number_t>(q), Matrix<number_t>(r)};
 }
 
 /**

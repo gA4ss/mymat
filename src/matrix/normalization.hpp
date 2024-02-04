@@ -1,12 +1,12 @@
 template <class T>
-Matrix<my::float_t> normalization(const Matrix<T>& mat) {
+Matrix<number_t> normalization(const Matrix<T>& mat) {
   std::vector<std::vector<T> > _mat = transposition<T>(mat).value();
   size_t r = _mat.size(), c = _mat[0].size();
   matrix_t _tmat(r);
   for (size_t i = 0; i < r; i++) {
     _tmat[i].resize(c);
     for (size_t j = 0; j < c; j++) {
-      _tmat[i][j] = static_cast<my::float_t>(_mat[i][j]);
+      _tmat[i][j] = static_cast<number_t>(_mat[i][j]);
     }
   }
 
@@ -17,7 +17,7 @@ Matrix<my::float_t> normalization(const Matrix<T>& mat) {
     //
     // 计算每个向量的范数
     //
-    my::float_t nl = 0.0;
+    number_t nl = 0.0;
     for (size_t j = 0; j < c; j++) {
       nl += (_tmat[i][j] * _tmat[i][j]);
     }
@@ -30,5 +30,5 @@ Matrix<my::float_t> normalization(const Matrix<T>& mat) {
       _tmat[i][j] /= nl;
     }
   }
-  return transposition<my::float_t>(Matrix<my::float_t>(_tmat));
+  return transposition<number_t>(Matrix<number_t>(_tmat));
 }

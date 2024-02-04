@@ -1,6 +1,6 @@
 template <class T>
-std::pair<Matrix<my::float_t>, Matrix<my::float_t> > crout(const Matrix<T>& mat) {
-  std::vector<Matrix<my::float_t> > res = ldu<T>(mat);
+std::pair<Matrix<number_t>, Matrix<number_t> > crout(const Matrix<T>& mat) {
+  std::vector<Matrix<number_t> > res = ldu<T>(mat);
   return {mul(res[0], res[1]), res[2]};
 }
 

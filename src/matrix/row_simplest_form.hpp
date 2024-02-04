@@ -3,7 +3,7 @@
  * 2. 每一行的第一个非零元是该列唯一的非零元。               *
  *******************************************************/
 template <class T>
-Matrix<my::float_t> row_simplest_form(const Matrix<T>& mat) {
+Matrix<number_t> row_simplest_form(const Matrix<T>& mat) {
   //
   // 1. 检查当前矩阵是否是行最简形，直接返回。
   // 2. 检查当前矩阵是否是行阶段梯形，如果是则直接化为行最简型。
@@ -17,7 +17,7 @@ Matrix<my::float_t> row_simplest_form(const Matrix<T>& mat) {
     return mat;
 
   // 是否是行阶梯形矩阵
-  std::vector<std::vector<my::float_t> > _mat;
+  std::vector<std::vector<number_t> > _mat;
   if (!is_row_echelon_form_matrix<T>(mat))
     _mat = row_echelon_form<T>(mat).value();
   else
@@ -31,7 +31,7 @@ Matrix<my::float_t> row_simplest_form(const Matrix<T>& mat) {
       _mat[i][j] = 0.0;
     }
   }
-  return Matrix<my::float_t>(_mat);
+  return Matrix<number_t>(_mat);
 }
 
 //

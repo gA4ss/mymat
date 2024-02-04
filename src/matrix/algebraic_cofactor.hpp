@@ -1,5 +1,5 @@
 template <class T>
-my::float_t algebraic_cofactor(const Matrix<T>& mat, size_t i, size_t j) {
+number_t algebraic_cofactor(const Matrix<T>& mat, size_t i, size_t j) {
   if ((i <= 0) || (i > mat.number_of_rows())) {
     matrix_exception("Rows is out of range, rows = \'%lu\', target = \'%lu\'",
       i, mat.number_of_rows()
@@ -11,7 +11,7 @@ my::float_t algebraic_cofactor(const Matrix<T>& mat, size_t i, size_t j) {
     );
   }
 
-  my::float_t c = cofactor<T>(mat, i, j);
+  number_t c = cofactor<T>(mat, i, j);
   if (((i + j) & 1) == 0) return c;     // i + j 为偶数
   return (c * -1);
 }

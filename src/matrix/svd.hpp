@@ -45,8 +45,8 @@
   * @endcode
   */
 template <class T>
-std::vector<Matrix<my::float_t> > svd(const Matrix<T>& mat) {
-  Matrix<my::float_t> umat,smat,vmat;
+std::vector<Matrix<number_t> > svd(const Matrix<T>& mat) {
+  Matrix<number_t> umat,smat,vmat;
   return {umat, smat, vmat};
 }
 

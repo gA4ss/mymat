@@ -1,12 +1,12 @@
 template <class T>
-std::vector<Matrix<my::float_t> > ldu(const Matrix<T>& mat) {
+std::vector<Matrix<number_t> > ldu(const Matrix<T>& mat) {
   if (det<T>(mat) == 0) {  // 如果det为0，则表示不具备分解的条件。
     matrix_exception("%s", "Matrix is singular.");
   }
 
   std::pair<matrix_t, matrix_t> lu_pair = __lu_decomposition(mat);
   size_t l = mat.number_of_rows();
-  std::vector<my::float_t> vec(l);
+  std::vector<number_t> vec(l);
   for (size_t i = 0; i < l; i++) {
     vec[i] = lu_pair.second[i][i];
     //
@@ -16,7 +16,7 @@ std::vector<Matrix<my::float_t> > ldu(const Matrix<T>& mat) {
       lu_pair.second[i][j] /= vec[i];
     }
   }
-  return {Matrix<my::float_t>(lu_pair.first), diag<my::float_t>(vec), Matrix<my::float_t>(lu_pair.second)};
+  return {Matrix<number_t>(lu_pair.first), diag<number_t>(vec), Matrix<number_t>(lu_pair.second)};
 }
 
 template <class T>

@@ -33,13 +33,13 @@
   *
   * @par 示例
   * @code
-  * Matrix<my::float_t> omat = orthogonalization<int>(mat);
+  * Matrix<number_t> omat = orthogonalization<int>(mat);
   * @endcode
   */
 template <class T>
-Matrix<my::float_t> orthogonalization(const Matrix<T>& mat) {
+Matrix<number_t> orthogonalization(const Matrix<T>& mat) {
   if (mat.number_of_rows() == 1)
-    return Matrix<my::float_t>(__convert(mat.value()));
+    return Matrix<number_t>(__convert(mat.value()));
 
   //
   // 转置了向量
@@ -50,9 +50,9 @@ Matrix<my::float_t> orthogonalization(const Matrix<T>& mat) {
   //
   // 这里的类型要可以自动转换到float_t类型才可以
   //
-  std::vector<std::vector<my::float_t> > a = __convert(tmat.value());
-  std::vector<std::vector<my::float_t> > q(n);
-  std::vector<my::float_t> p;
+  std::vector<std::vector<number_t> > a = __convert(tmat.value());
+  std::vector<std::vector<number_t> > q(n);
+  std::vector<number_t> p;
 
   for (size_t i = 0; i < n; i++) {
     q[i] = __normalization(a[i]);
@@ -62,14 +62,14 @@ Matrix<my::float_t> orthogonalization(const Matrix<T>& mat) {
       __vector_sub(a[j], p);
     }
   }
-  return transposition<my::float_t>(Matrix<my::float_t>(q));
+  return transposition<number_t>(Matrix<number_t>(q));
 }
 
 // 正常的施密特正交化过程
 // template <class T>
-// Matrix<my::float_t> orthogonalization(const Matrix<T>& mat) {
+// Matrix<number_t> orthogonalization(const Matrix<T>& mat) {
 //   size_t m = mat.number_of_rows(), n = mat.number_of_columns();
-//   if (m == 1) return Matrix<my::float_t>(__convert(mat.value()));
+//   if (m == 1) return Matrix<number_t>(__convert(mat.value()));
 
 //   //
 //   // 转置了向量
@@ -79,9 +79,9 @@ Matrix<my::float_t> orthogonalization(const Matrix<T>& mat) {
 //   //
 //   // 这里的类型要可以自动转换到float_t类型才可以
 //   //
-//   std::vector<std::vector<my::float_t> > x = __convert(tmat.value());
-//   std::vector<std::vector<my::float_t> > u(n);
-//   std::vector<my::float_t> proj(n), p(n);
+//   std::vector<std::vector<number_t> > x = __convert(tmat.value());
+//   std::vector<std::vector<number_t> > u(n);
+//   std::vector<number_t> proj(n), p(n);
 
 //   u[0] = __normalization(x[0]);
 //   for (size_t i = 1; i < n; i++) {
@@ -99,7 +99,7 @@ Matrix<my::float_t> orthogonalization(const Matrix<T>& mat) {
 //       p[k] = x[i][k] - proj[k];
 //     u[i] = __normalization(p);
 //   }
-//   return transposition<my::float_t>(Matrix<my::float_t>(u));
+//   return transposition<number_t>(Matrix<number_t>(u));
 // }
 
 /**

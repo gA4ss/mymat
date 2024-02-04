@@ -7,9 +7,9 @@ void test_det() {
   matrix::Matrix<double> mat2(2,2);
   matrix::Matrix<double> mat3(3,3);
   matrix::Matrix<double> mat4(4,4);
-  matrix::Matrix<my::float_t> umat;
+  matrix::Matrix<number_t> umat;
   math::fmatrix_t fmat;
-  my::float_t d = 0.0;
+  number_t d = 0.0;
 
   mat3 << 0,2,3,
           0,4,5,

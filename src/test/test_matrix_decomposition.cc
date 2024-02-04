@@ -9,7 +9,7 @@ void test_lu() {
   mat3 << 1,2,3,
           4,5,6,
           3,8,9;
-  std::pair<matrix::Matrix<my::float_t>, matrix::Matrix<my::float_t> > res = matrix::lu<double>(mat3);
+  std::pair<matrix::Matrix<number_t>, matrix::Matrix<number_t> > res = matrix::lu<double>(mat3);
   std::cout << "lower:" << std::endl;
   std::cout << res.first.str2() << std::endl;
   std::cout << "upper:" << std::endl;
@@ -21,7 +21,7 @@ void test_ldu() {
   mat3 << 1,2,3,
           4,5,6,
           3,8,9;
-  std::vector<matrix::Matrix<my::float_t> > res = matrix::ldu(mat3);
+  std::vector<matrix::Matrix<number_t> > res = matrix::ldu(mat3);
   std::cout << "lower:" << std::endl;
   std::cout << res[0] << std::endl;
   std::cout << "d:" << std::endl;
@@ -29,7 +29,7 @@ void test_ldu() {
   std::cout << "upper:" << std::endl;
   std::cout << res[2] << std::endl << std::endl;
 
-  matrix::Matrix<my::float_t> orign = (res[0] * res[1]) * res[2];
+  matrix::Matrix<number_t> orign = (res[0] * res[1]) * res[2];
   std::cout << "orign:" << std::endl;
   std::cout << orign << std::endl << std::endl << std::endl;
 
@@ -51,13 +51,13 @@ void test_crout() {
   mat3 << 1,2,3,
           4,5,6,
           3,8,9;
-  std::pair<matrix::Matrix<my::float_t>, matrix::Matrix<my::float_t> > res = matrix::crout(mat3);
+  std::pair<matrix::Matrix<number_t>, matrix::Matrix<number_t> > res = matrix::crout(mat3);
   std::cout << "ld:" << std::endl;
   std::cout << res.first.str2() << std::endl;
   std::cout << "u:" << std::endl;
   std::cout << res.second.str2() << std::endl << std::endl;
 
-  matrix::Matrix<my::float_t> origin = res.first * res.second;
+  matrix::Matrix<number_t> origin = res.first * res.second;
   std::cout << "orign:" << std::endl;
   std::cout << origin << std::endl << std::endl;
 }

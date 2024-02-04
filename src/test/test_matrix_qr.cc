@@ -12,14 +12,14 @@ void test_qr1() {
   std::cout << "A:" << std::endl;
   std::cout << mat << std::endl;
 
-  std::pair<matrix::Matrix<my::float_t>, matrix::Matrix<my::float_t> > res = matrix::qr<double>(mat);
+  std::pair<matrix::Matrix<number_t>, matrix::Matrix<number_t> > res = matrix::qr<double>(mat);
   std::cout << "Q:" << std::endl;
   std::cout << res.first << std::endl;
   std::cout << "R:" << std::endl;
   std::cout << res.second << std::endl;
 
-  matrix::Matrix<my::float_t> tQ = matrix::transposition<my::float_t>(res.first);
-  matrix::Matrix<my::float_t> one = tQ * res.first;
+  matrix::Matrix<number_t> tQ = matrix::transposition<number_t>(res.first);
+  matrix::Matrix<number_t> one = tQ * res.first;
   std::cout << "Q' * Q: " << std::endl;
   std::cout << one << std::endl << std::endl;
 }
@@ -33,14 +33,14 @@ void test_qr2() {
   std::cout << "A:" << std::endl;
   std::cout << mat << std::endl;
 
-  std::pair<matrix::Matrix<my::float_t>, matrix::Matrix<my::float_t> > res = matrix::qr<double>(mat);
+  std::pair<matrix::Matrix<number_t>, matrix::Matrix<number_t> > res = matrix::qr<double>(mat);
   std::cout << "Q:" << std::endl;
   std::cout << res.first << std::endl;
   std::cout << "R:" << std::endl;
   std::cout << res.second << std::endl;
 
-  matrix::Matrix<my::float_t> tQ = matrix::transposition<my::float_t>(res.first);
-  matrix::Matrix<my::float_t> one = tQ * res.first;
+  matrix::Matrix<number_t> tQ = matrix::transposition<number_t>(res.first);
+  matrix::Matrix<number_t> one = tQ * res.first;
   std::cout << "Q' * Q: " << std::endl;
   std::cout << one << std::endl << std::endl;
 }
