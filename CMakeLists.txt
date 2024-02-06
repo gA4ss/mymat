@@ -109,9 +109,9 @@ set(MYMAT_VECTOR_HEADERS
 # Math interface public header file
 #
 set(MYMAT_MATH_HEADERS
+  ${SRC_DIRECTORY}/math/check.hpp
   ${SRC_DIRECTORY}/math/near.hpp
-  ${SRC_DIRECTORY}/math/fraction.hpp
-  ${SRC_DIRECTORY}/math/fraction.h
+  ${SRC_DIRECTORY}/math/sqrt.hpp
 )
 
 #
@@ -127,23 +127,8 @@ set(MYMAT_HEADERS
   ${SRC_DIRECTORY}/operator.hpp
 )
 
-set(MYMAT_MATH_CODES
-  ${SRC_DIRECTORY}/math/fraction/fraction_add.cc
-  ${SRC_DIRECTORY}/math/fraction/fraction_sub.cc
-  ${SRC_DIRECTORY}/math/fraction/fraction_mul.cc
-  ${SRC_DIRECTORY}/math/fraction/fraction_div.cc
-  ${SRC_DIRECTORY}/math/fraction/fraction_str.cc
-  ${SRC_DIRECTORY}/math/fraction/fraction_reciprocal.cc
-  ${SRC_DIRECTORY}/math/fraction/fraction_is_zero.cc
-  ${SRC_DIRECTORY}/math/fraction/fraction_is_one.cc
-  ${SRC_DIRECTORY}/math/fraction/fraction_cmp.cc
-  ${SRC_DIRECTORY}/math/fraction/fraction_eval.cc
-  ${SRC_DIRECTORY}/math/fraction.cc
-)
-
 set(MYMAT_CODES
   ${SRC_DIRECTORY}/common.cc
-  ${MYMAT_MATH_CODES}
 )
 
 #
