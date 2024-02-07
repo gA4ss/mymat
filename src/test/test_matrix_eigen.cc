@@ -3,10 +3,12 @@
 
 using namespace mymat;
 
-void test_eigen() {
+void test_eigen()
+{
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[])
+{
   test_eigen();
   return 0;
 }

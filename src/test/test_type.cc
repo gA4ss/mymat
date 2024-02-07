@@ -5,13 +5,15 @@
 // #include <mynum/float.h>
 
 template <class T>
-void __get_type_name() {
+void __get_type_name()
+{
   std::cout << "get_type_name = " << typeid(T).name() << std::endl;
 }
 
 typedef unsigned long ul_t;
 typedef unsigned int ui_t;
-void test_type() {
+void test_type()
+{
   char c = 0;
   unsigned char uc = 0;
   short s = 0;
@@ -52,35 +54,40 @@ void test_type() {
   // std::cout << "F = " << typeid(F).name() << std::endl;
 }
 
-void test_vector() {
-  std::vector<std::vector<int> > mat(4);
-  for (int i = 0; i < 4; i++) {
+void test_vector()
+{
+  std::vector<std::vector<int>> mat(4);
+  for (int i = 0; i < 4; i++)
+  {
     mat[i].resize(5);
     for (int j = 0; j < 5; j++)
-      mat[i][j] = i+j;
+      mat[i][j] = i + j;
   }
-  
-  for (int i = 0; i < 4; i++) {
+
+  for (int i = 0; i < 4; i++)
+  {
     for (int j = 0; j < 5; j++)
       std::cout << mat[i][j] << " ";
     std::cout << std::endl;
   }
   std::cout << std::endl;
 
-  std::vector<std::vector<int> >::iterator it = mat.end();
-  std::vector<int> a = {9,9,9,9,9};
+  std::vector<std::vector<int>>::iterator it = mat.end();
+  std::vector<int> a = {9, 9, 9, 9, 9};
   mat.insert(it, a);
 
-  for (int i = 0; i < static_cast<int>(mat.size()); i++) {
+  for (int i = 0; i < static_cast<int>(mat.size()); i++)
+  {
     for (int j = 0; j < 5; j++)
       std::cout << mat[i][j] << " ";
     std::cout << std::endl;
   }
   std::cout << std::endl;
 
-  it = mat.begin()+1;
+  it = mat.begin() + 1;
   mat.erase(it);
-  for (int i = 0; i < static_cast<int>(mat.size()); i++) {
+  for (int i = 0; i < static_cast<int>(mat.size()); i++)
+  {
     for (int j = 0; j < 5; j++)
       std::cout << mat[i][j] << " ";
     std::cout << std::endl;
@@ -88,7 +95,8 @@ void test_vector() {
   std::cout << std::endl;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[])
+{
   test_vector();
   return 0;
 }

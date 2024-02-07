@@ -11,22 +11,26 @@
  *       对应元素上去，行列式的值不变。                                *
  *******************************************************************/
 template <class T>
-number_t det(const Matrix<T>& mat) {
-  if (mat.number_of_rows() != mat.number_of_columns()) {
+T det(const Matrix<T> &mat)
+{
+  if (mat.number_of_rows() != mat.number_of_columns())
+  {
     matrix_exception("Shape is not square, shape = \'(%lu, %lu)\'",
-      mat.number_of_rows(), mat.number_of_columns()
-    );
+                     mat.number_of_rows(), mat.number_of_columns());
   }
   size_t exchange_count = 0;
-  Matrix<number_t> upper = upper_triangular_form<T>(mat, &exchange_count);
+  Matrix<T> upper = upper_triangular_form<T>(mat, &exchange_count);
 
-  number_t d = 1;
-  for (size_t i = 0; i < upper.number_of_rows(); i++) {
-    number_t v = upper._at(i, i);
+  T d = 1;
+  for (size_t i = 0; i < upper.number_of_rows(); i++)
+  {
+    T v = upper._at(i, i);
     d *= v;
   }
-  if (d) {
-    if (exchange_count & 1) d *= -1;
+  if (d)
+  {
+    if (exchange_count & 1)
+      d *= -1;
   }
   return d;
 }

@@ -3,10 +3,12 @@
 
 using namespace mymat;
 
-void test_basic() {
+void test_basic()
+{
   std::vector<std::vector<int>> m;
   std::vector<int> v;
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 5; i++)
+  {
     v.clear();
     for (int j = 0; j < 8; j++)
       v.push_back(j);
@@ -40,14 +42,16 @@ void test_basic() {
   slice_mat = matrix::slice<int>(reshape_mat, 5, 2);
   std::cout << slice_mat.str() << std::endl;
 
-  matrix::Matrix<int> vecmat = matrix::one<int>(1,4);
+  matrix::Matrix<int> vecmat = matrix::one<int>(1, 4);
   matrix::Matrix<int> append_mat = matrix::append<int>(reshape_mat, vecmat, false);
   std::cout << append_mat.str() << std::endl;
 
   // ----------------------------------------------------------------
 
-  m.clear(); v.clear();
-  for (int i = 0; i < 5; i++) {
+  m.clear();
+  v.clear();
+  for (int i = 0; i < 5; i++)
+  {
     v.clear();
     for (int j = 0; j < 5; j++)
       v.push_back(j);
@@ -57,40 +61,49 @@ void test_basic() {
   std::cout << mat2.str() << std::endl;
 
   std::vector<int> vec = main_diagonal(mat2);
-  for (size_t i = 0; i < vec.size(); i++) {
+  for (size_t i = 0; i < vec.size(); i++)
+  {
     std::cout << vec[i] << " ";
   }
   std::cout << std::endl;
 
   vec = counter_diagonal(mat2);
-  for (size_t i = 0; i < vec.size(); i++) {
+  for (size_t i = 0; i < vec.size(); i++)
+  {
     std::cout << vec[i] << " ";
   }
   std::cout << std::endl;
 }
 
-void test_mul() {
-  matrix::Matrix<double> mat1(3,3);
-  matrix::Matrix<double> mat2(3,3);
-  mat1 << 1,2,3,
-          2,4,5,
-          3,9,8;
-  
-  mat2 << 3,4,5,
-          10,9,8,
-          11,12,3;
-  std::cout << (mat1 * mat2).str() << std::endl << std::endl;
-  std::cout << (mat2 * mat1).str() << std::endl << std::endl;
+void test_mul()
+{
+  matrix::Matrix<number_t> mat1(3, 3);
+  matrix::Matrix<number_t> mat2(3, 3);
+  mat1 << 1, 2, 3,
+      2, 4, 5,
+      3, 9, 8;
+
+  mat2 << 3, 4, 5,
+      10, 9, 8,
+      11, 12, 3;
+  std::cout << (mat1 * mat2).str() << std::endl
+            << std::endl;
+  std::cout << (mat2 * mat1).str() << std::endl
+            << std::endl;
 }
 
-void test_random() {
-  matrix::Matrix<double> mat1 = matrix::random<double>(7, 9, 3, 6);
+void test_random()
+{
+  matrix::Matrix<number_t> mat1 = matrix::random<number_t>(7, 9, 3, 6);
   matrix::Matrix<int> mat2 = matrix::random<int>(5, 4, 0, 100);
-  std::cout << mat1 << std::endl << std::endl;
-  std::cout << mat2 << std::endl << std::endl;
+  std::cout << mat1 << std::endl
+            << std::endl;
+  std::cout << mat2 << std::endl
+            << std::endl;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[])
+{
   test_mul();
   test_random();
   return 0;
