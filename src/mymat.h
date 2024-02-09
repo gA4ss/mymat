@@ -49,3 +49,15 @@
  * @todo Give each todo item its own line
  *
  */
+
+#ifndef MYMAT_H_
+#define MYMAT_H_
+
+#include <mymat/common.h>
+#include <mymat/math.h>
+#include <mymat/vector.hpp>
+#include <mymat/matrix.hpp>
+#include <mymat/convert.hpp>
+#include <mymat/wrapper.hpp>
+
+#endif // MYMAT_H_

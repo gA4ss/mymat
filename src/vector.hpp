@@ -134,7 +134,7 @@ namespace mymat
         {
           for (size_t i = 0; i < l; i++)
           {
-            s += std::to_string(vec_[i]);
+            s += math::to_string<T>(vec_[i]);
             if (i != l - 1)
               s += " ";
           }
@@ -143,7 +143,7 @@ namespace mymat
         {
           for (size_t i = 0; i < l; i++)
           {
-            s += std::to_string(vec_[i]);
+            s += math::to_string<T>(vec_[i]);
             if (i != l - 1)
               s += "\n";
           }
@@ -181,6 +181,8 @@ namespace mymat
     private:
       size_t i_;
     };
+
+#define vector_t std::vector<T>
 
 #include <mymat/vector/map.hpp>
 #include <mymat/vector/assign.hpp>

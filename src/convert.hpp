@@ -23,8 +23,8 @@
 #ifndef MYMAT_CONVERT_HPP_
 #define MYMAT_CONVERT_HPP_
 
-#include <mymat/vector.h>
-#include <mymat/matrix.h>
+#include <mymat/vector.hpp>
+#include <mymat/matrix.hpp>
 
 namespace mymat
 {

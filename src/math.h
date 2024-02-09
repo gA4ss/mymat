@@ -35,9 +35,9 @@
 //
 // Math库实现
 //
-#include <mymat/math/check.hpp>
 #include <mymat/math/near.hpp>
 #include <mymat/math/sqrt.hpp>
+#include <mymat/math/to_string.hpp>
 
 #endif // MYMAT_MATH_H_
 

@@ -54,7 +54,7 @@ namespace mymat
       size_t number_of_rows() const { return mat_.size(); }
       size_t number_of_columns() const { return mat_[0].size(); }
       std::vector<std::vector<T>> value() const { return mat_; }
-      
+
       std::vector<T> row(size_t i) const
       {
         i = __fix_index_row(i);
@@ -163,7 +163,7 @@ namespace mymat
         {
           for (size_t n = 0; n < j; n++)
           {
-            s += std::to_string(mat_[m][n]);
+            s += math::to_string<T>(mat_[m][n]);
             if (n == j - 1)
             {
               if (m != i - 1)
@@ -226,6 +226,8 @@ namespace mymat
       size_t i_;
       size_t j_;
     };
+
+#define matrix_t std::vector<std::vector<T>>
 
 #include <mymat/matrix/__good_form_compare_object.hpp>
 #include <mymat/matrix/map.hpp>

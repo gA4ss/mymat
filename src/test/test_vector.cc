@@ -1,5 +1,4 @@
-#include <mymat/vector.hpp>
-#include <mymat/operator.hpp>
+#include <mymat/mymat.h>
 
 using namespace mymat;
 
@@ -7,12 +6,14 @@ void test_basic()
 {
   std::vector<number_t> value = {5, 7, 8, 9, 10, 25, 101};
   vector::Vector<number_t> vec1(value);
-  std::cout << "vector = " << std::endl
-            << vec1 << std::endl;
+  std::cout << "vector = " << std::endl << vec1 << std::endl;
+
   vector::Vector<number_t> tvec = vector::transposition(vec1);
   std::cout << "vector'T = " << tvec << std::endl;
-  number_t d = dot(tvec, vec1);
-  std::cout << "dot(tvec, vec1) = " << std::to_string(d) << std::endl;
+
+  number_t d = vector::dot(tvec, vec1);
+  std::cout << "dot(tvec, vec1) = " << d.value() << std::endl;
+
   std::vector<number_t> value2 = {7, 8, 1, 0, 5, 4, 202};
   vector::Vector<number_t> vec2(value2);
   std::cout << "add(vec1,vec2) = " << matrix::transposition(vec1 + vec2) << std::endl;

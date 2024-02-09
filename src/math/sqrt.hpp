@@ -2,19 +2,23 @@
 #define MYMAT_MATH_SQRT_HPP_
 
 #include <mymat/common.h>
-#include <mymat/math/check.hpp>
 
 namespace mymat
 {
   namespace math
   {
 
-    template <class T>
-    T sqrt(const T &x)
+    template <typename T>
+    std::enable_if_t<std::is_integral<T>::value || std::is_floating_point<T>::value, myflt_t>
+    sqrt(T v)
     {
-      if (check(x))
-        return mynum::sqrt(x);
-      return std::sqrt(x);
+      return std::sqrt(v);
+    }
+
+    template <typename T>
+    std::enable_if_t<std::is_same<T, number_t>::value, number_t> sqrt(T v)
+    {
+      return mynum::sqrt(v);
     }
 
   } // namespace math

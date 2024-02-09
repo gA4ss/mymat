@@ -29,7 +29,6 @@
 #include <my/my_common.h>
 #include <mynum/mynum.h>
 #include <mynum/wrapper.h>
-
 #include <mymat/exception.h>
 
 namespace mymat
@@ -45,12 +44,12 @@ namespace mymat
   //////////////////////////////
   //        全局配置结构        //
   //////////////////////////////
-  typedef struct __config
-  {
-    myflt_t epsilon;
-  } config_t;
+  // typedef struct __config
+  // {
+  //   myflt_t epsilon;
+  // } config_t;
 
-  extern config_t __config;
+  // extern config_t __config;
 
 } // namespace mymat
 

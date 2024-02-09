@@ -3,7 +3,7 @@ Matrix<T> normalization(const Matrix<T> &mat)
 {
   std::vector<std::vector<T>> _mat = transposition<T>(mat).value();
   size_t r = _mat.size(), c = _mat[0].size();
-  matrix_t _tmat(r);
+  std::vector<std::vector<T>> _tmat(r);
   for (size_t i = 0; i < r; i++)
   {
     _tmat[i].resize(c);

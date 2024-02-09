@@ -3,6 +3,7 @@
 #include <vector>
 // #include <mynum/integer.h>
 // #include <mynum/float.h>
+#include <mymat/mymat.h>
 
 template <class T>
 void __get_type_name()
@@ -34,6 +35,7 @@ void test_type()
   __get_type_name<int>();
   __get_type_name<float>();
   __get_type_name<double>();
+  __get_type_name<mymat::number_t>();
   std::cout << std::endl;
   std::cout << "c = " << typeid(c).name() << std::endl;
   std::cout << "uc = " << typeid(uc).name() << std::endl;
@@ -97,6 +99,7 @@ void test_vector()
 
 int main(int argc, char *argv[])
 {
+  test_type();
   test_vector();
   return 0;
 }

@@ -24,6 +24,7 @@
 /**
  * @brief         计算两个向量的内积。
  */
+template <class T>
 T __inner_product(const std::vector<T> &a,
                   const std::vector<T> &b)
 {
@@ -41,6 +42,7 @@ T __inner_product(const std::vector<T> &a,
 /**
  * @brief         计算向量的2-范数。
  */
+template <class T>
 T __norm(const std::vector<T> &a)
 {
   T r = 0.0;
@@ -54,6 +56,7 @@ T __norm(const std::vector<T> &a)
 /**
  * @brief         归一化向量。
  */
+template <class T>
 std::vector<T> __normalization(const std::vector<T> &a)
 {
   T nl = __norm(a);
@@ -73,6 +76,7 @@ std::vector<T> __normalization(const std::vector<T> &a)
  * @note          这里的输入需要保证b向量是进行归一化处理的。
  * @return        返回一个新的向量，其中每个元素都是归一化后的值。
  */
+template <class T>
 std::vector<T> __projection(const std::vector<T> &a,
                             const std::vector<T> &b)
 {
@@ -87,6 +91,7 @@ std::vector<T> __projection(const std::vector<T> &a,
 /**
  * @brief         两个向量相减结果保存到向量a中。
  */
+template <class T>
 void __vector_sub(std::vector<T> &a, const std::vector<T> &b)
 {
   for (size_t i = 0; i < a.size(); i++)

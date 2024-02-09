@@ -24,13 +24,13 @@ template <class T>
 Vector<T> normalization(const Vector<T> &vec)
 {
   size_t l = vec.size();
-  vector_t out(l);
+  Vector<T> out(l);
   T nl = norm<T>(vec);
   for (size_t i = 0; i < l; i++)
   {
     out[i] = vec._at(i) / nl;
   }
-  return Vector<T>(out);
+  return out;
 }
 
 /**

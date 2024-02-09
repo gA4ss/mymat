@@ -2,26 +2,24 @@
 #define MYMAT_MATH_NEAR_HPP_
 
 #include <mymat/common.h>
-#include <mymat/math/check.hpp>
+#include <cfloat>
 
 namespace mymat
 {
   namespace math
   {
 
-    template <class T>
+    template <typename T, typename std::enable_if<std::is_integral<T>::value || 
+                                                  std::is_floating_point<T>::value>::type * = nullptr>
     bool near(const T &x, const T &y)
     {
-      if (check(x) && check(y))
-      {
-        if (mynum::abs(x - y) <= number_t(__config.epsilon))
-          return true;
-        return false;
-      }
+      return (std::abs(x - y) <= DBL_EPSILON);
+    }
 
-      if (std::abs(x - y) <= DBL_EPSILON)
-        return true;
-      return false;
+    template <typename T, typename std::enable_if<std::is_same<T, number_t>::value>::type * = nullptr>
+    bool near(const T &x, const T &y)
+    {
+      return (mynum::abs(x - y) <= number_t(DBL_EPSILON));
     }
 
   } // namespace math

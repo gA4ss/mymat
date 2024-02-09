@@ -21,13 +21,9 @@
  */
 
 #include <mymat/common.h>
-#include <cfloat>
 
 namespace mymat
 {
-
-  config_t __config = {DBL_EPSILON};
-
 } // namespace mymat
 
 /**
