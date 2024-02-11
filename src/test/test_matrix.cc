@@ -1,5 +1,4 @@
-#include <mymat/matrix.hpp>
-#include <mymat/operator.hpp>
+#include <mymat/mymat.h>
 
 using namespace mymat;
 
@@ -104,6 +103,7 @@ void test_random()
 
 int main(int argc, char *argv[])
 {
+  test_basic();
   test_mul();
   test_random();
   return 0;

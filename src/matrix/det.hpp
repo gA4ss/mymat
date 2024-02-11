@@ -27,7 +27,7 @@ T det(const Matrix<T> &mat)
     T v = upper._at(i, i);
     d *= v;
   }
-  if (d)
+  if (d != 0)
   {
     if (exchange_count & 1)
       d *= -1;

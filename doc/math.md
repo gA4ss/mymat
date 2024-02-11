@@ -1,9 +1,3 @@
-## *mymat/math/check.hpp*
-
-|名称|说明|
-|---|----|
-|`bool check(const T &x)`|检查`T`类型是否是`number_t`，这里`number_t`是`mynum`提供的数值类。|
-
 ## *mymat/math/near.hpp*
 
 |名称|说明|
@@ -15,3 +9,9 @@
 |名称|说明|
 |---|----|
 |`T sqrt(const T &x)`|对`x`进行开方操作。|
+
+## *mymat/math/to_string.hpp*
+
+|名称|说明|
+|---|----|
+|`std::string to_string(T v)`|将`v`转换成字符串。|

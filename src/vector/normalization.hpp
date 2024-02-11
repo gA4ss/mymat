@@ -28,7 +28,7 @@ Vector<T> normalization(const Vector<T> &vec)
   T nl = norm<T>(vec);
   for (size_t i = 0; i < l; i++)
   {
-    out[i] = vec._at(i) / nl;
+    out._set(i, vec._at(i) / nl);
   }
   return out;
 }

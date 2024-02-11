@@ -38,6 +38,11 @@ Matrix<T> row_echelon_form(const Matrix<T> &mat)
   const size_t count = (number_of_rows < number_of_columns) ? number_of_rows : number_of_columns;
 
   //
+  // 排列成一个好的形式
+  //
+  // std::sort(_mat.begin(), _mat.end(), __good_form_compare_object<T>());
+
+  //
   // 到这里应该是一个很不错的形式了
   //
   for (size_t pivotal_row = 0; pivotal_row < count; pivotal_row++)

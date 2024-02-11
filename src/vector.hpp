@@ -153,15 +153,17 @@ namespace mymat
 
       Vector &operator,(const T &v)
       {
-        if (i_ < vec_.size())
-          vec_[i_++] = v;
+        vec_.push_back(v);
+        __set_shape(vec_.size());
         return *this;
       }
 
       Vector &operator<<(const T &v)
       {
-        vec_[0] = v;
-        i_ = 1;
+        if (vec_.size())
+          vec_.clear();
+        vec_.push_back(v);
+        __set_shape(vec_.size());
         return *this;
       }
 
@@ -177,9 +179,6 @@ namespace mymat
     protected:
       std::vector<T> vec_;
       std::pair<size_t, size_t> shape_;
-
-    private:
-      size_t i_;
     };
 
 #define vector_t std::vector<T>

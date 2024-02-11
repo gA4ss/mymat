@@ -1,10 +1,8 @@
-#include <mymat/vector.hpp>
-
-using namespace mymat::vector;
+#include <mymat/mymat.h>
 
 int main(int argc, char *argv[])
 {
-  Vector<mymat::number_t> vec;
+  mymat::vector::Vector<mymat::myflt_t> vec;
   vec << 1, 2, 3, 4, 5;
   std::cout << vec << std::endl;
   return 0;

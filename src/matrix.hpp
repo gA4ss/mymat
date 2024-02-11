@@ -229,7 +229,7 @@ namespace mymat
 
 #define matrix_t std::vector<std::vector<T>>
 
-#include <mymat/matrix/__good_form_compare_object.hpp>
+#include <mymat/matrix/sort.hpp>
 #include <mymat/matrix/map.hpp>
 #include <mymat/matrix/assign.hpp>
 #include <mymat/matrix/mul.hpp>

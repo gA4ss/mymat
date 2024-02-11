@@ -146,6 +146,14 @@ public:
   }
 };
 
+template <class T>
+Matrix<T> sort(const Matrix<T> &mat)
+{
+  std::vector<std::vector<T>> _mat = mat.value();
+  std::sort(_mat.begin(), _mat.end(), __good_form_compare_object<T>());
+  return Matrix<T>(_mat);
+}
+
 /**
  * @}
  */
