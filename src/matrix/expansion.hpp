@@ -8,9 +8,12 @@ Matrix<T> expansion(const Matrix<T> &mat, size_t i, size_t j)
                      i, j, mat.number_of_rows(), mat.number_of_columns());
   }
 
-  Matrix<T> emat(i, j);
+  std::vector<std::vector<T>> _mat = mat.value();
+  _mat.resize(i);
+  for (size_t k = 0; k < i; k++)
+  {
+    _mat[k].resize(j);
+  }
 
-  // i = __fix_index_row(i);
-  // j = __fix_index_column(j);
-  return emat;
+  return Matrix<T>(_mat);
 }

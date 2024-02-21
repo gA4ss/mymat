@@ -227,6 +227,9 @@ namespace mymat
       size_t j_;
     };
 
+//
+// 定义一个内部矩阵的表示类型供以下的方法使用
+//
 #define matrix_t std::vector<std::vector<T>>
 
 #include <mymat/matrix/sort.hpp>

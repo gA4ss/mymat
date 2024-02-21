@@ -35,6 +35,8 @@
 //
 // Math库实现
 //
+#include <mymat/math/abs.hpp>
+#include <mymat/math/cmp.hpp>
 #include <mymat/math/near.hpp>
 #include <mymat/math/sqrt.hpp>
 #include <mymat/math/to_string.hpp>

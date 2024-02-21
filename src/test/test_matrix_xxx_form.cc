@@ -21,18 +21,18 @@ void test_row_echelon_form()
       9.12, 10.45, 0.09, 0.87;
   std::cout << mat2 << std::endl
             << std::endl;
-  rmat = matrix::row_echelon_form<number_t>(mat2);
+  rmat = matrix::row_echelon_form(mat2);
   std::cout << rmat << std::endl
             << std::endl;
 
   matrix::Matrix<number_t> mat3(3, 3);
-  mat3 << 1, 2, 3,
-      4, 5, 6,
-      7, 8, 9;
+  mat3 << 1.0, 2.0, 3.0,
+      4.0, 5.0, 6.0,
+      7.0, 8.0, 9.0;
   // std::cout << mat3.str() << std::endl << std::endl;
   std::cout << mat3 << std::endl
             << std::endl;
-  rmat = matrix::row_echelon_form<number_t>(mat3);
+  rmat = matrix::row_echelon_form(mat3);
   std::cout << rmat << std::endl;
 }
 
@@ -60,7 +60,7 @@ void test_upper_triangular_form()
             << std::endl;
 
   matrix::Matrix<number_t> mat3(3, 3);
-  mat3 << 1, 2, 3,
+  mat3 << 1.0, 2.0, 3,
       4, 5, 6,
       7, 11, 9;
   std::cout << mat3 << std::endl

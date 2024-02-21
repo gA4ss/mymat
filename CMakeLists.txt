@@ -118,6 +118,8 @@ set(MYMAT_VECTOR_HEADERS
 set(MYMAT_MATH_HEADERS
   ${SRC_DIRECTORY}/math/near.hpp
   ${SRC_DIRECTORY}/math/sqrt.hpp
+  ${SRC_DIRECTORY}/math/abs.hpp
+  ${SRC_DIRECTORY}/math/cmp.hpp
   ${SRC_DIRECTORY}/math/to_string.hpp
 )
 
@@ -162,13 +164,15 @@ target_link_libraries(test_vector_wrapper mymat gtest pthread)
 # Matrix
 #
 add_executable(test_matrix ${SRC_DIRECTORY}/test/test_matrix.cc)
-target_link_libraries(test_matrix mymat gtest pthread)
+target_link_libraries(test_matrix mymat)
 add_executable(test_matrix_normalization ${SRC_DIRECTORY}/test/test_matrix_normalization.cc)
-target_link_libraries(test_matrix_normalization mymat gtest pthread)
+target_link_libraries(test_matrix_normalization mymat)
 add_executable(test_sort ${SRC_DIRECTORY}/test/test_sort.cc)
-target_link_libraries(test_sort mymat gtest pthread)
+target_link_libraries(test_sort mymat)
+add_executable(test_matrix_expansion ${SRC_DIRECTORY}/test/test_matrix_expansion.cc)
+target_link_libraries(test_matrix_expansion mymat)
 add_executable(test_matrix_xxx_form ${SRC_DIRECTORY}/test/test_matrix_xxx_form.cc)
-target_link_libraries(test_matrix_xxx_form mymat gtest pthread)
+target_link_libraries(test_matrix_xxx_form mymat)
 # add_executable(test_matrix_det ${SRC_DIRECTORY}/test/test_matrix_det.cc)
 # target_link_libraries(test_matrix_det mymat gtest pthread)
 
